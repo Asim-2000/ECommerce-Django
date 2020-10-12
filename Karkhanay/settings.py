@@ -29,7 +29,7 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-
+# Updated Settings
 INSTALLED_APPS = [
     'E_Commerce.apps.ECommerceConfig',
     'django.contrib.admin',
