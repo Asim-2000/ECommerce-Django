@@ -3,7 +3,7 @@ from django_extensions.db.models import TimeStampedModel
 
 
 # Create your models here.
-class Customer(TimeStampedModel):
+class CUSTOMER(TimeStampedModel):
     firstname = models.CharField(max_length=30)
     lastname = models.CharField(max_length=30)
     username = models.CharField(max_length=30)
@@ -12,7 +12,7 @@ class Customer(TimeStampedModel):
     contact_number = models.CharField(max_length=30)
 
 
-class Vendor(TimeStampedModel):
+class VENDOR(TimeStampedModel):
     firstname = models.CharField(max_length=30)
     lastname = models.CharField(max_length=30)
     email = models.CharField(max_length=50)
@@ -22,8 +22,8 @@ class Vendor(TimeStampedModel):
     approved = models.BooleanField(verbose_name='verified', default=False)
 
 
-class Store(TimeStampedModel):
-    vendor = models.ForeignKey(Vendor, on_delete=models.CASCADE)
+class STORE(TimeStampedModel):
+    vendor = models.ForeignKey(VENDOR, on_delete=models.CASCADE)
     name = models.CharField(max_length=30)
     description = models.CharField(max_length=1000)
     banner = models.CharField(max_length=50)
