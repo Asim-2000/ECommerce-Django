@@ -33,3 +33,89 @@ class STORE(TimeStampedModel):
     city = models.CharField(max_length=30)
     store_opening_time = models.TimeField(auto_now=False, auto_now_add=False)
     store_closing_time = models.TimeField(auto_now=False, auto_now_add=False)
+
+
+class PAYMENT_INFO(TimeStampedModel):
+    vendor = models.ForeignKey(VENDOR, on_delete=models.CASCADE)
+    accountname = models.CharField(max_length=80)
+    accountno = models.CharField(max_length=30)
+    bankname = models.CharField(max_length=50)
+    iban = models.BooleanField(verbose_name="International Banking", default=False)
+    bank_streetaddress = models.CharField(max_length=30)
+    city = models.CharField(max_length=30)
+    state = models.CharField(max_length=30)
+    zipcode = models.CharField(max_length=20)
+    country = models.CharField(max_length=30)
+
+
+class ADDRESS(TimeStampedModel):
+    customer = models.ForeignKey(CUSTOMER, on_delete=models.CASCADE)
+    streetaddress = models.CharField(max_length=30)
+    city = models.CharField(max_length=30)
+    state = models.CharField(max_length=30)
+    zipcode = models.CharField(max_length=20)
+    country = models.CharField(max_length=30)
+
+
+class ORDER(TimeStampedModel):
+    customer = models.ForeignKey(CUSTOMER, on_delete=models.CASCADE)
+    address = models.ForeignKey(ADDRESS, on_delete=models.CASCADE)
+    payment_mode = models.CharField(max_length=50)
+
+
+class STORE_FOLLOWER(TimeStampedModel):
+    store = models.ForeignKey(STORE, on_delete=models.CASCADE)
+    customer = models.ForeignKey(CUSTOMER, on_delete=models.CASCADE)
+
+
+class TAG(TimeStampedModel):
+    name = models.CharField(max_length=30)
+    slug = models.CharField(max_length=30)
+    description = models.CharField(max_length=500)
+
+
+class PRODUCT(TimeStampedModel):
+    store = models.ForeignKey(STORE, on_delete=models.CASCADE)
+    price = models.FloatField(max_length=100)
+    description = models.CharField(max_length=1000)
+    stock_count = models.IntegerField()
+    featured = models.BooleanField(verbose_name='featured_product', default=False)
+
+
+class PRODUCT_TAG(TimeStampedModel):
+    tag = models.ForeignKey(TAG, on_delete=models.CASCADE)
+    product = models.ForeignKey(PRODUCT, on_delete=models.CASCADE)
+
+
+class REVIEW(TimeStampedModel):
+    rating = models.IntegerField(max_length=5)
+    description = models.CharField(max_length=1000)
+    product = models.ForeignKey(PRODUCT, on_delete=models.CASCADE)
+    customer = models.ForeignKey(CUSTOMER, on_delete=models.CASCADE)
+
+
+class ORDER_DETAIL(TimeStampedModel):
+    product = models.ForeignKey(PRODUCT, on_delete=models.CASCADE)
+    order = models.ForeignKey(ORDER, on_delete=models.CASCADE)
+    quantity = models.IntegerField(max_length=1000)
+
+
+class CART(TimeStampedModel):
+    product = models.ForeignKey(PRODUCT, on_delete=models.CASCADE)
+    customer = models.ForeignKey(CUSTOMER, on_delete=models.CASCADE)
+
+
+class WISHLIST(TimeStampedModel):
+    product = models.ForeignKey(PRODUCT, on_delete=models.CASCADE)
+    customer = models.ForeignKey(CUSTOMER, on_delete=models.CASCADE)
+
+
+class LIKE_PRODUCT(TimeStampedModel):
+    product = models.ForeignKey(PRODUCT, on_delete=models.CASCADE)
+    customer = models.ForeignKey(CUSTOMER, on_delete=models.CASCADE)
+
+
+class IMAGE(TimeStampedModel):
+    product = models.ForeignKey(PRODUCT, on_delete=models.CASCADE)
+
+# SALE and PRODUCT_CATEGORY models yet to be completed. Waiting for them to be finalized
