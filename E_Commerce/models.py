@@ -11,6 +11,9 @@ class CUSTOMER(TimeStampedModel):
     password = models.CharField(max_length=30)
     contact_number = models.CharField(max_length=30)
 
+    def __str__(self):
+        return self.username
+
 
 class VENDOR(TimeStampedModel):
     firstname = models.CharField(max_length=30)
@@ -80,15 +83,18 @@ class PRODUCT(TimeStampedModel):
     description = models.CharField(max_length=1000)
     stock_count = models.IntegerField()
     featured = models.BooleanField(verbose_name='featured_product', default=False)
-
-
-class PRODUCT_TAG(TimeStampedModel):
-    tag = models.ForeignKey(TAG, on_delete=models.CASCADE)
-    product = models.ForeignKey(PRODUCT, on_delete=models.CASCADE)
+    tag = models.ManyToManyField(TAG)
 
 
 class REVIEW(TimeStampedModel):
-    rating = models.IntegerField(max_length=5)
+    STARS = (
+        ('1 star', '*'),
+        ('2 star', '**'),
+        ('3 star', '***'),
+        ('4 star', '****'),
+        ('5 star', '*****'),
+    )
+    rating = models.IntegerField(choices=STARS)
     description = models.CharField(max_length=1000)
     product = models.ForeignKey(PRODUCT, on_delete=models.CASCADE)
     customer = models.ForeignKey(CUSTOMER, on_delete=models.CASCADE)
@@ -97,7 +103,7 @@ class REVIEW(TimeStampedModel):
 class ORDER_DETAIL(TimeStampedModel):
     product = models.ForeignKey(PRODUCT, on_delete=models.CASCADE)
     order = models.ForeignKey(ORDER, on_delete=models.CASCADE)
-    quantity = models.IntegerField(max_length=1000)
+    quantity = models.IntegerField()
 
 
 class CART(TimeStampedModel):
