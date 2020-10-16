@@ -1,8 +1,10 @@
-#logo{
-}
 
-    body{
-        background-color: #4cb4c7;
-    }
+.navbar{
+    border-bottom: 1px solid #e9e9e9;
+}
+.navbar-light .navbar-nav .nav-link {
+    font-weight: bold;
+    font-family: "Calibri Light";
+}
 
 
