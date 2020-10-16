@@ -1,0 +1,46 @@
+{% extends 'E_Commerce/HomePage.html' %}
+{% load staticfiles %}
+
+{% block content %}
+<br>
+
+<div class="row">
+    <div class="col-md-6">
+        <h5>Login:</h5>
+        <hr>
+        <form>
+            <label for="u_name">Username or email address:</label><br>
+            <input type="text" id="u_name" name="u_name"><br>
+            <label for="password_login">Password:</label><br>
+            <input type="password" value="" id="password_login">
+        </form>
+        <h5></h5>
+        <button type="button" class="btn btn-primary">Login</button>
+    </div>
+
+    <div class="col-md-5">
+        <h5>Registration</h5>
+        <hr>
+        <form>
+            <label for="email">Email Address:</label><br>
+            <input type="text" id="email" name="u_name"><br>
+            <label for="Password">Password:</label><br>
+            <input type="Password" value="" id="Password">
+        </form>
+        <div class="container-fluid">
+            {% block content %}
+
+
+            {% endblock %}
+        </div>
+        <form>
+            <input type="radio" id="customer" name="customer_vendor" value="customer">
+            <label for="customer">I am a customer</label>
+            <h5></h5>
+            <input type="radio" id="vendor" name="customer_vendor" value="vendor">
+            <label for="vendor">I am a vendor</label>
+        </form>
+    </div>
+
+</div>
+{% endblock %}

@@ -6,3 +6,7 @@ from django.http import HttpResponse
 
 def home(request):
     return render(request, 'E_Commerce/HomePage.html')
+
+
+def account(request):
+    return render(request, 'E_Commerce/Login_Registration.html')
