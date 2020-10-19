@@ -1,46 +1,45 @@
 {% extends 'E_Commerce/HomePage.html' %}
-{% load staticfiles %}
 
 {% block content %}
-<br>
 
-<div class="row">
-    <div class="col-md-6">
-        <h5>Login:</h5>
-        <hr>
-        <form>
-            <label for="u_name">Username or email address:</label><br>
-            <input type="text" id="u_name" name="u_name"><br>
-            <label for="password_login">Password:</label><br>
-            <input type="password" value="" id="password_login">
-        </form>
-        <h5></h5>
-        <button type="button" class="btn btn-primary">Login</button>
-    </div>
-
-    <div class="col-md-5">
-        <h5>Registration</h5>
-        <hr>
-        <form>
-            <label for="email">Email Address:</label><br>
-            <input type="text" id="email" name="u_name"><br>
-            <label for="Password">Password:</label><br>
-            <input type="Password" value="" id="Password">
-        </form>
-        <div class="container-fluid">
-            {% block content %}
-
-
-            {% endblock %}
+<div class="Form">
+    <div class="row">
+        <div class="col-md-6">
+            <h5>Login:</h5>
+            <form>
+                <label for="u_name">Username or email address:</label><br>
+                <input type="text" id="u_name" name="u_name"><br>
+                <label for="password_login">Password:</label><br>
+                <input type="password" value="" id="password_login">
+            </form>
+            <h1></h1>
+            <button type="button" class="btn btn-primary">Login</button>
         </div>
-        <form>
-            <input type="radio" id="customer" name="customer_vendor" value="customer">
-            <label for="customer">I am a customer</label>
-            <h5></h5>
-            <input type="radio" id="vendor" name="customer_vendor" value="vendor">
-            <label for="vendor">I am a vendor</label>
-        </form>
-    </div>
 
+        <div class="col-md-5">
+            <h5>Registration</h5>
+            <form action="signup" method="POST">
+                {% csrf_token %}
+                <label for="email">Email Address:</label><br>
+                <input type="text" id="email" name="email"><br>
+                <label for="Password">Password:</label><br>
+                <input type="Password" id="Password" name="Password"><br>
+                <label for="firstname">First Name:</label><br>
+                <input type="text" id="firstname" name="firstname"><br>
+                <label for="lastname">Last Name:</label><br>
+                <input type="text" id="lastname" name="last_name"><br>
+                <label for="contact_number">Phone Number:</label><br>
+                <input type="text" name="contact_number" id="contact_number"><br>
+                <input type="radio" id="customer" name="customer_vendor" value="customer">
+                <label for="customer">I am a customer</label>
+                <h5></h5>
+                <input type="radio" id="vendor" name="customer_vendor" value="vendor">
+                <label for="vendor">I am a vendor</label><br>
+                <hr>
+                <button type="submit" class="btn btn-primary">Register</button>
+            </form>
+        </div>
+
+    </div>
 </div>
 {% endblock %}

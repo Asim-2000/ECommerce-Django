@@ -3,6 +3,7 @@
 <!doctype html>
 <html lang="en">
 <head>
+    <title>Karkhanay | Home</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
@@ -10,47 +11,19 @@
     <link rel="stylesheet" type="text/css" href="{% static '/css/bootstrap.css' %}">
     <link rel="stylesheet" href="{% static '/css/all.min.css' %}">
     <link rel="stylesheet" href="{% static '/css/main.css' %}">
+    {% include 'E_Commerce/MainNavigation.html' %}
 </head>
 <body>
-<div class="container-fluid">
-    <!-- Please add this to a separate file and include that here -->
-    <nav class="navbar navbar-expand-md fixed-top navbar-light ">
-        <a class="navbar-brand" href="#">
-            <img src="{% static '/images/logo.png' %}" alt="Karkhanay Logo" title="Karkhanay" width="100"/>
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
-                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse navbar-right" id="navbarCollapse">
-
-            <ul class="navbar-nav ml-auto ">
-                <li class="nav-item"><input class="form-control mr-sm-2 " type="text" placeholder="Search" aria-label="Search"></li>
-                <li><a class="nav-link" href="#">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Construction</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Food</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Textile</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">One $ Store</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Decor</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Furniture</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Vendors</a></li>
-                <li class="nav-item"><a class="nav-link" href="#"><i class="fa fa-user"></i></a></li>
-                <li class="nav-item"><a class="nav-link" href="#"><i class="fa fa-shopping-cart"></i>
-                    <span class="badge badge-secondary" style="background: #8DC53F;">0</span></a></li>
-            </ul>
-        </div>
-    </nav>
-
+<div class="content">
     {% block content %}
 
     {% endblock %}
-
-
 </div>
+<hr>
+</body>
 <script src="{% static '/js/jquery.js'%}"></script>
 <script src="{% static '/js/popper.js'%}"></script>
 <script src="{% static '/js/all.min.js'%}"></script>
 <script src="{% static '/js/bootstrap.js'%}"></script>
-</body>
+<script src="{% static '/js/form.js'%}"></script>
 </html>

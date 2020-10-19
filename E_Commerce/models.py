@@ -4,12 +4,19 @@ from django_extensions.db.models import TimeStampedModel
 
 # Create your models here.
 class CUSTOMER(TimeStampedModel):
+
+    def generate_username(self, email="123@gmail.com"):
+        i = email.index("@")
+        username = email[:i]
+        return username
+
     firstname = models.CharField(max_length=30)
     lastname = models.CharField(max_length=30)
-    username = models.CharField(max_length=30)
     email = models.CharField(max_length=50)
+    username = models.CharField(max_length=30, auto_created=generate_username(email))
     password = models.CharField(max_length=30)
     contact_number = models.CharField(max_length=30)
+    verified = models.BooleanField(False)
 
     def __str__(self):
         return self.username
@@ -26,10 +33,11 @@ class VENDOR(TimeStampedModel):
 
 
 class STORE(TimeStampedModel):
-    vendor = models.ForeignKey(VENDOR, on_delete=models.CASCADE)
     name = models.CharField(max_length=30)
     description = models.CharField(max_length=1000)
+    vendor = models.ForeignKey(VENDOR, on_delete=models.CASCADE)
     banner = models.CharField(max_length=50)
+    url = models.URLField()
     street_address = models.CharField(max_length=30)
     zipcode = models.CharField(max_length=10)
     state = models.CharField(max_length=30)
