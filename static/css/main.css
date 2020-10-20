@@ -1,7 +1,8 @@
 /* Style the header */
-body { padding-top: 150px;
-       padding-left: 50px;
-     }
+
+.content{
+    margin-top: 150px;
+}
 
 .navbar{
     border-bottom: 1px solid #e9e9e9;
