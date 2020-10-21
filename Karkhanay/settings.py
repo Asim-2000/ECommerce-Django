@@ -9,6 +9,14 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+MAILER_EMAIL_BACKEND = EMAIL_BACKEND
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.mail.us-west-2.awsapps.com'
+EMAIL_HOST_USER = 'noreply@karkhanay.com'
+EMAIL_HOST_PASSWORD = 'BetaHouse123#'
+EMAIL_PORT = 465
+
 
 from pathlib import Path
 import os
