@@ -13,6 +13,12 @@ def home(request):
 def account(request):
     return render(request, 'E_Commerce/Login_Registration.html')
 
+def cart(request):
+    return render(request, 'E_Commerce/Cart.html')
+
+def welcome(request):
+    return render(request, 'E_Commerce/Welcome.html')
+
 
 def signup(request):
     if request.method == "POST":

@@ -24,12 +24,13 @@
                         <input type="email" class="form-control" name="password_login" id="password_login"
                                aria-describedby="u_name" placeholder="Enter Password">
                     </div>
+
                 </form>
                 <h1></h1>
                 <button type="button" class="btn btn-outline-success">Login</button>
             </div>
 
-            <div class="col-md-6">
+            <div class="col-md-6 border-left">
                 <h5>Registration</h5>
                 <form action="signup" method="POST">
                     {% csrf_token %}
@@ -44,6 +45,11 @@
                         <label for="password">Password</label>
                         <input type="password" class="form-control" name="Password" id="Password"
                                aria-describedby="Password" placeholder="Enter Password">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Confirm Password</label>
+                        <input type="password" class="form-control" name="Password" id="Password"
+                               aria-describedby="Password" placeholder="Confirm Password">
                     </div>
                     <div class="form-group">
                         <label for="firstname">First Name</label>
