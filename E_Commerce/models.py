@@ -16,7 +16,7 @@ class CUSTOMER(TimeStampedModel):
     username = models.CharField(max_length=30, auto_created=generate_username(email))
     password = models.CharField(max_length=30)
     contact_number = models.CharField(max_length=30)
-    verified = models.BooleanField(False)
+    verified = models.BooleanField(verbose_name='verified', default=False)
 
     def __str__(self):
         return self.username
