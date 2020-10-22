@@ -2,9 +2,10 @@ from django.shortcuts import render, redirect
 from E_Commerce.models import *
 from django.http import HttpResponse
 from django.utils.datastructures import MultiValueDictKeyError
-
+from django.core.mail import send_mail
 
 # Create your views here.
+
 
 def home(request):
     return render(request, 'E_Commerce/HomePage.html')
@@ -21,6 +22,7 @@ def welcome(request):
 
 
 def signup(request):
+
     if request.method == "POST":
         email = request.POST["email"]
         firstname = request.POST["firstname"]
@@ -30,6 +32,7 @@ def signup(request):
         try:
             user_role = request.POST['customer_vendor']
             if user_role == "customer":
+                print(user_role)
                 user = CUSTOMER()
                 user.email = email
                 user.firstname = firstname
@@ -37,10 +40,17 @@ def signup(request):
                 user.password = password
                 user.contact_number = contact_number
                 user.username = user.generate_username(email)
+
                 user.save()
-                return redirect("/")
+                if(send_mail('subject', 'body of the message', 'noreply@karkhanay.com', ['faysalahmedhashmi@gmail.com'])):
+                    return redirect("/")
+                else:
+                    print("Manage this part please.")
+
             elif user_role == "vendor":
+                print(user_role)
                 user = VENDOR()
+                user.verified = False
                 user.email = email
                 user.firstname = firstname
                 user.lastname = lastname
@@ -52,3 +62,5 @@ def signup(request):
             return HttpResponse("404 Error")
     else:
         return HttpResponse("404 not Found")
+
+
