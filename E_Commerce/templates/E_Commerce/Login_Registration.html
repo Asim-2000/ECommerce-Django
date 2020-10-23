@@ -2,6 +2,14 @@
 
 {% block content %}
 <div class="container">
+    {% for message in messages %}
+    <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        {{ message | safe }}
+    </div>
+    {% endfor %}
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
@@ -13,32 +21,29 @@
         <div class="row">
             <div class="col-md-6">
                 <h5>Login:</h5>
-                <form>
+                <form action="login" method="POST">
+                    {% csrf_token %}
                     <div class="form-group">
                         <label for="u_name">Username/Email</label>
-                        <input type="email" class="form-control" name="u_name" id="u_name" aria-describedby="u_name"
+                        <input type="text" class="form-control" name="u_name" id="u_name" aria-describedby="u_name"
                                placeholder="Enter email">
                     </div>
                     <div class="form-group">
-                        <label for="u_name">Password</label>
-                        <input type="email" class="form-control" name="password_login" id="password_login"
-                               aria-describedby="u_name" placeholder="Enter Password">
-                    </div>
+                        <label for="Password">Password</label>
+                        <div class="wrapper">
+                            <input type="password" class="form-control" placeholder="Enter Password"
+                                   required name="password_login" id="password_login">
+                            <span class="show-btn2"><i class="fas fa-eye"></i></span>
+                        </div>
 
+                    </div>
+                    <button type="submit" class="btn btn-outline-success">Login</button>
                 </form>
                 <h1></h1>
-                <button type="button" class="btn btn-outline-success">Login</button>
+
             </div>
 
             <div class="col-md-6 border-left">
-                {% for message in messages %}
-                <div class="alert {{ message.tags }} alert-dismissible" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    {{ message | safe }}
-                </div>
-                {% endfor %}
                 <h5>Registration</h5>
                 <form action="signup" method="POST">
                     {% csrf_token %}
@@ -51,21 +56,18 @@
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>
-                        <div class="input-group" id="show_hide_password">
-                              <input class="form-control" type="password">
-                              <div class="input-group-addon">
-                                <a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
-                              </div>
-                            </div>
+                        <div class="wrapper">
+                            <input type="password" placeholder="Enter Password" required name="Password" id="Password">
+                            <span class="show-btn"><i class="fas fa-eye"></i></span>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="ConfirmPassword">Confirm Password</label>
-                        <div class="input-group" id="show_hide_password">
-                              <input class="form-control" type="password">
-                              <div class="input-group-addon">
-                                <a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
-                              </div>
-                            </div>
+                        <div class="wrapper">
+                            <input type="password" placeholder="Confirm Password" required name="ConfirmPassword"
+                                   id="ConfirmPassword">
+                            <span class="show-btna"><i class="fas fa-eye"></i></span>
+                        </div>
 
                     </div>
                     <div class="form-group">

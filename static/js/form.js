@@ -1,21 +1,28 @@
 $(document).ready(function () {
-    $("#div1").hide();
-    $("#vendor").click(function(){
-        $("#div1").slideDown();
+    $(".show-btn").on('click', function() {
+        if($('#Password').attr("type") == "text"){
+        $('#Password').attr('type', 'password');
+        }
+        else{
+        $('#Password').attr('type', 'text');
+        }
     });
-    $("#customer").click(function(){
-        $("#div1").slideUp();
+
+    $(".show-btna").on('click', function() {
+        if($('#ConfirmPassword').attr("type") == "text"){
+        $('#ConfirmPassword').attr('type', 'password');
+        }
+        else{
+        $('#ConfirmPassword').attr('type', 'text');
+        }
     });
-    $("#show_hide_password a").on('click', function(event) {
-        event.preventDefault();
-        if($('#show_hide_password input').attr("type") == "text"){
-            $('#show_hide_password input').attr('type', 'password');
-            $('#show_hide_password i').addClass( "fa-eye-slash" );
-            $('#show_hide_password i').removeClass( "fa-eye" );
-        }else if($('#show_hide_password input').attr("type") == "password"){
-            $('#show_hide_password input').attr('type', 'text');
-            $('#show_hide_password i').removeClass( "fa-eye-slash" );
-            $('#show_hide_password i').addClass( "fa-eye" );
+
+    $(".show-btn2").on('click', function() {
+        if($('#password_login').attr("type") == "text"){
+        $('#password_login').attr('type', 'password');
+        }
+        else{
+        $('#password_login').attr('type', 'text');
         }
     });
 

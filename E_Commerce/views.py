@@ -1,13 +1,18 @@
 from django.contrib import messages
+from django.contrib.sites.shortcuts import get_current_site
 from django.db import IntegrityError
 from django.shortcuts import render, redirect
+from django.template.loader import render_to_string
+from django.utils.encoding import force_bytes, force_text
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from .models import Customer, Vendor
 from django.http import HttpResponse
 from django.utils.datastructures import MultiValueDictKeyError
 from django.core.mail import send_mail
-
+from django.contrib.auth.hashers import make_password
 
 # Create your views here.
+from .tokens import account_activation_token
 
 
 def home(request):
@@ -39,10 +44,10 @@ def signup(request):
             if user_role == "customer":
                 if password == confirm_password:
                     user = Customer()
-                    user.create_Customer(firstname, lastname, email, password, contact_number)
-                    if user.created:
-                        send_mail('subject', 'body of the message', 'noreply@karkhanay.com', [email])
-                        return redirect("/")
+                    user.create_Customer(firstname, lastname, email, make_password(password), contact_number)
+                    user.sendEmail(user,request)
+                    messages.info(request, "Account Created Successfully. Verify your email.")
+                    return redirect("/accounts")
                 else:
                     messages.error(request, "Error: Password does not match.")
                     return redirect("/accounts")
@@ -50,8 +55,10 @@ def signup(request):
             elif user_role == "vendor":
                 if password == confirm_password:
                     user = Vendor()
-                    user.create_Vendor(email, firstname, lastname, contact_number, password)
-                    return redirect("/")
+                    user.create_Vendor(email, firstname, lastname, contact_number, make_password(password))
+                    user.sendEmail(user,request)
+                    messages.info(request, "Account Created Successfully. Verify your email.")
+                    return redirect("/accounts")
                 else:
                     messages.error(request, "Error: Password does not match.")
                     return redirect("/accounts")
@@ -72,3 +79,37 @@ def signup(request):
             return redirect("/accounts")
     else:
         return HttpResponse("404 not Found")
+
+
+def activate(request, uidb64, token):
+    try:
+        uid = force_text(urlsafe_base64_decode(uidb64))
+        user = Customer.objects.get(pk=uid)
+    except(TypeError, ValueError, OverflowError, Customer.DoesNotExist):
+        user = Vendor.objects.get(pk=uid)
+    if user is not None and account_activation_token.check_token(user, token):
+        user.verified = True
+        user.save()
+        messages.success(request, "Thank you for your email confirmation. Now you can login your account.")
+        return redirect("/accounts")
+    else:
+        return HttpResponse('Activation link is invalid!')
+
+
+def login(request):
+    if request.method == "POST":
+        u_name = request.POST["u_name"]
+        password_login = request.POST["password_login"]
+        user = Customer()
+        try:
+            if user.login(u_name, password_login):
+                return HttpResponse("SUCCESS")
+            else:
+                messages.error(request, "Invalid Username/Password")
+                return redirect("/accounts")
+        except AssertionError:
+            messages.error(request, "Verify your email.")
+            return redirect("/accounts")
+        except Customer.DoesNotExist:
+            messages.error(request, "Invalid Username/Password")
+            return redirect("/accounts")
