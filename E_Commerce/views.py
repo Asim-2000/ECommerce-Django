@@ -30,6 +30,12 @@ def cart(request):
 def welcome(request):
     return render(request, 'E_Commerce/Welcome.html')
 
+def storeSetup(request):
+    return render(request, 'E_Commerce/StoreSetup.html')
+def paymentSetup(request):
+    return render(request, 'E_Commerce/PaymentSetup.html')
+
+
 
 def signup(request):
     if request.method == "POST":

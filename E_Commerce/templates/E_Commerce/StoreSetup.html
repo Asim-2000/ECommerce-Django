@@ -1,0 +1,91 @@
+{% extends 'E_Commerce/HomePage.html' %}
+{% block content %}
+<main class="my-form">
+  <div class="cotainer">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header text-center">Store Setup</div>
+          <div class="card-body">
+            <form name="my-form" onsubmit="return validform()" action="" method="">
+              <div class="form-group row">
+                <label for="products" class="col-md-4 col-form-label text-md-right">Store Product Per Page</label>
+                <div class="col-md-6">
+                  <input type="text" id="products" class="form-control" name="products">
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="street" class="col-md-4 col-form-label text-md-right">Street</label>
+                <div class="col-md-6">
+                  <input type="text" id="street" class="form-control" name="street">
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="street2" class="col-md-4 col-form-label text-md-right">Street 2</label>
+                <div class="col-md-6">
+                  <input type="text" id="street2" class="form-control" name="street">
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="city" class="col-md-4 col-form-label text-md-right">City</label>
+                <div class="col-md-6">
+                  <input type="text" id="city" class="form-control">
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="zipcode" class="col-md-4 col-form-label text-md-right">Post/Zipcode</label>
+                <div class="col-md-6">
+                  <input type="text" id="zipcode" class="form-control">
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="country" class="col-md-4 col-form-label text-md-right">Country</label>
+                <div class="col-md-6">
+                  <select class="selectpicker countrypicker" data-flag="true"></select>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="state" class="col-md-4 col-form-label text-md-right"><abbr title="State">State</label>
+                <div class="col-md-6">
+                  <input type="text" id="state" class="form-control" name="state">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="email" class="col-md-4 col-form-label text-md-right"><abbr title="Email">Email</label>
+                <div class="col-md-6">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                    <label class="form-check-label" for="defaultCheck1">
+                      Show email address in store.
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6 offset-md-4">
+                <button type="submit" class="btn btn-primary">
+                  Continue
+                </button>
+                <button type="submit" class="btn btn-primary">
+                  Skip This Step
+                </button>
+              </div>
+
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+</main>
+
+
+{%endblock%}

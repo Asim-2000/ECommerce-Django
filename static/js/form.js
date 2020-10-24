@@ -25,6 +25,7 @@ $(document).ready(function () {
         $('#password_login').attr('type', 'text');
         }
     });
+    $('.countrypicker').countrypicker();
+    
 
 });
-

@@ -2,113 +2,117 @@
 
 {% block content %}
 <div class="container">
-    {% for message in messages %}
-    <div class="alert {{ message.tags }} alert-dismissible" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-        {{ message | safe }}
-    </div>
-    {% endfor %}
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Sign In/Register</li>
-        </ol>
-    </nav>
-    <br/><br/>
-    <div class="Form">
-        <div class="row">
-            <div class="col-md-6">
-                <h5>Login:</h5>
-                <form action="login" method="POST">
-                    {% csrf_token %}
-                    <div class="form-group">
-                        <label for="u_name">Username/Email</label>
-                        <input type="text" class="form-control" name="u_name" id="u_name" aria-describedby="u_name"
-                               placeholder="Enter email">
-                    </div>
-                    <div class="form-group">
-                        <label for="Password">Password</label>
-                        <div class="wrapper">
-                            <input type="password" class="form-control" placeholder="Enter Password"
-                                   required name="password_login" id="password_login">
-                            <span class="show-btn2"><i class="fas fa-eye"></i></span>
-                        </div>
-
-                    </div>
-                    <button type="submit" class="btn btn-outline-success">Login</button>
-                </form>
-                <h1></h1>
-
+  {% for message in messages %}
+  <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    {{ message | safe }}
+  </div>
+  {% endfor %}
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Sign In/Register</li>
+    </ol>
+  </nav>
+  <br /><br />
+  <div class="Form">
+    <div class="row">
+      <div class="col-md-6">
+        <h5>Login:</h5>
+        <form action="login" method="POST">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="u_name">Username/Email</label>
+            <input type="text" class="form-control" name="u_name" id="u_name" aria-describedby="u_name" placeholder="Enter email">
+          </div>
+          <div class="form-group">
+            <label for="Password">Password</label>
+            <div class="wrapper">
+              <input type="password" class="form-control" placeholder="Enter Password" required name="password_login" id="password_login">
+              <span class="show-btn2"><i class="fas fa-eye"></i></span>
+            </div>
+            <br>
+            <div class="etc-login-form">
+              <p>Forgot your password? <a href="#">click here</a></p>
             </div>
 
-            <div class="col-md-6 border-left">
-                <h5>Registration</h5>
-                <form action="signup" method="POST">
-                    {% csrf_token %}
-                    <div class="form-group">
-                        <label for="email">Email address</label>
-                        <input type="email" class="form-control" name="email" id="email" aria-describedby="email"
-                               placeholder="Enter email">
-                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
-                            else.</small>
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <div class="wrapper">
-                            <input type="password" placeholder="Enter Password" required name="Password" id="Password">
-                            <span class="show-btn"><i class="fas fa-eye"></i></span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="ConfirmPassword">Confirm Password</label>
-                        <div class="wrapper">
-                            <input type="password" placeholder="Confirm Password" required name="ConfirmPassword"
-                                   id="ConfirmPassword">
-                            <span class="show-btna"><i class="fas fa-eye"></i></span>
-                        </div>
+          </div>
+          <button type="submit" class="btn btn-outline-success">Login</button>
+        </form>
+        <h1></h1>
 
-                    </div>
-                    <div class="form-group">
-                        <label for="firstname">First Name</label>
-                        <input type="text" class="form-control" name="firstname" id="firstname"
-                               aria-describedby="firstname" placeholder="Enter First Name">
-                    </div>
-                    <div class="form-group">
-                        <label for="lastname">Last Name</label>
-                        <input type="text" class="form-control" name="lastname" id="lastname"
-                               aria-describedby="lastname" placeholder="Enter Last Name">
-                    </div>
-                    <div class="form-group">
-                        <label for="contact_number">Phone Number:</label>
-                        <input type="text" class="form-control" name="contact_number" id="contact_number"
-                               aria-describedby="lastname" placeholder="Enter Phone Number">
-                    </div>
+      </div>
 
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" id="customer" name="customer_vendor"
-                               value="customer" checked>
-                        <label class="form-check-label" for="customer">I am a Customer</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" id="vendor" name="customer_vendor" value="vendor">
-                        <label class="form-check-label" for="vendor">I am a Vendor</label>
-                    </div>
-                    <p>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                        <label class="form-check-label" for="defaultCheck1">
-                            <u>I agree to the <a target="_blank" href="#">Terms & Conditions</a></u>
-                        </label>
-                    </div>
-                    </p>
-                    <hr>
-                    <button type="submit" class="btn btn-outline-success">Register</button>
-                </form>
+      <div class="col-md-6 border-left">
+        <h5>Registration</h5>
+        <form action="signup" method="POST">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="email">Email address</label>
+            <input type="email" class="form-control" name="email" id="email" aria-describedby="email" placeholder="Enter email">
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
+              else.</small>
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <div class="wrapper">
+              <input type="password" placeholder="Enter Password" required name="Password" id="Password">
+              <span class="show-btn"><i class="fas fa-eye"></i></span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="ConfirmPassword">Confirm Password</label>
+            <div class="wrapper">
+              <input type="password" placeholder="Confirm Password" required name="ConfirmPassword" id="ConfirmPassword">
+              <span class="show-btna"><i class="fas fa-eye"></i></span>
             </div>
 
-        </div>
+          </div>
+          <div class="form-group">
+            <label for="firstname">First Name</label>
+            <input type="text" class="form-control" name="firstname" id="firstname" aria-describedby="firstname" placeholder="Enter First Name">
+          </div>
+          <div class="form-group">
+            <label for="lastname">Last Name</label>
+            <input type="text" class="form-control" name="lastname" id="lastname" aria-describedby="lastname" placeholder="Enter Last Name">
+          </div>
+
+          <div class="form-group">
+            <label for="contact_number">Phone Number:</label>
+            <div class="input-group mb-3">
+
+              <div class="input-group-prepend">
+                <input class="input-group-text" type="text" value="+92"></input>
+              </div>
+              <input type="text" class="form-control" name="contact_number" id="contact_number" aria-describedby="contact_number" placeholder="Enter Phone Number">
+            </div>
+          </div>
+
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" id="customer" name="customer_vendor" value="customer" checked>
+            <label class="form-check-label" for="customer">I am a Customer</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" id="vendor" name="customer_vendor" value="vendor">
+            <label class="form-check-label" for="vendor">I am a Vendor</label>
+          </div>
+          <p>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+            <label class="form-check-label" for="defaultCheck1">
+              <u>I agree to the <a target="_blank" href="#">Terms & Conditions</a></u>
+            </label>
+          </div>
+          </p>
+          <hr>
+          <button type="submit" class="btn btn-outline-success">Register</button>
+        </form>
+      </div>
+
     </div>
+  </div>
 </div>
+
 {% endblock %}
