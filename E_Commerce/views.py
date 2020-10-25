@@ -32,8 +32,12 @@ def welcome(request):
 
 def storeSetup(request):
     return render(request, 'E_Commerce/StoreSetup.html')
+
 def paymentSetup(request):
     return render(request, 'E_Commerce/PaymentSetup.html')
+
+def ready(request):
+    return render(request, 'E_Commerce/Ready.html')
 
 
 
