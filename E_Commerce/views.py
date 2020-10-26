@@ -31,16 +31,19 @@ def welcome(request):
     return render(request, 'E_Commerce/Welcome.html')
 
 
-def storeSetup(request):
+def store_setup(request):
     return render(request, 'E_Commerce/StoreSetup.html')
 
 
-def paymentSetup(request):
+def payment_setup(request):
     return render(request, 'E_Commerce/PaymentSetup.html')
 
 
 def ready(request):
     return render(request, 'E_Commerce/Ready.html')
+
+def profile(request):
+    return render(request, 'E_Commerce/Profile.html')
 
 
 def signup(request):
@@ -141,3 +144,6 @@ def activation_email(request, username):
 
 def lost_password(request):
     return render(request, 'E_Commerce/LostPassword.html')
+
+def reset_password(request):
+    return render(request, 'E_Commerce/ResetPassword.html')
