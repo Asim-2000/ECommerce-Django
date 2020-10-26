@@ -71,4 +71,4 @@ class Customer(TimeStampedModel):
             'token': account_activation_token.make_token(user),
         })
         send_mail(mail_subject, message, 'noreply@karkhanay.com', [user.email],
-                  fail_silently=False, )
+                  fail_silently=False)

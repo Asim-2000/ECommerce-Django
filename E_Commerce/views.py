@@ -30,15 +30,17 @@ def cart(request):
 def welcome(request):
     return render(request, 'E_Commerce/Welcome.html')
 
+
 def storeSetup(request):
     return render(request, 'E_Commerce/StoreSetup.html')
+
 
 def paymentSetup(request):
     return render(request, 'E_Commerce/PaymentSetup.html')
 
+
 def ready(request):
     return render(request, 'E_Commerce/Ready.html')
-
 
 
 def signup(request):
@@ -55,7 +57,7 @@ def signup(request):
                 if password == confirm_password:
                     user = Customer()
                     user.create_Customer(firstname, lastname, email, make_password(password), contact_number)
-                    user.sendEmail(user,request)
+                    user.sendEmail(user, request)
                     messages.info(request, "Account Created Successfully. Verify your email.")
                     return redirect("/accounts")
                 else:
@@ -66,7 +68,7 @@ def signup(request):
                 if password == confirm_password:
                     user = Vendor()
                     user.create_Vendor(email, firstname, lastname, contact_number, make_password(password))
-                    user.sendEmail(user,request)
+                    user.sendEmail(user, request)
                     messages.info(request, "Account Created Successfully. Verify your email.")
                     return redirect("/accounts")
                 else:
@@ -118,8 +120,24 @@ def login(request):
                 messages.error(request, "Invalid Username/Password")
                 return redirect("/accounts")
         except AssertionError:
-            messages.error(request, "Verify your email.")
+            if "@" in u_name:
+                i = u_name.index("@")
+                username = u_name[:i]
+            else:
+                username = u_name
+            messages.info(request,
+                          "Verify your email. <a href='activation_email/" + username + "/'>Resend</a> verification email")
             return redirect("/accounts")
         except Customer.DoesNotExist:
             messages.error(request, "Invalid Username/Password")
             return redirect("/accounts")
+
+
+def activation_email(request, username):
+    user = Customer.objects.get(username=username)
+    user.sendEmail(user, request)
+    messages.info(request, "Email sent! If you can't find the email, check your spam")
+    return redirect("/accounts")
+
+def lost_password(request):
+    return render(request, 'E_Commerce/LostPassword.html')
