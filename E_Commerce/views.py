@@ -12,7 +12,7 @@ from django.core.mail import send_mail
 from django.contrib.auth.hashers import make_password
 
 # Create your views here.
-from .tokens import account_activation_token
+from .tokens import account_activation_token, password_reset_token
 
 
 def home(request):
@@ -41,6 +41,7 @@ def payment_setup(request):
 
 def ready(request):
     return render(request, 'E_Commerce/Ready.html')
+
 
 def profile(request):
     return render(request, 'E_Commerce/Profile.html')
@@ -142,8 +143,59 @@ def activation_email(request, username):
     messages.info(request, "Email sent! If you can't find the email, check your spam")
     return redirect("/accounts")
 
+
 def lost_password(request):
     return render(request, 'E_Commerce/LostPassword.html')
 
-def reset_password(request):
+
+def reset_password(request, username):
     return render(request, 'E_Commerce/ResetPassword.html')
+
+
+def lost_password_email(request):
+    if request.method == "POST":
+        name_email = request.POST["u_name_email"]
+        if "@" in name_email:
+            i = name_email.index("@")
+            username = name_email[:i]
+        else:
+            username = name_email
+        try:
+            user = Customer.objects.get(username=username)
+            user.sendPasswordResetEmail(request, user)
+            messages.info(request, "Password Reset Email Sent.")
+            return redirect("/accounts/lost-password")
+        except Customer.DoesNotExist:
+            messages.error(request, "No such customer exist.")
+            return redirect("/accounts/lost-password")
+    else:
+        return redirect("/accounts/lost-password")
+
+
+def password_reset(request, uidb64, token):
+    try:
+        uid = force_text(urlsafe_base64_decode(uidb64))
+        user = Customer.objects.get(pk=uid)
+        username = user.username
+        if user is not None and password_reset_token.check_token(user, token):
+            return redirect("/accounts/reset-password/" + username + "/")
+        else:
+            return HttpResponse('Reset password link is invalid!')
+    except(TypeError, ValueError, OverflowError, Customer.DoesNotExist):
+        return HttpResponse('Reset password link is invalid!')
+
+
+def new_password(request, username):
+    user = Customer.objects.get(username=username)
+    print(user.username)
+    if request.method == "POST":
+        password = request.POST["newPass"]
+        c_password = request.POST["newPassConfirm"]
+        if password == c_password:
+            user.password = make_password(password)
+            user.save()
+            messages.success(request, "Password changed successfully.")
+            return redirect("/accounts")
+        else:
+            messages.error(request, "The two passwords do not match.")
+            return redirect("/accounts/reset-password/" + user.username + "/")

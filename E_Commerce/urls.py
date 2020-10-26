@@ -15,6 +15,10 @@ urlpatterns = [
     path('login', views.login),
     path('activation_email/<username>/', views.activation_email),
     path('accounts/lost-password', views.lost_password),
-    path('accounts/reset-password', views.reset_password),
+    path('accounts/emailpassword', views.lost_password_email),
+    path('accounts/reset-password/<username>/', views.reset_password),
     path('accounts/profile', views.profile),
+    path('password_reset/<uidb64>/<token>/',views.password_reset, name='password_reset'),
+    path('accounts/reset-password/<username>/new-password', views.new_password),
+
 ]

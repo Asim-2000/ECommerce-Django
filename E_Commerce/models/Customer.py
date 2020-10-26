@@ -7,7 +7,7 @@ from django.utils.http import urlsafe_base64_encode
 from django_extensions.db.models import TimeStampedModel
 from django.contrib.auth.hashers import check_password
 
-from E_Commerce.tokens import account_activation_token
+from E_Commerce.tokens import account_activation_token, password_reset_token
 
 
 class Customer(TimeStampedModel):
@@ -61,7 +61,7 @@ class Customer(TimeStampedModel):
         else:
             return False
 
-    def sendEmail(self,user, request):
+    def sendEmail(self, user, request):
         current_site = get_current_site(request)
         mail_subject = 'Activate your account.'
         message = render_to_string('E_Commerce/Activation_email.html', {
@@ -69,6 +69,18 @@ class Customer(TimeStampedModel):
             'domain': current_site.domain,
             'uid': urlsafe_base64_encode(force_bytes(user.pk)),
             'token': account_activation_token.make_token(user),
+        })
+        send_mail(mail_subject, message, 'noreply@karkhanay.com', [user.email],
+                  fail_silently=False)
+
+    def sendPasswordResetEmail(self, request, user):
+        current_site = get_current_site(request)
+        mail_subject = 'Reset your password.'
+        message = render_to_string('E_Commerce/Password_Reset_Email.html', {
+            'user': user,
+            'domain': current_site.domain,
+            'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+            'token': password_reset_token.make_token(user),
         })
         send_mail(mail_subject, message, 'noreply@karkhanay.com', [user.email],
                   fail_silently=False)
