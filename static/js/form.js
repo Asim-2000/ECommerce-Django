@@ -25,7 +25,25 @@ $(document).ready(function () {
         $('#password_login').attr('type', 'text');
         }
     });
+
+    $(".btn3").on('click', function() {
+        if($('#newPass').attr("type") == "text"){
+        $('#newPass').attr('type', 'password');
+        }
+        else{
+        $('#newPass').attr('type', 'text');
+        }
+    });
+
+    $(".btn4").on('click', function() {
+        if($('#newPassConfirm').attr("type") == "text"){
+        $('#newPassConfirm').attr('type', 'password');
+        }
+        else{
+        $('#newPassConfirm').attr('type', 'text');
+        }
+    });
+
     $('.countrypicker').countrypicker();
-    
 
 });

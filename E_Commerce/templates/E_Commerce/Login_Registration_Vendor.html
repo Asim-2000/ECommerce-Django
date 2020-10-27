@@ -17,8 +17,8 @@
         </ol>
     </nav>
     <div class="Button" align="center">
-        <button type="button" onclick="location.href = '/accounts/vendor';"
-                class="btn btn-primary" style="font-size:24px;">Register or Login as Vendor
+        <button type="button" onclick="location.href = '/accounts/customer';"
+                class="btn btn-primary" style="font-size:24px;">Register or Login as Customer
         </button>
     </div>
     <br/><br/>
@@ -26,7 +26,7 @@
         <div class="row">
             <div class="col-md-6">
                 <h5>Login:</h5>
-                <form action="login" method="POST">
+                <form action="login-vendor" method="POST">
                     {% csrf_token %}
                     <div class="form-group">
                         <label for="u_name">Username/Email</label>
@@ -42,7 +42,7 @@
                         </div>
                         <br>
                         <div class="etc-login-form">
-                            <p>Forgot your password? <a href="/accounts/lost-password">Click here</a></p>
+                            <p>Forgot your password? <a href="/accounts/lost-password-vendor">Click here</a></p>
                         </div>
 
                     </div>
@@ -54,7 +54,7 @@
 
             <div class="col-md-6 border-left">
                 <h5>Registration</h5>
-                <form action="signup" method="POST">
+                <form action="signup-vendor" method="POST">
                     {% csrf_token %}
                     <div class="form-group">
                         <label for="email">Email address</label>

@@ -1,14 +1,11 @@
 from django.contrib import messages
-from django.contrib.sites.shortcuts import get_current_site
 from django.db import IntegrityError
 from django.shortcuts import render, redirect
-from django.template.loader import render_to_string
-from django.utils.encoding import force_bytes, force_text
-from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.encoding import force_text
+from django.utils.http import urlsafe_base64_decode
 from .models import Customer, Vendor
 from django.http import HttpResponse
 from django.utils.datastructures import MultiValueDictKeyError
-from django.core.mail import send_mail
 from django.contrib.auth.hashers import make_password
 
 # Create your views here.
@@ -43,10 +40,6 @@ def ready(request):
     return render(request, 'E_Commerce/Ready.html')
 
 
-def profile(request):
-    return render(request, 'E_Commerce/Profile.html')
-
-
 def orders(request):
     return render(request, 'E_Commerce/Orders.html')
 
@@ -68,43 +61,26 @@ def signup(request):
         confirm_password = request.POST["ConfirmPassword"]
         contact_number = request.POST["contact_number"]
         try:
-            user_role = request.POST['customer_vendor']
-            if user_role == "customer":
-                if password == confirm_password:
-                    user = Customer()
-                    user.create_Customer(firstname, lastname, email, make_password(password), contact_number)
-                    user.sendEmail(user, request)
-                    messages.info(request, "Account Created Successfully. Verify your email.")
-                    return redirect("/accounts")
-                else:
-                    messages.error(request, "Error: Password does not match.")
-                    return redirect("/accounts")
-
-            elif user_role == "vendor":
-                if password == confirm_password:
-                    user = Vendor()
-                    user.create_Vendor(email, firstname, lastname, contact_number, make_password(password))
-                    user.sendEmail(user, request)
-                    messages.info(request, "Account Created Successfully. Verify your email.")
-                    return redirect("/accounts")
-                else:
-                    messages.error(request, "Error: Password does not match.")
-                    return redirect("/accounts")
-
+            if password == confirm_password:
+                user = Customer()
+                user.create_Customer(firstname, lastname, email, make_password(password), contact_number)
+                user.sendEmail(user, request)
+                messages.info(request, "Account Created Successfully. Verify your email.")
+                return redirect("/accounts/customer")
+            else:
+                messages.error(request, "Error: Password does not match.")
+                return redirect("/accounts/customer")
         except MultiValueDictKeyError:
-            return redirect("/accounts")
+            return redirect("/accounts/customer")
         except TypeError:
             messages.error(request, "Invalid First or Last Name")
-            return redirect("/accounts")
+            return redirect("/accounts/customer")
         except IntegrityError:
             messages.error(request, "You are already signed up.")
-            return redirect("/accounts")
+            return redirect("/accounts/customer")
         except ValueError:
             messages.error(request, "Invalid Contact Number")
-            return redirect("/accounts")
-        else:
-            messages.error(request, "Please select one of the category.")
-            return redirect("/accounts")
+            return redirect("/accounts/customer")
     else:
         return HttpResponse("404 not Found")
 
@@ -114,12 +90,12 @@ def activate(request, uidb64, token):
         uid = force_text(urlsafe_base64_decode(uidb64))
         user = Customer.objects.get(pk=uid)
     except(TypeError, ValueError, OverflowError, Customer.DoesNotExist):
-        user = Vendor.objects.get(pk=uid)
+        return HttpResponse("404 Error")
     if user is not None and account_activation_token.check_token(user, token):
         user.verified = True
         user.save()
         messages.success(request, "Thank you for your email confirmation. Now you can login your account.")
-        return redirect("/accounts")
+        return redirect("/accounts/customer")
     else:
         return HttpResponse('Activation link is invalid!')
 
@@ -131,10 +107,10 @@ def login(request):
         user = Customer()
         try:
             if user.login(u_name, password_login):
-                return HttpResponse("SUCCESS")
+                return render(request, 'E_Commerce/Profile.html')
             else:
                 messages.error(request, "Invalid Username/Password")
-                return redirect("/accounts")
+                return redirect("/accounts/customer")
         except AssertionError:
             if "@" in u_name:
                 i = u_name.index("@")
@@ -143,17 +119,17 @@ def login(request):
                 username = u_name
             messages.info(request,
                           "Verify your email. <a href='activation_email/" + username + "/'>Resend</a> verification email")
-            return redirect("/accounts")
+            return redirect("/accounts/customer")
         except Customer.DoesNotExist:
             messages.error(request, "Invalid Username/Password")
-            return redirect("/accounts")
+            return redirect("/accounts/customer")
 
 
 def activation_email(request, username):
     user = Customer.objects.get(username=username)
     user.sendEmail(user, request)
     messages.info(request, "Email sent! If you can't find the email, check your spam")
-    return redirect("/accounts")
+    return redirect("/accounts/customer")
 
 
 def lost_password(request):
@@ -199,7 +175,6 @@ def password_reset(request, uidb64, token):
 
 def new_password(request, username):
     user = Customer.objects.get(username=username)
-    print(user.username)
     if request.method == "POST":
         password = request.POST["newPass"]
         c_password = request.POST["newPassConfirm"]
@@ -207,7 +182,145 @@ def new_password(request, username):
             user.password = make_password(password)
             user.save()
             messages.success(request, "Password changed successfully.")
-            return redirect("/accounts")
+            return redirect("/accounts/customer")
         else:
             messages.error(request, "The two passwords do not match.")
             return redirect("/accounts/reset-password/" + user.username + "/")
+
+
+def vendorAccount(request):
+    return render(request, "E_Commerce/Login_Registration_Vendor.html")
+
+
+def login_vendor(request):
+    if request.method == "POST":
+        u_name = request.POST["u_name"]
+        password_login = request.POST["password_login"]
+        user = Vendor()
+        try:
+            if user.login(u_name, password_login):
+                return HttpResponse("SUCCESS")
+            else:
+                messages.error(request, "Invalid Username/Password")
+                return redirect("/accounts/vendor")
+        except AssertionError:
+            if "@" in u_name:
+                i = u_name.index("@")
+                username = u_name[:i]
+            else:
+                username = u_name
+            messages.info(request,
+                          "Verify your email. <a href='activation_email/vendor/" + username + "/'>Resend</a> verification email")
+            return redirect("/accounts/vendor")
+        except Vendor.DoesNotExist:
+            messages.error(request, "Invalid Username/Password")
+            return redirect("/accounts/vendor")
+
+
+def signup_vendor(request):
+    if request.method == "POST":
+        email = request.POST["email"]
+        firstname = request.POST["firstname"]
+        lastname = request.POST["lastname"]
+        password = request.POST["Password"]
+        confirm_password = request.POST["ConfirmPassword"]
+        contact_number = request.POST["contact_number"]
+        try:
+            if password == confirm_password:
+                user = Vendor()
+                user.create_Vendor(email, firstname, lastname, contact_number, make_password(password))
+                user.sendEmail(user, request)
+                messages.info(request, "Account Created Successfully. Verify your email.")
+                return redirect("/accounts/vendor")
+            else:
+                messages.error(request, "Error: Password does not match.")
+                return redirect("/accounts/vendor")
+        except MultiValueDictKeyError:
+            return redirect("/accounts/vendor")
+        except TypeError:
+            messages.error(request, "Invalid First or Last Name")
+            return redirect("/accounts/vendor")
+        except IntegrityError:
+            messages.error(request, "You are already signed up.")
+            return redirect("/accounts/vendor")
+        except ValueError:
+            messages.error(request, "Invalid Contact Number")
+            return redirect("/accounts/vendor")
+    else:
+        return HttpResponse("404 not Found")
+
+
+def activation_email_vendor(request, username):
+    user = Vendor.objects.get(username=username)
+    user.sendEmail(user, request)
+    messages.info(request, "Email sent! If you can't find the email, check your spam")
+    return redirect("/accounts/vendor")
+
+
+def activate_vendor(request, uidb64, token):
+    try:
+        uid = force_text(urlsafe_base64_decode(uidb64))
+        user = Vendor.objects.get(pk=uid)
+    except(TypeError, ValueError, OverflowError, Vendor.DoesNotExist):
+        return HttpResponse("404 Error")
+    if user is not None and account_activation_token.check_token(user, token):
+        user.verified = True
+        user.save()
+        messages.success(request, "Thank you for your email confirmation. Now you can login your account.")
+        return redirect("/accounts/vendor")
+    else:
+        return HttpResponse('Activation link is invalid!')
+
+
+def lost_password_vendor(request):
+    return render(request, "E_Commerce/LostPasswordVendor.html")
+
+
+def lost_password_email_vendor(request):
+    if request.method == "POST":
+        name_email = request.POST["u_name_email"]
+        if "@" in name_email:
+            i = name_email.index("@")
+            username = name_email[:i]
+        else:
+            username = name_email
+        try:
+            user = Vendor.objects.get(username=username)
+            user.sendPasswordResetEmail(request, user)
+            messages.info(request, "Password Reset Email Sent.")
+            return redirect("/accounts/lost-password-vendor")
+        except Vendor.DoesNotExist:
+            messages.error(request, "No such customer exist.")
+            return redirect("/accounts/lost-password-vendor")
+
+
+def password_reset_vendor(request, uidb64, token):
+    try:
+        uid = force_text(urlsafe_base64_decode(uidb64))
+        user = Vendor.objects.get(pk=uid)
+        username = user.username
+        if user is not None and password_reset_token.check_token(user, token):
+            return redirect("/accounts/reset-password-vendor/" + username + "/")
+        else:
+            return HttpResponse('Reset password link is invalid!')
+    except(TypeError, ValueError, OverflowError, Vendor.DoesNotExist):
+        return HttpResponse('Reset password link is invalid!')
+
+
+def reset_password_vendor(request, username):
+    return render(request, 'E_Commerce/ResetPasswordVendor.html')
+
+
+def new_password_vendor(request, username):
+    user = Vendor.objects.get(username=username)
+    if request.method == "POST":
+        password = request.POST["newPass"]
+        c_password = request.POST["newPassConfirm"]
+        if password == c_password:
+            user.password = make_password(password)
+            user.save()
+            messages.success(request, "Password changed successfully.")
+            return redirect("/accounts/vendor")
+        else:
+            messages.error(request, "The two passwords do not match.")
+            return redirect("/accounts/reset-password-vendor/" + user.username + "/")
