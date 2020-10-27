@@ -47,6 +47,18 @@ def profile(request):
     return render(request, 'E_Commerce/Profile.html')
 
 
+def orders(request):
+    return render(request, 'E_Commerce/Orders.html')
+
+
+def downloads(request):
+    return render(request, 'E_Commerce/Downloads.html')
+
+
+def addresses(request):
+    return render(request, 'E_Commerce/Addresses.html')
+
+
 def signup(request):
     if request.method == "POST":
         email = request.POST["email"]

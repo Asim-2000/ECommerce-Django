@@ -18,6 +18,9 @@ urlpatterns = [
     path('accounts/emailpassword', views.lost_password_email),
     path('accounts/reset-password/<username>/', views.reset_password),
     path('accounts/profile', views.profile),
+    path('accounts/orders', views.orders),
+    path('accounts/downloads', views.downloads),
+    path('accounts/addresses', views.addresses),
     path('password_reset/<uidb64>/<token>/',views.password_reset, name='password_reset'),
     path('accounts/reset-password/<username>/new-password', views.new_password),
 
