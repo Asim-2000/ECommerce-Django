@@ -52,6 +52,19 @@ def addresses(request):
     return render(request, 'E_Commerce/Addresses.html')
 
 
+def account_details(request):
+    return render(request, 'E_Commerce/AccountDetails.html')
+
+def rma_requests(request):
+    return render(request, 'E_Commerce/RMA_Requests.html')
+
+def vendors(request):
+    return render(request, 'E_Commerce/Vendors.html')
+
+def tickets(request):
+    return render(request, 'E_Commerce/Tickets.html')
+
+
 def signup(request):
     if request.method == "POST":
         email = request.POST["email"]
