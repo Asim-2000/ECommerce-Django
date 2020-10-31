@@ -1,3 +1,6 @@
+import random
+import string
+
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import send_mail
 from django.db import models
@@ -18,7 +21,7 @@ class Customer(TimeStampedModel):
     password = models.CharField(max_length=500)
     contact_number = models.CharField(max_length=30)
     verified = models.BooleanField(verbose_name='verified', default=False)
-
+    encrypted_id = models.CharField(max_length=35)
     def generate_username(self, email="123@gmail.com"):
         i = email.index("@")
         username = email[:i]
@@ -35,6 +38,7 @@ class Customer(TimeStampedModel):
         self.username = self.generate_username(email)
         self.set_contact_number(contact_number)
         self.verified = False
+        self.encrypted_id = self.get_random_string()
         self.save()
 
     def set_contact_number(self, contactNumber):
@@ -84,3 +88,7 @@ class Customer(TimeStampedModel):
         })
         send_mail(mail_subject, message, 'noreply@karkhanay.com', [user.email],
                   fail_silently=False)
+
+    def get_random_string(self):
+        result_str = ''.join(random.choices(string.ascii_uppercase + string.digits + string.ascii_lowercase, k=32))
+        return result_str

@@ -1,3 +1,6 @@
+import string
+import random
+
 from django.contrib.auth.hashers import check_password
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import send_mail
@@ -18,6 +21,7 @@ class Vendor(TimeStampedModel):
     contact_number = models.CharField(max_length=30)
     featured = models.BooleanField(verbose_name='featured', default=False)
     verified = models.BooleanField(verbose_name='verified', default=False)
+    encrypted_id = models.CharField(max_length=35)
 
     def generate_username(self, email="123@gmail.com"):
         i = email.index("@")
@@ -33,6 +37,7 @@ class Vendor(TimeStampedModel):
         self.featured = False
         self.verified = False
         self.username = self.generate_username(email)
+        self.encrypted_id = self.get_random_string()
         self.save()
 
     def set_contact_number(self, contactNumber):
@@ -82,3 +87,7 @@ class Vendor(TimeStampedModel):
         })
         send_mail(mail_subject, message, 'noreply@karkhanay.com', [user.email],
                   fail_silently=False)
+
+    def get_random_string(self):
+        result_str = ''.join(random.choices(string.ascii_uppercase + string.digits + string.ascii_lowercase, k=32))
+        return result_str

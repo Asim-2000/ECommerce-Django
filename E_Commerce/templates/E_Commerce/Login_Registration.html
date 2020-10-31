@@ -2,6 +2,12 @@
 
 {% block content %}
 <div class="container">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Sign In/Register</li>
+        </ol>
+    </nav>
     {% for message in messages %}
     <div class="alert {{ message.tags }} alert-dismissible" role="alert">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -10,17 +16,6 @@
         {{ message | safe }}
     </div>
     {% endfor %}
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Sign In/Register</li>
-        </ol>
-    </nav>
-    <div class="Button" align="center">
-        <button type="button" onclick="location.href = '/accounts/vendor';"
-                class="btn btn-primary" style="font-size:24px;">Register or Login as Vendor
-        </button>
-    </div>
     <br/><br/>
     <div class="Form">
         <div class="row">
@@ -42,7 +37,7 @@
                         </div>
                         <br>
                         <div class="etc-login-form">
-                            <p>Forgot your password? <a href="/accounts/lost-password">Click here</a></p>
+                            <p>Forgot your password? <a href="/customer/lost-password">Click here</a></p>
                         </div>
 
                     </div>
