@@ -65,6 +65,10 @@ def tickets(request):
     return render(request, 'E_Commerce/Tickets.html')
 
 
+def store_registration(request):
+    return render(request, 'E_Commerce/StoreRegistration.html')
+
+
 def signup(request):
     if request.method == "POST":
         email = request.POST["email"]

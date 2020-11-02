@@ -35,6 +35,7 @@ urlpatterns = [
     path('password_reset_vendor/<uidb64>/<token>/', views.password_reset_vendor, name='password_reset_vendor'),
     path('vendor/reset-password-vendor/<enc_id>/', views.reset_password_vendor),
     path('vendor/reset-password-vendor/<enc_id>/new-password-vendor', views.new_password_vendor),
+    path('vendor/store-registration', views.store_registration),
     path('logout', views.logout),
     path('temp', views.temp),
 ]
