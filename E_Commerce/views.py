@@ -9,6 +9,7 @@ from django.utils.datastructures import MultiValueDictKeyError
 from django.contrib.auth.hashers import make_password
 
 # Create your views here.
+from .models.User import User
 from .tokens import account_activation_token, password_reset_token
 
 
@@ -22,10 +23,6 @@ def account(request):
 
 def cart(request):
     return render(request, 'E_Commerce/Cart.html')
-
-
-def welcome(request):
-    return render(request, 'E_Commerce/Welcome.html')
 
 
 def store_setup(request):
@@ -137,7 +134,7 @@ def login(request):
             messages.info(request,
                           "Verify your email. <a href='activation_email/" + username + "/'>Resend</a> verification email")
             return redirect("/customer")
-        except Customer.DoesNotExist:
+        except User.DoesNotExist:
             messages.error(request, "Invalid Username/Password")
             return redirect("/customer")
 
@@ -277,13 +274,13 @@ def activate_vendor(request, uidb64, token):
     try:
         uid = force_text(urlsafe_base64_decode(uidb64))
         user = Vendor.objects.get(pk=uid)
-    except(TypeError, ValueError, OverflowError, Vendor.DoesNotExist):
+    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
         return HttpResponse("404 Error")
     if user is not None and account_activation_token.check_token(user, token):
         user.verified = True
+        request.session["authenticated"] = True
         user.save()
-        messages.success(request, "Thank you for your email confirmation. Now you can login your account.")
-        return redirect("/vendor")
+        return render(request, 'E_Commerce/Welcome.html')
     else:
         return HttpResponse('Activation link is invalid!')
 
@@ -346,3 +343,7 @@ def logout(request):
     if request.session.has_key("authenticated"):
         del request.session["authenticated"]
     return redirect("/")
+
+
+def temp(request):
+    return render(request, "E_Commerce/Welcome.html")

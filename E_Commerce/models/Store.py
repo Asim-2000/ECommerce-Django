@@ -13,5 +13,6 @@ class Store(TimeStampedModel):
     zipcode = models.CharField(max_length=10)
     state = models.CharField(max_length=30)
     city = models.CharField(max_length=30)
+    product_per_page = models.IntegerField()
     store_opening_time = models.TimeField(auto_now=False, auto_now_add=False)
     store_closing_time = models.TimeField(auto_now=False, auto_now_add=False)

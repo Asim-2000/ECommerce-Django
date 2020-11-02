@@ -7,7 +7,6 @@ urlpatterns = [
     path('customer', views.account),
     path('signup', views.signup),
     path('cart', views.cart),
-    path('welcome', views.welcome),
     path('storesetup', views.store_setup),
     path('paymentsetup', views.payment_setup),
     path('ready', views.ready),
@@ -36,5 +35,6 @@ urlpatterns = [
     path('password_reset_vendor/<uidb64>/<token>/', views.password_reset_vendor, name='password_reset_vendor'),
     path('vendor/reset-password-vendor/<enc_id>/', views.reset_password_vendor),
     path('vendor/reset-password-vendor/<enc_id>/new-password-vendor', views.new_password_vendor),
-    path('logout', views.logout)
+    path('logout', views.logout),
+    path('temp', views.temp),
 ]
