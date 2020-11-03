@@ -1,82 +1,27 @@
-{% extends 'E_Commerce/HomePage.html' %}
-{% block content %}
+{% extends 'E_Commerce/CustomerPanel.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block currentPage %}Dashboard{% endblock %}
+{% block panel %}
+<div class="col-md-8">
+  <p>Hello user (not user? <a class=" text-success" href="/logout">Logout</a> )</p>
+  <p>From your account dashboard you can view your <a class=" text-success" href="#">recent orders</a>, manage your <a class=" text-success" href="#">shipping and billing addresses</a> , and <a class=" text-success" href="#">edit your password and
+      account details</a> .</p>
+  <ul style="list-style: none;">
+    <li class="border rounded">
+      <h4>Become a Vendor</h4>
+      <small>Vendor can sell products and manage a store with a beautiful dashboard</small>
+      <div class="text-right">
+        <a class=" text-success" href="vendor">Become a vendor</a>
+      </div>
+    </li>
+    <li class="border">
+      <h4>Become a Wholesale Customer</h4>
+      <small>Wholesale customers can purchase product in wholesale from vendor.</small>
+      <div class="text-right">
+        <a class=" text-success" href="customer">Become a wholesale customer</a>
+      </div>
+    </li>
+  </ul>
 
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a class=" text-success" href="">Home</a></li>
-    <li class="breadcrumb-item" aria-current="page">Accounts</li>
-    <li class="breadcrumb-item active" aria-current="page">Profile</li>
-  </ol>
-</nav>
-
-<div class="container-fluid" style="margin-top: 100px;">
-  <div class="row">
-    <div class="col-sm-3">
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center  ">
-          <a class="nav-link text-success" href="profile">Dashboard</a>
-          <span class="badge"><a href="profile"><i class="fas fa-tachometer-alt  text-success"></i></a></span>
-        </li>
-        <li class="list-group-item list-group-item-action  d-flex justify-content-between align-items-center  ">
-          <a class="nav-link  text-success" href="orders">Orders</a>
-          <span class="badge"><a href="orders"><i class="fas fa-shopping-basket text-success"></i></a></span>
-        </li>
-        <li class="list-group-item list-group-item-action  d-flex justify-content-between align-items-center  ">
-          <a class="nav-link text-success" href="downloads">Downloads</a>
-          <span class="badge"><a href="downloads"><i class="far fa-file-archive text-success"></i></a></span>
-        </li>
-        <li class="list-group-item list-group-item-action  d-flex justify-content-between align-items-center  ">
-          <a class="nav-link  text-success" href="addresses">Addresses</a>
-          <span class="badge"><a href="addresses"><i class="fas fa-home text-success"></i></a></span>
-        </li>
-        <li class="list-group-item list-group-item-action  d-flex justify-content-between align-items-center  ">
-          <a class="nav-link  text-success" href="account-details">Account Details</a>
-          <span class="badge"><a href="account-details"><i class="far fa-user text-success"></i></a></span>
-        </li>
-        <li class="list-group-item list-group-item-action  d-flex justify-content-between align-items-center  ">
-          <a class="nav-link  text-success" href="rma-requests">RMA Requests</a>
-          <span class="badge"><a href="rma-requests"><i class="far fa-file-alt text-success"></i></a></span>
-        </li>
-        <li class="list-group-item list-group-item-action  d-flex justify-content-between align-items-center  ">
-          <a class="nav-link text-success" href="vendors_page">Vendors</a>
-          <span class="badge"><a href="vendors_page"><i class="far fa-file-alt text-success"></i></a></span>
-        </li>
-        <li class="list-group-item list-group-item-action  d-flex justify-content-between align-items-center  ">
-          <a class="nav-link text-success" href="tickets">Seller Support Tickets</a>
-          <span class="badge"><a href="tickets"><i class="far fa-file-alt text-success"></i></a></span>
-        </li>
-        <li class="list-group-item list-group-item-action  d-flex justify-content-between align-items-center  ">
-          <a class="nav-link  text-success" href="/logout">Logout</a>
-          <span class="badge"><a href="/logout"><i class="fas fa-sign-out-alt  text-success"></i></a></span>
-        </li>
-    </div>
-
-    <div class="col-md-8">
-      <p>Hello user (not user? <a class=" text-success" href="/logout">Logout</a> )</p>
-      <p>From your account dashboard you can view your <a class=" text-success" href="#">recent orders</a>, manage your <a class=" text-success" href="#">shipping and billing addresses</a> , and <a class=" text-success" href="#">edit your password and account details</a> .</p>
-      <ul style="list-style: none;">
-        <li class="border rounded">
-          <h4>Become a Vendor</h4>
-          <small>Vendor can sell products and manage a store with a beautiful dashboard</small>
-          <div class="text-right">
-            <a class=" text-success" href="vendor">Become a vendor</a>
-          </div>
-        </li>
-        <li class="border">
-          <h4>Become a Wholesale Customer</h4>
-          <small>Wholesale customers can purchase product in wholesale from vendor.</small>
-          <div class="text-right">
-            <a class=" text-success" href="customer">Become a wholesale customer</a>
-          </div>
-        </li>
-      </ul>
-
-    </div>
-
-
-  </div>
 </div>
-
-
-
 {% endblock %}

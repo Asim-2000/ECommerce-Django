@@ -1,56 +1,47 @@
 {% extends 'E_Commerce/HomePage.html' %}
 {% block content %}
-
-<div class="container">
-  <div class="row justify-content-center">
-    <div class="col-md-8">
-      <div class="card">
-
-        <div class="card-header text-center"><img src="/static/images/logo.png" class="text-center" alt="Karkhanay Logo" title="Karkhanay" width="50%"></div>
-        <div class="card-header text-center"><strong> Store Registration</strong></div>
-        <div class="card-body">
-          <div class="form-group">
-            <label for="">First Name</label>
-            <input type="text" class="form-control" placeholder="Enter First Name">
-            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-          </div>
-          <div class="form-group">
-            <label for="">Last Name</label>
-            <input type="text" class="form-control" placeholder="Enter Last Name">
-          </div>
-          <div class="form-group">
-            <label for="">Shop Name</label>
-            <input type="text" class="form-control" placeholder="Enter Shop Name">
-          </div>
-          <div class="form-group">
-            <label for="">Shop URL</label>
-            <input type="text" class="form-control" placeholder="Enter Shop URL">
-          </div>
-          <div class="form-group">
-            <label for="">Address</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="2"></textarea>
-          </div>
-          <div class="form-group">
-            <label for="">Phone Number</label>
-            <input type="text" class="form-control" placeholder="Enter Phone Number">
-          </div>
-          <div class="form-group">
-            <button class="btn btn-secondary btn-lg btn-block" type="button" name="button">Become a Vendor</button>
-          </div>
-        </div>
-
-      </div>
-      </div>
-
-      </div>
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a class=" text-success" href="">Home</a></li>
+    <li class="breadcrumb-item" aria-current="page">Accounts</li>
+    <li class="breadcrumb-item active" aria-current="page">{% block currentPage %}{% endblock %}</li>
+  </ol>
+</nav>
+<div class="container-fluid" style="margin-top: 100px;">
+  <div class="row">
+    <div class="col-sm-3">
+      <ul class="nav flex-column bg-white mb-0">
+        <li class="nav-item">
+          <a href="#" class="nav-link text-dark font-italic bg-light">
+            <i class="fa fa-th-large mr-3 text-primary fa-fw"></i>
+            Home
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link text-dark font-italic">
+            <i class="fa fa-address-card mr-3 text-primary fa-fw"></i>
+            About
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link text-dark font-italic">
+            <i class="fa fa-cubes mr-3 text-primary fa-fw"></i>
+            Services
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link text-dark font-italic">
+            <i class="fa fa-picture-o mr-3 text-primary fa-fw"></i>
+            Gallery
+          </a>
+        </li>
+      </ul>
     </div>
+    {% block panel %}
+    {% endblock %}
+
+
 
   </div>
-
 </div>
-</div>
-
-</div>
-
-
-{%endblock%}
+{% endblock %}

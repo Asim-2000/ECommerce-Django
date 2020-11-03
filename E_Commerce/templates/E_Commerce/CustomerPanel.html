@@ -1,15 +1,12 @@
 {% extends 'E_Commerce/HomePage.html' %}
-{% block title %}Account Details{% endblock %}
 {% block content %}
-
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a class=" text-success" href="#">Home</a></li>
+    <li class="breadcrumb-item"><a class=" text-success" href="">Home</a></li>
     <li class="breadcrumb-item" aria-current="page">Accounts</li>
-    <li class="breadcrumb-item active" aria-current="page">Account Details</li>
+    <li class="breadcrumb-item active" aria-current="page">{% block currentPage %}{% endblock %}</li>
   </ol>
 </nav>
-
 <div class="container-fluid" style="margin-top: 100px;">
   <div class="row">
     <div class="col-sm-3">
@@ -50,55 +47,12 @@
           <a class="nav-link  text-success" href="/logout">Logout</a>
           <span class="badge"><a href="/logout"><i class="fas fa-sign-out-alt  text-success"></i></a></span>
         </li>
-      </ul>
     </div>
-    <div class="col-md-8">
-      <form>
-        <div class="form-row">
-          <div class="col">
-            <label for="">First Name</label>
-            <input type="text" class="form-control" required>
-          </div>
-          <div class="col">
-            <label for="">Last Name</label>
-            <input type="text" class="form-control" required>
-          </div>
-        </div>
-        <div class="form-row">
-          <label for="">Display Name</label>
-          <input type="text" class="form-control" required>
-          <small><em>This will be how your name will be displayed in the account section and in reviews</em></small>
-        </div>
-        <div class="form-row">
-          <label for="">Email</label>
-          <input type="text" class="form-control" required>
-        </div>
-        <br>
-
-        <div class=" container-fluid border" style="padding: 20px;">
-          <p><b>Password</b></p>
-          <div class="form-row">
-            <label for="">Current password (leave blank to leave unchanged)</label>
-            <input type="text" class="form-control">
-          </div>
-          <div class="form-row">
-            <label for="">New password (leave blank to leave unchanged)</label>
-            <input type="text" class="form-control">
-          </div>
-          <div class="form-row">
-            <label for="">Confirm password</label>
-            <input type="text" class="form-control">
-          </div>
-        </div>
+    {% block panel %}
+    {% endblock %}
 
 
-
-      </form>
-    </div>
 
   </div>
 </div>
-
-
-
 {% endblock %}

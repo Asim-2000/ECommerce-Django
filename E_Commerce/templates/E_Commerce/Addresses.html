@@ -1,91 +1,34 @@
-{% extends 'E_Commerce/HomePage.html' %}
-{% block content %}
-
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a class=" text-success" href="#">Home</a></li>
-    <li class="breadcrumb-item" aria-current="page">Accounts</li>
-    <li class="breadcrumb-item active" aria-current="page">Orders</li>
-  </ol>
-</nav>
-
-<div class="container-fluid" style="margin-top: 100px;">
-  <div class="row">
-    <div class="col-sm-3">
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center  ">
-          <a class="nav-link text-success" href="profile">Dashboard</a>
-          <span class="badge"><a href="profile"><i class="fas fa-tachometer-alt  text-success"></i></a></span>
-        </li>
-        <li class="list-group-item list-group-item-action  d-flex justify-content-between align-items-center  ">
-          <a class="nav-link  text-success" href="orders">Orders</a>
-          <span class="badge"><a href="orders"><i class="fas fa-shopping-basket text-success"></i></a></span>
-        </li>
-        <li class="list-group-item list-group-item-action  d-flex justify-content-between align-items-center  ">
-          <a class="nav-link text-success" href="downloads">Downloads</a>
-          <span class="badge"><a href="downloads"><i class="far fa-file-archive text-success"></i></a></span>
-        </li>
-        <li class="list-group-item list-group-item-action  d-flex justify-content-between align-items-center  ">
-          <a class="nav-link  text-success" href="addresses">Addresses</a>
-          <span class="badge"><a href="addresses"><i class="fas fa-home text-success"></i></a></span>
-        </li>
-        <li class="list-group-item list-group-item-action  d-flex justify-content-between align-items-center  ">
-          <a class="nav-link  text-success" href="account-details">Account Details</a>
-          <span class="badge"><a href="account-details"><i class="far fa-user text-success"></i></a></span>
-        </li>
-        <li class="list-group-item list-group-item-action  d-flex justify-content-between align-items-center  ">
-          <a class="nav-link  text-success" href="rma-requests">RMA Requests</a>
-          <span class="badge"><a href="rma-requests"><i class="far fa-file-alt text-success"></i></a></span>
-        </li>
-        <li class="list-group-item list-group-item-action  d-flex justify-content-between align-items-center  ">
-          <a class="nav-link text-success" href="vendors_page">Vendors</a>
-          <span class="badge"><a href="vendors_page"><i class="far fa-file-alt text-success"></i></a></span>
-        </li>
-        <li class="list-group-item list-group-item-action  d-flex justify-content-between align-items-center  ">
-          <a class="nav-link text-success" href="tickets">Seller Support Tickets</a>
-          <span class="badge"><a href="tickets"><i class="far fa-file-alt text-success"></i></a></span>
-        </li>
-        <li class="list-group-item list-group-item-action  d-flex justify-content-between align-items-center  ">
-          <a class="nav-link  text-success" href="/logout">Logout</a>
-          <span class="badge"><a href="/logout"><i class="fas fa-sign-out-alt  text-success"></i></a></span>
-        </li>
-      </ul>
-    </div>
-
-    <div class="col-md-8">
-      <p>The following addresses will be used on the checkout page by default.</p>
-      <div class="container">
-        <div class="row">
-          <div class="col-6">
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item d-flex justify-content-between align-items-center border-0">
-                <h3 class="nav-link">Billing Address</h3>
-                <span class=""><a href="#"><i class="fas fa-sign-out-alt  text-success"></i></a></span>
-              </li>
-              <li class="list-group-item d-flex justify-content-between align-items-center border-0">
-                <p class="nav-link"><em><small>You have not set up this type of address yet.</small></em></p>
-              </li>
-            </ul>
-          </div>
-          <div class="col-6">
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item d-flex justify-content-between align-items-center border-0">
-                <h3 class="nav-link">Shipping Address</h3>
-                <span class=""><a href="#"><i class="fas fa-sign-out-alt  text-success"></i></a></span>
-              </li>
-              <li class="list-group-item d-flex justify-content-between align-items-center border-0">
-                <p class="nav-link"><em><small>You have not set up this type of address yet.</small></em></p>
-              </li>
-            </ul>
-          </div>
-        </div>
+{% extends 'E_Commerce/CustomerPanel.html' %}
+{% block title %}Addresses{% endblock %}
+{% block currentPage %}Addresses{% endblock %}
+{% block panel %}
+<div class="col-md-8">
+  <p>The following addresses will be used on the checkout page by default.</p>
+  <div class="container">
+    <div class="row">
+      <div class="col-6">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item d-flex justify-content-between align-items-center border-0">
+            <h3 class="nav-link">Billing Address</h3>
+            <span class=""><a href="#"><i class="fas fa-sign-out-alt  text-success"></i></a></span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between align-items-center border-0">
+            <p class="nav-link"><em><small>You have not set up this type of address yet.</small></em></p>
+          </li>
+        </ul>
+      </div>
+      <div class="col-6">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item d-flex justify-content-between align-items-center border-0">
+            <h3 class="nav-link">Shipping Address</h3>
+            <span class=""><a href="#"><i class="fas fa-sign-out-alt  text-success"></i></a></span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between align-items-center border-0">
+            <p class="nav-link"><em><small>You have not set up this type of address yet.</small></em></p>
+          </li>
+        </ul>
       </div>
     </div>
-
-
   </div>
 </div>
-
-
-
 {% endblock %}
