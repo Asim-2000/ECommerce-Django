@@ -2,30 +2,92 @@
 
 
 <!-- Please add this to a separate file and include that here -->
-<nav class="navbar navbar-expand-md fixed-top navbar-light " style="opacity: 1; z-index : 99; background: white;">
-  <a class="navbar-brand" href="">
-    <img src="{% static '/images/logo.png' %}" alt="Karkhanay Logo" title="Karkhanay" width="100" />
-  </a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+<div class="overlay"></div>
 
-  <div class="collapse navbar-collapse navbar-right" id="navbarCollapse">
+<div class="utility-nav d-none d-md-block">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-md-6">
+        <p class="small"><i class="bx bx-envelope"></i> info@karkhanay.com | <i class="bx bx-phone"></i> +92 992 408 208
+        </p>
+      </div>
 
-    <ul class="navbar-nav ml-auto ">
-      <li class="nav-item"><input class="form-control mr-sm-2 " type="text" placeholder="Search" aria-label="Search"></li>
-      <li><a class="nav-link" href="">Home</a></li>
-      <li class="nav-item"><a class="nav-link" href="#">Construction</a></li>
-      <li class="nav-item"><a class="nav-link" href="#">Food</a></li>
-      <li class="nav-item"><a class="nav-link" href="#">Textile</a></li>
-      <li class="nav-item"><a class="nav-link" href="#">One $ Store</a></li>
-      <li class="nav-item"><a class="nav-link" href="#">Decor</a></li>
-      <li class="nav-item"><a class="nav-link" href="#">Furniture</a></li>
-      <li class="nav-item"><a class="nav-link" href="#">Vendors</a></li>
-      <li class="nav-item"><a class="nav-link" href="customer"><i class="fa fa-user"></i></a></li>
-      <li class="nav-item"><a class="nav-link" href="cart"><i class="fa fa-shopping-cart"></i>
-          <span class="badge badge-secondary" style="background: #8DC53F;">0</span></a></li>
-      <li class="nav-item"><a class="nav-link" href="/logout"><i class="fas fa-sign-out-alt"></i></a></li>
-    </ul>
+      <div class="col-12 col-md-6 text-right">
+
+          <a class="text-dark" href="https://www.facebook.com/karkhanay" title=""><i class="fab fa-facebook-square"></i></a>
+          <a class="text-dark" href="#" title=""><i class="fab fa-twitter-square"></i></a>
+          <a class="text-dark" href="https://www.instagram.com/karkhanay/" title=""><i class="fab fa-instagram-square"></i></a>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<nav class="navbar navbar-expand-md navbar-light bg-light main-menu" style="box-shadow:none">
+  <div class="container">
+
+    <button type="button" id="sidebarCollapse" class="btn btn-link d-block d-md-none">
+      <i class="bx bx-menu icon-single"></i>
+    </button>
+
+    <a class="navbar-brand" href="">
+      <img src="{% static '/images/logo.png' %}" alt="Karkhanay Logo" title="Karkhanay" width="100" />
+    </a>
+
+
+    <div class="collapse navbar-collapse">
+      <form class="form-inline my-2 my-lg-0 mx-auto">
+        <input class="form-control" type="search" placeholder="Search for products..." aria-label="Search">
+        <button type="button" class="btn btn-success" name="button"><i class="fas fa-search"></i></button>
+      </form>
+
+      <ul class="navbar-nav">
+
+        <li class="nav-item">
+          <a class="nav-link" href="/logout">Logout<i class="fas fa-sign-out-alt"></i></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="cart"><i class="fas fa-shopping-cart"></i> <span class="badge badge-success">3</span></a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="customer"><i class="fa fa-user"></i></a>
+        </li>
+        <li class="nav-item ml-md-3">
+          <a class="btn btn-success" href="customer"><i class="bx bxs-user-circle mr-1"></i> Log In / Register</a>
+        </li>
+      </ul>
+    </div>
+
   </div>
 </nav>
+
+<nav class="navbar navbar-expand-md navbar-light bg-light sub-menu">
+  <div class="container">
+    <div class="collapse navbar-collapse" id="navbar">
+      <ul class="navbar-nav mx-auto">
+        <li><a class="nav-link" href="">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Construction</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Food</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Textile</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">One $ Store</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Decor</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Furniture</a></li>
+        <li class="nav-item"><a class="nav-link" href="vendor">Vendors</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="search-bar d-block d-md-none">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <form class="form-inline mb-3 mx-auto">
+          <input class="form-control" type="search" placeholder="Search for products..." aria-label="Search">
+          <button class="btn btn-success" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
