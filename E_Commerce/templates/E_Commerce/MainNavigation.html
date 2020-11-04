@@ -1,7 +1,6 @@
 {% load static %}
 
 
-<!-- Please add this to a separate file and include that here -->
 <div class="overlay"></div>
 
 <div class="utility-nav d-none d-md-block">
@@ -26,8 +25,8 @@
 <nav class="navbar navbar-expand-md navbar-light bg-light main-menu" style="box-shadow:none">
   <div class="container">
 
-    <button type="button" id="sidebarCollapse" class="btn btn-link d-block d-md-none">
-      <i class="bx bx-menu icon-single"></i>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar" >
+      <i class="fas fa-bars"></i>
     </button>
 
     <a class="navbar-brand" href="">
@@ -60,6 +59,7 @@
     </div>
 
   </div>
+
 </nav>
 
 <nav class="navbar navbar-expand-md navbar-light bg-light sub-menu">
@@ -79,13 +79,14 @@
   </div>
 </nav>
 
-<div class="search-bar d-block d-md-none">
+<div class="search-bar d-block d-md-none" style="margin-top: 5%;">
   <div class="container">
     <div class="row">
       <div class="col-12">
         <form class="form-inline mb-3 mx-auto">
-          <input class="form-control" type="search" placeholder="Search for products..." aria-label="Search">
-          <button class="btn btn-success" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+          <i class="fas fa-search" aria-hidden="true"></i>
+          <input class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search"
+            aria-label="Search">
         </form>
       </div>
     </div>

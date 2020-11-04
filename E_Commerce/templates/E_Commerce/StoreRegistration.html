@@ -1,4 +1,37 @@
 {% extends 'E_Commerce/HomePage.html' %}
+{% load static %}
+{% block stylesheet %}
+<link rel="stylesheet" href="{% static '/css/countrypicker.css' %}">
+{% endblock %}
+{% block script %}
+<script src="{% static '/js/countrypicker.js'%}"></script>
+<script>
+    var input = document.querySelector("#phone");
+    window.intlTelInput(input, {
+      // allowDropdown: false,
+      // autoHideDialCode: false,
+      // autoPlaceholder: "off",
+      // dropdownContainer: document.body,
+      // excludeCountries: ["us"],
+      // formatOnDisplay: false,
+      // geoIpLookup: function(callback) {
+      //   $.get("http://ipinfo.io", function() {}, "jsonp").always(function(resp) {
+      //     var countryCode = (resp && resp.country) ? resp.country : "";
+      //     callback(countryCode);
+      //   });
+      // },
+      // hiddenInput: "full_number",
+      // initialCountry: "auto",
+      // localizedCountries: { 'de': 'Deutschland' },
+      // nationalMode: false,
+      // onlyCountries: ['us', 'gb', 'ch', 'ca', 'do'],
+      // placeholderNumberType: "MOBILE",
+      // preferredCountries: ['cn', 'jp'],
+      // separateDialCode: true,
+      utilsScript: "{% static '/js/utils.js'%}",
+    });
+  </script>
+{% endblock %}
 {% block title %}Store Registration{% endblock %}
 {% block content %}
 
@@ -32,9 +65,8 @@
             <textarea class="form-control" id="exampleFormControlTextarea1" rows="2"></textarea>
           </div>
           <div class="form-group">
-            <label for="">Phone Number</label>
-            <input type="text" class="form-control" placeholder="Enter Phone Number">
-          </div>
+              <label for="contact_number">Phone Number:</label>
+              <input id="phone" name="phone" type="tel">
           <div class="form-group">
             <button class="btn btn-secondary btn-lg btn-block" type="button" onclick="" name="button">Become a Vendor</button>
           </div>

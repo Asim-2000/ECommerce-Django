@@ -1,4 +1,7 @@
 {% extends 'E_Commerce/HomePage.html' %}
+{% block stylesheet %}
+<link rel="stylesheet" href="{% static '/css/sidebar.css' %}">
+{% endblock %}
 {% block content %}
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
@@ -10,43 +13,31 @@
 <div class="container-fluid" style="margin-top: 100px;">
   <div class="row">
     <div class="col-sm-3">
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center  ">
-          <a class="nav-link text-success" href="profile">Dashboard</a>
-          <span class="badge"><a href="profile"><i class="fas fa-tachometer-alt  text-success"></i></a></span>
-        </li>
-        <li class="list-group-item list-group-item-action  d-flex justify-content-between align-items-center  ">
-          <a class="nav-link  text-success" href="orders">Orders</a>
-          <span class="badge"><a href="orders"><i class="fas fa-shopping-basket text-success"></i></a></span>
-        </li>
-        <li class="list-group-item list-group-item-action  d-flex justify-content-between align-items-center  ">
-          <a class="nav-link text-success" href="downloads">Downloads</a>
-          <span class="badge"><a href="downloads"><i class="far fa-file-archive text-success"></i></a></span>
-        </li>
-        <li class="list-group-item list-group-item-action  d-flex justify-content-between align-items-center  ">
-          <a class="nav-link  text-success" href="addresses">Addresses</a>
-          <span class="badge"><a href="addresses"><i class="fas fa-home text-success"></i></a></span>
-        </li>
-        <li class="list-group-item list-group-item-action  d-flex justify-content-between align-items-center  ">
-          <a class="nav-link  text-success" href="account-details">Account Details</a>
-          <span class="badge"><a href="account-details"><i class="far fa-user text-success"></i></a></span>
-        </li>
-        <li class="list-group-item list-group-item-action  d-flex justify-content-between align-items-center  ">
-          <a class="nav-link  text-success" href="rma-requests">RMA Requests</a>
-          <span class="badge"><a href="rma-requests"><i class="far fa-file-alt text-success"></i></a></span>
-        </li>
-        <li class="list-group-item list-group-item-action  d-flex justify-content-between align-items-center  ">
-          <a class="nav-link text-success" href="vendors_page">Vendors</a>
-          <span class="badge"><a href="vendors_page"><i class="far fa-file-alt text-success"></i></a></span>
-        </li>
-        <li class="list-group-item list-group-item-action  d-flex justify-content-between align-items-center  ">
-          <a class="nav-link text-success" href="tickets">Seller Support Tickets</a>
-          <span class="badge"><a href="tickets"><i class="far fa-file-alt text-success"></i></a></span>
-        </li>
-        <li class="list-group-item list-group-item-action  d-flex justify-content-between align-items-center  ">
-          <a class="nav-link  text-success" href="/logout">Logout</a>
-          <span class="badge"><a href="/logout"><i class="fas fa-sign-out-alt  text-success"></i></a></span>
-        </li>
+      <div class="support-menu">
+        <nav class="vertical">
+          <ul>
+            <li>
+              <a href="">Karkhanay.pk</a>
+              <div>
+                <ul>
+                  <li><a href="profile"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                  <li><a href="orders"><i class="fas fa-shopping-basket"></i> Orders</a></li>
+                  <li><a href="downloads"><i class="far fa-file-archive"></i> Downloads</a></li>
+                  <li><a href="addresses"><i class="fas fa-home"></i> Addresses</a></li>
+                  <li><a href="account-details"><i class="far fa-user"></i> Account Details</a></li>
+                  <li><a href="rma-requests"><i class="far fa-file-alt"></i> RMA Requests</a></li>
+                  <li><a href="vendors_page"><i class="far fa-file-alt"></i>Vendors</a></li>
+                  <li><a href="tickets"><i class="far fa-file-alt"></i> Seller Support Tickets</a></li>
+                  <li><a href="logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    <div class="col-md">
+
     </div>
     {% block panel %}
     {% endblock %}
