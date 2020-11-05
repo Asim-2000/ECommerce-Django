@@ -1,0 +1,55 @@
+{% extends 'E_Commerce/HomePage.html' %}
+{% block stylesheet %}
+{% load static %}
+<link rel="stylesheet" href="{% static '/css/sidebar-vendor.css' %}">
+{% endblock %}
+{% block content %}
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a class=" text-success" href="">Home</a></li>
+    <li class="breadcrumb-item" aria-current="page">Accounts</li>
+    <li class="breadcrumb-item active" aria-current="page">{% block currentPage %}{% endblock %}</li>
+  </ol>
+</nav>
+<div class="container-fluid" style="margin-top: 100px;">
+  <div class="row">
+    <div class="col-sm-3">
+      <div class="support-menu">
+        <nav class="vertical">
+          <ul>
+            <li>
+              <a href="">Karkhanay.pk</a>
+              <div>
+                <ul>
+                  <li><a href="#"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                  <li><a href="#"><i class="fas fa-briefcase"></i> Products</a></li>
+                  <li><a href="#"><i class="fas fa-shopping-cart"></i> Orders</a></li>
+                  <li><a href="#"><i class="fas fa-gift"></i> Coupons</a></li>
+                  <li><a href="#"><i class="fas fa-chart-line"></i> Reports</a></li>
+                  <li><a href="#"><i class="fas fa-comments"></i> Reviews</a></li>
+                  <li><a href="#"><i class="fas fa-upload"></i> Withdraw</a></li>
+                  <li><a href="#"><i class="fas fa-undo-alt"></i> Return Requests</a></li>
+                  <li><a href="#"><i class="fas fa-users"></i> Staff</a></li>
+                  <li><a href="#"><i class="fas fa-heart"></i> Followers</a></li>
+                  <li><a href="#"><i class="fas fa-wrench"></i> Tools</a></li>
+                  <li><a href="#"><i class="far fa-life-ring"></i> Support</a></li>
+                  <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
+                  <li><a href="#"><i class="fas fa-external-link-alt"></i> View Store</a></li>
+                  <li><a href="#"><i class="fas fa-user"></i> Edit Account</a></li>
+                  <li><a href="/logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    <div class="col-md">
+
+    </div>
+    {% block panel_vendor %}
+    {% endblock %}
+
+  </div>
+</div>
+{% endblock %}
