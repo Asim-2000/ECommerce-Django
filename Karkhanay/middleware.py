@@ -15,7 +15,8 @@ class LoginRequiredMiddleware:
     def process_view(self, request, view_func, view_args, view_kwargs):
         Exempt_url = ["customer", "vendor", "login", "signup", "signup-vendor", "login-vendor"]
         Always_Accessible = ["", "cart", "temp"]
-        Allowed_urls = ['activate', 'password_reset', 'customer/emailpassword', \
+        Allowed_urls = ['activate', 'password_reset', 'customer/emailpassword',
+                        'activation_email',
                         'customer/lost-password', 'customer/reset-password',
                         'vendor/vendorpassword', 'vendor/lost-password',
                         'vendor/reset-password']

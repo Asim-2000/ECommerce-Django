@@ -3,13 +3,12 @@ from django.db import IntegrityError
 from django.shortcuts import render, redirect
 from django.utils.encoding import force_text
 from django.utils.http import urlsafe_base64_decode
-from .models import Customer, Vendor
+from .models import Customer, Vendor, Store
 from django.http import HttpResponse
 from django.utils.datastructures import MultiValueDictKeyError
 from django.contrib.auth.hashers import make_password
 
 # Create your views here.
-from .models.User import User
 from .tokens import account_activation_token, password_reset_token
 
 
@@ -23,10 +22,6 @@ def account(request):
 
 def cart(request):
     return render(request, 'E_Commerce/Cart.html')
-
-
-def store_setup(request):
-    return render(request, 'E_Commerce/StoreSetup.html')
 
 
 def payment_setup(request):
@@ -65,10 +60,6 @@ def tickets(request):
     return render(request, 'E_Commerce/Tickets.html')
 
 
-def store_registration(request):
-    return render(request, 'E_Commerce/StoreRegistration.html')
-
-
 def signup(request):
     if request.method == "POST":
         email = request.POST["email"]
@@ -80,8 +71,8 @@ def signup(request):
         try:
             if password == confirm_password:
                 user = Customer()
-                user.create_Customer(firstname, lastname, email, make_password(password), contact_number)
-                user.sendEmail(user, request)
+                user.create_customer(firstname, lastname, email, make_password(password), contact_number)
+                user.sendemail(user, request)
                 messages.info(request, "Account Created Successfully. Verify your email.")
                 return redirect("/customer")
             else:
@@ -138,14 +129,14 @@ def login(request):
             messages.info(request,
                           "Verify your email. <a href='activation_email/" + username + "/'>Resend</a> verification email")
             return redirect("/customer")
-        except User.DoesNotExist:
+        except Customer.DoesNotExist:
             messages.error(request, "Invalid Username/Password")
             return redirect("/customer")
 
 
 def activation_email(request, username):
     user = Customer.objects.get(username=username)
-    user.sendEmail(user, request)
+    user.sendemail(user, request)
     messages.info(request, "Email sent! If you can't find the email, check your spam")
     return redirect("/customer")
 
@@ -204,7 +195,7 @@ def new_password(request, enc_id):
             return redirect("/customer/reset-password/" + user.encrypted_id + "/")
 
 
-def vendorAccount(request):
+def vendor_account(request):
     return render(request, "E_Commerce/Login_Registration_Vendor.html")
 
 
@@ -214,9 +205,10 @@ def login_vendor(request):
         password_login = request.POST["password_login"]
         user = Vendor()
         try:
-            if user.login(u_name, password_login):
-                request.session["authenticated"] = True
-                return HttpResponse("SUCCESS")
+            logged_in_user = user.login(u_name, password_login)
+            if logged_in_user is not None:
+                request.session["authenticated"] = logged_in_user.encrypted_id
+                return redirect("/vendors_page")
             else:
                 messages.error(request, "Invalid Username/Password")
                 return redirect("/vendor")
@@ -245,8 +237,8 @@ def signup_vendor(request):
         try:
             if password == confirm_password:
                 user = Vendor()
-                user.create_Vendor(email, firstname, lastname, contact_number, make_password(password))
-                user.sendEmail(user, request)
+                user.create_vendor(email, firstname, lastname, contact_number, make_password(password))
+                user.sendemail(user, request)
                 messages.info(request, "Account Created Successfully. Verify your email.")
                 return redirect("/vendor")
             else:
@@ -269,7 +261,7 @@ def signup_vendor(request):
 
 def activation_email_vendor(request, username):
     user = Vendor.objects.get(username=username)
-    user.sendEmail(user, request)
+    user.sendemail(user, request)
     messages.info(request, "Email sent! If you can't find the email, check your spam")
     return redirect("/vendor")
 
@@ -278,13 +270,13 @@ def activate_vendor(request, uidb64, token):
     try:
         uid = force_text(urlsafe_base64_decode(uidb64))
         user = Vendor.objects.get(pk=uid)
-    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+    except(TypeError, ValueError, OverflowError, Vendor.DoesNotExist):
         return HttpResponse("404 Error")
     if user is not None and account_activation_token.check_token(user, token):
         user.verified = True
-        request.session["authenticated"] = True
+        request.session["authenticated"] = user.encrypted_id
         user.save()
-        return render(request, 'E_Commerce/Welcome.html')
+        return render(request, 'E_Commerce/StoreRegistration.html')
     else:
         return HttpResponse('Activation link is invalid!')
 
@@ -349,5 +341,37 @@ def logout(request):
     return redirect("/")
 
 
+def store_registration(request):
+    if request.method == "POST":
+        store_name = request.POST["StoreName"]
+        store_url = request.POST["StoreURL"]
+        store = Store()
+        enc_id = request.session["authenticated"]
+        user = Vendor.objects.get(encrypted_id=enc_id)
+        try:
+            if user is not None:
+                store.create_store(store_name, store_url, user)
+                request.session["Store"] = store_url
+            return render(request, "E_Commerce/StoreSetup.html")
+        except IntegrityError:
+            messages.error(request, "Change the URL of your store")
+            return redirect("/temp")
+
+
 def temp(request):
-    return render(request, "E_Commerce/Welcome.html")
+    return render(request, "E_Commerce/StoreRegistration.html")
+
+
+def store_setup(request):
+    if request.method == "POST":
+        try:
+            store = Store.objects.get(url=request.session["Store"])
+            store.product_per_page = request.POST["products"]
+            store.street_address = request.POST["street"] + request.POST["street2"]
+            store.city = request.POST["city"]
+            store.zipcode = request.POST["zipcode"]
+            store.state = request.POST["state"]
+            store.show_email = request.POST["defaultCheck1"]
+            store.save()
+        except Store.DoesNotExist:
+            return HttpResponse("Error 404!")
