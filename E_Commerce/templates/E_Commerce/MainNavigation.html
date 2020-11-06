@@ -4,7 +4,7 @@
 <div class="overlay"></div>
 
 <div class="utility-nav d-none d-md-block">
-  <div class="container">
+  <div class="container-fluid">
     <div class="row">
       <div class="col-12 col-md-6">
         <p class="small"><i class="bx bx-envelope"></i> info@karkhanay.com | <i class="bx bx-phone"></i> +92 992 408 208
@@ -23,7 +23,7 @@
 </div>
 
 <nav class="navbar navbar-expand-md navbar-light bg-light main-menu" style="box-shadow:none">
-  <div class="container">
+  <div class="container-fluid">
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar" >
       <i class="fas fa-bars"></i>
@@ -41,10 +41,11 @@
       </form>
 
       <ul class="navbar-nav">
-
+        {% if user.is_authenticated %}
         <li class="nav-item">
           <a class="nav-link" href="/logout">Logout<i class="fas fa-sign-out-alt"></i></a>
         </li>
+        {% endif %}
         <li class="nav-item">
           <a class="nav-link" href="cart"><i class="fas fa-shopping-cart"></i> <span class="badge badge-success">3</span></a>
         </li>
@@ -77,8 +78,12 @@
                     aria-label="Search">
                     <div class="">
                       <br>
+                      {% if not user.is_authenticated %}
                       <a class="btn btn-outline-success" href="customer"> Log In / Register <i class="fas fa-sign-in-alt"></i></a>
+                      {% endif %}
+                      {% if user.is_authenticated %}
                       <a class="btn btn-outline-success" href="/logout"> Logout<i class="fas fa-sign-out-alt"></i></a>
+                      {% endif %}
                     </div>
 
                 </form></li>
