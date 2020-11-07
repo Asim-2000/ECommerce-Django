@@ -14,12 +14,12 @@ class LoginRequiredMiddleware:
 
     def process_view(self, request, view_func, view_args, view_kwargs):
         Exempt_url = ["customer", "vendor", "login", "signup", "signup-vendor", "login-vendor"]
-        Always_Accessible = ["", "cart", "temp"]
+        Always_Accessible = ["", "cart", "temp",]
         Allowed_urls = ['activate', 'password_reset', 'customer/emailpassword',
                         'activation_email',
                         'customer/lost-password', 'customer/reset-password',
                         'vendor/vendorpassword', 'vendor/lost-password',
-                        'vendor/reset-password']
+                        'vendor/reset-password', "admin"]
         path = request.path_info.lstrip('/')
         url_accessible = any(url == path for url in Always_Accessible)
         url_is_exempt = any(url == path for url in Exempt_url)
@@ -34,5 +34,6 @@ class LoginRequiredMiddleware:
         elif path == "vendor":
             return redirect('/vendor')
         else:
+            print(path)
             messages.warning(request, "Login to Continue")
             return redirect('/customer')

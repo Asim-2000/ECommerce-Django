@@ -1,37 +1,5 @@
 {% extends 'E_Commerce/HomePage.html' %}
 {% load static %}
-{% block stylesheet %}
-<link rel="stylesheet" href="{% static '/css/countrypicker.css' %}">
-{% endblock %}
-{% block script %}
-<script src="{% static '/js/countrypicker.js'%}"></script>
-<script>
-    var input = document.querySelector("#phone");
-    window.intlTelInput(input, {
-      // allowDropdown: false,
-      // autoHideDialCode: false,
-      // autoPlaceholder: "off",
-      // dropdownContainer: document.body,
-      // excludeCountries: ["us"],
-      // formatOnDisplay: false,
-      // geoIpLookup: function(callback) {
-      //   $.get("http://ipinfo.io", function() {}, "jsonp").always(function(resp) {
-      //     var countryCode = (resp && resp.country) ? resp.country : "";
-      //     callback(countryCode);
-      //   });
-      // },
-      // hiddenInput: "full_number",
-      // initialCountry: "auto",
-      // localizedCountries: { 'de': 'Deutschland' },
-      // nationalMode: false,
-      // onlyCountries: ['us', 'gb', 'ch', 'ca', 'do'],
-      // placeholderNumberType: "MOBILE",
-      // preferredCountries: ['cn', 'jp'],
-      // separateDialCode: true,
-      utilsScript: "{% static '/js/utils.js'%}",
-    });
-  </script>
-{% endblock %}
 {% block title %}Store Registration{% endblock %}
 {% block content %}
 
@@ -43,47 +11,31 @@
         <div class="card-header text-center"><img src="/static/images/logo.png" class="text-center" alt="Karkhanay Logo" title="Karkhanay" width="50%"></div>
         <div class="card-header text-center"><strong> Store Registration</strong></div>
         <div class="card-body">
+          <form action="store-registration" method="POST">
+          {% csrf_token %}
           <div class="form-group">
-            <label for="">First Name</label>
-            <input type="text" class="form-control" placeholder="Enter First Name">
-            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            <label for="StoreName">Shop Name</label>
+            <input type="text" class="form-control" placeholder="Enter Shop Name" name="StoreName" id="StoreName">
           </div>
           <div class="form-group">
-            <label for="">Last Name</label>
-            <input type="text" class="form-control" placeholder="Enter Last Name">
+            <label for="StoreURL">Shop URL</label>
+            <input type="text" class="form-control" placeholder="Enter Shop URL"
+                   name="StoreURL" id="StoreURL" onclick="autoFill(); this.onclick=null;">
           </div>
-          <div class="form-group">
-            <label for="">Shop Name</label>
-            <input type="text" class="form-control" placeholder="Enter Shop Name">
+              <div class="form-group">
+            <button class="btn btn-secondary btn-lg btn-block" type="submit" onclick="" name="button">Become a Vendor</button>
           </div>
-          <div class="form-group">
-            <label for="">Shop URL</label>
-            <input type="text" class="form-control" placeholder="Enter Shop URL">
-          </div>
-          <div class="form-group">
-            <label for="">Address</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="2"></textarea>
-          </div>
-          <div class="form-group">
-              <label for="contact_number">Phone Number:</label>
-              <input id="phone" name="phone" type="tel">
-          <div class="form-group">
-            <button class="btn btn-secondary btn-lg btn-block" type="button" onclick="" name="button">Become a Vendor</button>
-          </div>
+          </form>
+          <script>
+              function autoFill(){
+              var str1 = "https://karkhanay.com/store/"
+               document.getElementById('StoreURL').value=
+               str1.concat(document.getElementById('StoreName').value).toLowerCase();
+               }
+          </script>
         </div>
 
       </div>
-      </div>
-
-      </div>
     </div>
-
   </div>
-
-</div>
-</div>
-
-</div>
-
-
-{%endblock%}
+{% endblock %}

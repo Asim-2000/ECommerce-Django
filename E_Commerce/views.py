@@ -276,7 +276,7 @@ def activate_vendor(request, uidb64, token):
         user.verified = True
         request.session["authenticated"] = user.encrypted_id
         user.save()
-        return render(request, 'E_Commerce/StoreRegistration.html')
+        return redirect("/store_registration_page")
     else:
         return HttpResponse('Activation link is invalid!')
 
@@ -367,11 +367,17 @@ def store_setup(request):
         try:
             store = Store.objects.get(url=request.session["Store"])
             store.product_per_page = request.POST["products"]
-            store.street_address = request.POST["street"] + request.POST["street2"]
+            store.street_address = request.POST["street"] +" "  + request.POST["street2"]
             store.city = request.POST["city"]
             store.zipcode = request.POST["zipcode"]
             store.state = request.POST["state"]
-            store.show_email = request.POST["defaultCheck1"]
+            store.country = request.POST["Country"]
+            store.show_email = (request.POST["defaultCheck1"] == 'on')
             store.save()
+            return render(request, "E_Commerce/PaymentSetup.html")
         except Store.DoesNotExist:
             return HttpResponse("Error 404!")
+
+
+def store_register_page(request):
+    return render(request, 'E_Commerce/StoreRegistration.html')
