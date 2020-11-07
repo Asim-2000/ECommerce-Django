@@ -362,6 +362,14 @@ def temp(request):
     return render(request, "E_Commerce/temp.html")
 
 
+def products(request):
+    return render(request, "E_Commerce/Products.html")
+
+
+def add_product(request):
+    return render(request, "E_Commerce/AddProducts.html")
+
+
 def store_setup(request):
     if request.method == "POST":
         try:

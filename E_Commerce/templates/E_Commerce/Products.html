@@ -1,0 +1,66 @@
+{% extends 'E_Commerce/VendorPanel.html' %}
+{% load static %}
+{% block title %}Products{% endblock %}
+{% block currentPage %}Products{% endblock %}
+{% block script %}
+{% endblock %}
+
+
+{% block panel_vendor %}
+<div class="m-3 p-5 col-md-8">
+  <div class="border-bottom p-2">
+    <span class="badge badge-pill badge-danger">All(0)</span>
+    <form class="text-right">
+      <button type="button" class="btn btn-danger" name="add_product"><i class="fas fa-briefcase"></i> Add new product</button>
+      <button type="button" class="btn btn-danger" name="import">Import</button>
+      <button type="button" class="btn btn-danger" name="import">Export</button>
+    </form>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-3">
+        <select class="custom-select custom-select" name="">
+          <option selected>Select a category</option>
+        </select>
+      </div>
+      <button type="button" class="btn btn-danger" name="filter">Filter</button>
+      <div class="col-3 ml-auto text-right">
+        <input class="form-control" type="text" name="Search" placeholder="Search" value="">
+      </div>
+      <button type="button" class="btn btn-danger" name="Searchbtn">search</button>
+    </div>
+  </div>
+  <div class="container mt-2">
+    <div class="row">
+      <div class="col-3">
+        <select class="custom-select custom-select" name="Actions">
+          <option selected>Bulk Actions</option>
+          <option value="1">Delete Permanently</option>
+        </select>
+      </div>
+      <button type="button" class="btn btn-danger" name="Actionsbtn">Apply</button>
+    </div>
+  </div>
+  <div class="mt-2">
+    <table class="table">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col"><input type="checkbox" name="Select" aria-label=""></th>
+          <th scope="col">Image</th>
+          <th scope="col">Name</th>
+          <th scope="col">Status</th>
+          <th scope="col">SKU</th>
+          <th scope="col">Stock</th>
+          <th scope="col">Price</th>
+          <th scope="col">Earning</th>
+          <th scope="col">Type</th>
+          <th scope="col">Views</th>
+          <th scope="col">Date</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
