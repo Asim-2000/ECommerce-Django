@@ -10,7 +10,7 @@
 <div class="m-3 p-5 col-md-8">
   <h4>Add New Product</h4>
   <div class="text-center border p-2">
-    <form method="post" enctype="multipart/form-data">
+    <form method="post" enctype="multipart/form-data" action="create_product">
       <div class="form-group">
         <label><strong>Upload Pictures</strong></label>
         <div class="custom-file">
@@ -55,7 +55,11 @@
       </div>
       <div class="form-group">
         <label for="categories">Categories</label>
-        <select class="custom-select custom-select" name="categories">
+        <select class="form-control" name="categories">
+          {% for cat in categories %}
+          <option value="{{ cat.name }}">{{ cat.name }}</option>
+          {% endfor %}
+
         </select>
       </div>
       <div class="form-group">

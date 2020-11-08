@@ -3,7 +3,7 @@ from django.db import IntegrityError
 from django.shortcuts import render, redirect, render_to_response
 from django.utils.encoding import force_text
 from django.utils.http import urlsafe_base64_decode
-from .models import Customer, Vendor, Store
+from .models import Customer, Vendor, Store, Product_Category
 from django.http import HttpResponse
 from django.utils.datastructures import MultiValueDictKeyError
 from django.contrib.auth.hashers import make_password, check_password
@@ -363,7 +363,11 @@ def store_registration(request):
 
 
 def temp(request):
-    return render(request, "E_Commerce/temp.html")
+    categories = Product_Category.objects.all()
+    cat = {
+        "categories": categories
+    }
+    return render(request, "E_Commerce/AddProducts.html", cat)
 
 
 def products(request):
@@ -371,7 +375,11 @@ def products(request):
 
 
 def new_product(request):
-    return render(request, "E_Commerce/AddProducts.html")
+    categories = Product_Category.objects.all()
+    cat = {
+        "categories": categories
+    }
+    return render(request, "E_Commerce/AddProducts.html", cat)
 
 
 def dashboard_vendor(request):
@@ -439,3 +447,8 @@ def update_vendor(request):
 
         messages.success(request, "Profile Updated")
         return redirect("/account-details")
+
+
+def create_product(request):
+    if request.method == "POST":
+        None
