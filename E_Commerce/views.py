@@ -366,8 +366,15 @@ def products(request):
     return render(request, "E_Commerce/Products.html")
 
 
-def add_product(request):
+def new_product(request):
     return render(request, "E_Commerce/AddProducts.html")
+
+
+def dashboard_vendor(request):
+    return render(request, "E_Commerce/DashboardVendor.html")
+
+def orders_vendor(request):
+    return render(request, 'E_Commerce/OrdersVendor.html')
 
 
 def store_setup(request):

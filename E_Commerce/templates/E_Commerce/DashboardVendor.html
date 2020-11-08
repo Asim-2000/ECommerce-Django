@@ -1,0 +1,157 @@
+{% extends 'E_Commerce/VendorPanel.html' %}
+{% load static %}
+{% block title %}Vendor Dashboard{% endblock %}
+{% block currentPage %}Vendor Dashboard{% endblock %}
+{% block script %}
+{% endblock %}
+
+
+{% block panel_vendor %}
+<div class="m-3 p-5 col-md-8">
+  <div class="container">
+    <div class="row">
+      <div class="col border">
+        <div class="progress m-3">
+          <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+        <div class="alert alert-primary m-3" role="alert">
+          Start with adding Banner to gain profile access!
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col">
+        <div class="card">
+          <ul class="list-group list-group-flush text-center">
+            <li class="list-group-item">
+              <span>Sale</span>
+              <h4>Rs. 00</h4>
+            </li>
+            <li class="list-group-item">
+              <span>Earnings</span>
+              <h4>Rs. 00</h4>
+            </li>
+            <li class="list-group-item">
+              <span>Page View</span>
+              <h4>0</h4>
+            </li>
+            <li class="list-group-item">
+              <span>Order</span>
+              <h4>0</h4>
+            </li>
+          </ul>
+        </div>
+        <br>
+        <div class="card">
+          <div class="card-header">
+            <span><i class="fas fa-shopping-cart"></i> Orders</span>
+          </div>
+          <div class="card-body">
+            <table class="table table-sm">
+              <tr>
+                <td>Total</td>
+                <td>0</td>
+              </tr>
+              <tr>
+                <td>Completed</td>
+                <td>0</td>
+              </tr>
+              <tr>
+                <td>Pending</td>
+                <td>0</td>
+              </tr>
+              <tr>
+                <td>Processing</td>
+                <td>0</td>
+              </tr>
+              <tr>
+                <td>Cancelled</td>
+                <td>0</td>
+              </tr>
+              <tr>
+                <td>Refunded</td>
+                <td>0</td>
+              </tr>
+              <tr>
+                <td>On hold</td>
+                <td>0</td>
+              </tr>
+            </table>
+            <br>
+
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card">
+          <div class="card-header">
+            <i class="far fa-bell card-img-top"></i> Latest Announcement
+          </div>
+          <div class="card-body">
+            <h4>No Announcements Found</h4>
+          </div>
+        </div>
+        <br>
+
+        <div class="card">
+          <div class="card-header">
+            <span><i class="fas fa-comments"></i> Reviews</span>
+          </div>
+          <div class="card-body">
+            <table class="table table-sm">
+              <tr>
+                <td>All</td>
+                <td>0</td>
+              </tr>
+              <tr>
+                <td>Pending</td>
+                <td>0</td>
+              </tr>
+              <tr>
+                <td>Spam</td>
+                <td>0</td>
+              </tr>
+              <tr>
+                <td>Trash</td>
+                <td>0</td>
+              </tr>
+            </table>
+            <br>
+
+          </div>
+        </div>
+        <br>
+        <div class="card">
+          <div class="card-header">
+            <span><i class="fas fa-briefcase"></i> Products</span>
+          </div>
+          <div class="card-body">
+            <table class="table table-sm">
+              <tr>
+                <td>Total</td>
+                <td>0</td>
+              </tr>
+              <tr>
+                <td>Live</td>
+                <td>0</td>
+              </tr>
+              <tr>
+                <td>Offline</td>
+                <td>0</td>
+              </tr>
+              <tr>
+                <td>Pending Review</td>
+                <td>0</td>
+              </tr>
+            </table>
+            <br>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+  </div>
+</div>
+{% endblock %}

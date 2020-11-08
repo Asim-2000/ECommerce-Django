@@ -39,7 +39,9 @@ urlpatterns = [
     path('temp', views.temp),
     path('store-setup', views.store_setup),
     path('store_registration_page', views.store_register_page),
-    path('products', views.products)
+    path('products', views.products),
     path('products/new-product', views.new_product),
+    path('dashboard-vendor', views.dashboard_vendor),
+    path('orders-vendor', views.orders_vendor),
 
 ]
