@@ -27,7 +27,7 @@ urlpatterns = [
     path('vendor', views.vendor_account),
     path('login-vendor', views.login_vendor),
     path('signup-vendor', views.signup_vendor),
-    path('activation_email/<username>/', views.activation_email_vendor),
+    path('activation_email/vendor/<username>/', views.activation_email_vendor),
     path('activate_vendor/<uidb64>/<token>/', views.activate_vendor, name='activate_vendor'),
     path('vendor/lost-password', views.lost_password_vendor),
     path('vendor/vendorpassword', views.lost_password_email_vendor),
@@ -43,5 +43,6 @@ urlpatterns = [
     path('products/new-product', views.new_product),
     path('dashboard-vendor', views.dashboard_vendor),
     path('orders-vendor', views.orders_vendor),
-
+    path('profile', views.profile),
+    path('update_vendor', views.update_vendor)
 ]

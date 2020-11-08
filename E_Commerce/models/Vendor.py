@@ -34,7 +34,6 @@ class Vendor(TimeStampedModel):
         self.encrypted_id = self.get_random_string()
         self.save()
 
-
     def generate_username(self, email="123@gmail.com"):
         i = email.index("@")
         username = email[:i]
@@ -55,10 +54,14 @@ class Vendor(TimeStampedModel):
         return name
 
     def login(self, username, password):
-        u_name = username
-        if "@" in username:
-            u_name = self.generate_username(username)
-        session = Vendor.objects.get(username=u_name)
+        try:
+            session = Vendor.objects.get(username=username)
+        except Vendor.DoesNotExist:
+            try:
+                session = Vendor.objects.get(email=username)
+            except ValueError:
+                pass
+
         if check_password(password, session.password):
             if session.verified:
                 return session
@@ -82,7 +85,7 @@ class Vendor(TimeStampedModel):
     def sendPasswordResetEmail(self, request, user):
         current_site = get_current_site(request)
         mail_subject = 'Reset your password.'
-        message = render_to_string('E_Commerce/Password_Reset_Email.html', {
+        message = render_to_string('E_Commerce/Password_Reset_Email_Vendor.html', {
             'user': user,
             'domain': current_site.domain,
             'uid': urlsafe_base64_encode(force_bytes(user.pk)),
@@ -94,4 +97,3 @@ class Vendor(TimeStampedModel):
     def get_random_string(self):
         result_str = ''.join(random.choices(string.ascii_uppercase + string.digits + string.ascii_lowercase, k=32))
         return result_str
-

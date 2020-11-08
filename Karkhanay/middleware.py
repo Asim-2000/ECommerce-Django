@@ -1,6 +1,4 @@
-from django.conf import settings
 from django.contrib import messages
-from django.http import HttpResponse
 from django.shortcuts import redirect, render
 
 
@@ -37,3 +35,4 @@ class LoginRequiredMiddleware:
             print(path)
             messages.warning(request, "Login to Continue")
             return redirect('/customer')
+

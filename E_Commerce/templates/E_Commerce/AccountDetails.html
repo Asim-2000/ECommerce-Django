@@ -3,44 +3,52 @@
 {% block currentPage %}Account Details{% endblock %}
 {% block panel %}
 <div class="m-3 p-5 col-md-8">
-  <form>
+   {% for message in messages %}
+    <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        {{ message | safe }}
+    </div>
+    {% endfor %}
+  <form action="update_vendor" method="post">
+    {% csrf_token %}
+
     <div class="form-row">
       <div class="col">
         <label for="">First Name</label>
-        <input type="text" class="form-control" required>
+        <input type="text" class="form-control" required name="firstname" value="{{ user.firstname }}">
       </div>
       <div class="col">
         <label for="">Last Name</label>
-        <input type="text" class="form-control" required>
+        <input type="text" class="form-control" required name="lastname" value="{{ user.lastname }}">
       </div>
     </div>
     <div class="form-row">
-      <label for="">Display Name</label>
-      <input type="text" class="form-control" required>
-      <small><em>This will be how your name will be displayed in the account section and in reviews</em></small>
-    </div>
-    <div class="form-row">
       <label for="">Email</label>
-      <input type="text" class="form-control" required>
+      <input type="text" class="form-control" required name="email" value="{{ user.email }}">
     </div>
     <br>
-
     <div class=" container-fluid border" style="padding: 20px;">
       <p><b>Password</b></p>
       <div class="form-row">
         <label for="">Current password (leave blank to leave unchanged)</label>
-        <input type="text" class="form-control">
+        <input type="password" class="form-control" name="c_password">
       </div>
       <div class="form-row">
         <label for="">New password (leave blank to leave unchanged)</label>
-        <input type="text" class="form-control">
+        <input type="password" class="form-control" name="n_password">
       </div>
       <div class="form-row">
         <label for="">Confirm password</label>
-        <input type="text" class="form-control">
+        <input type="password" class="form-control" name="cnfm_password">
+      </div>
+      <hr>
+     <div class="form-row">
+        <button type="submit" class="btn btn-outline-success"
+                style="margin-left: 450px;">Update</button>
       </div>
     </div>
-
 
 
   </form>

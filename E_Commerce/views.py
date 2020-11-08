@@ -1,12 +1,12 @@
 from django.contrib import messages
 from django.db import IntegrityError
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, render_to_response
 from django.utils.encoding import force_text
 from django.utils.http import urlsafe_base64_decode
 from .models import Customer, Vendor, Store
 from django.http import HttpResponse
 from django.utils.datastructures import MultiValueDictKeyError
-from django.contrib.auth.hashers import make_password
+from django.contrib.auth.hashers import make_password, check_password
 
 # Create your views here.
 from .tokens import account_activation_token, password_reset_token
@@ -45,7 +45,12 @@ def addresses(request):
 
 
 def account_details(request):
-    return render(request, 'E_Commerce/AccountDetails.html')
+    enc_id = request.session["authenticated"]
+    user = Vendor.objects.get(encrypted_id=enc_id)
+    ven = {
+        "user": user
+    }
+    return render(request, 'E_Commerce/AccountDetails.html', ven)
 
 
 def rma_requests(request):
@@ -351,11 +356,10 @@ def store_registration(request):
         try:
             if user is not None:
                 store.create_store(store_name, store_url, user)
-                request.session["Store"] = store_url
             return render(request, "E_Commerce/StoreSetup.html")
         except IntegrityError:
             messages.error(request, "Change the URL of your store")
-            return redirect("/temp")
+            return redirect("/store_registration_page")
 
 
 def temp(request):
@@ -373,16 +377,18 @@ def new_product(request):
 def dashboard_vendor(request):
     return render(request, "E_Commerce/DashboardVendor.html")
 
+
 def orders_vendor(request):
     return render(request, 'E_Commerce/OrdersVendor.html')
 
 
 def store_setup(request):
     if request.method == "POST":
+        user = Vendor.objects.get(encrypted_id=request.session["authenticated"])
         try:
-            store = Store.objects.get(url=request.session["Store"])
+            store = Store.objects.get(vendor=user)
             store.product_per_page = request.POST["products"]
-            store.street_address = request.POST["street"] +" "  + request.POST["street2"]
+            store.street_address = request.POST["street"] + " " + request.POST["street2"]
             store.city = request.POST["city"]
             store.zipcode = request.POST["zipcode"]
             store.state = request.POST["state"]
@@ -396,3 +402,40 @@ def store_setup(request):
 
 def store_register_page(request):
     return render(request, 'E_Commerce/StoreRegistration.html')
+
+
+def profile(request):
+    enc_id = request.session["authenticated"]
+    user = Vendor.objects.get(encrypted_id=enc_id)
+    ven = {
+        "vendor": user
+    }
+    return render(request, "E_Commerce/Profile.html", ven)
+
+
+def update_vendor(request):
+    if request.method == "POST":
+        firstname = request.POST["firstname"]
+        lastname = request.POST["lastname"]
+        email = request.POST["email"]
+        try:
+            user = Vendor.objects.get(encrypted_id=request.session["authenticated"])
+            user.firstname = firstname
+            user.lastname = lastname
+            user.email = email
+            user.save()
+        except Vendor.DoesNotExist:
+            return HttpResponse("404 Error")
+        if request.POST["c_password"] is not "" and check_password(request.POST["c_password"], user.password):
+            if request.POST["n_password"] == request.POST["cnfm_password"]:
+                user.password = make_password(request.POST["n_password"])
+                user.save()
+            else:
+                messages.error(request, "The two passwords does not match")
+                return redirect("/account-details")
+        elif request.POST["c_password"] is not "" and not check_password(request.POST["c_password"], user.password):
+            messages.error(request, "The current password is not correct")
+            return redirect("/account-details")
+
+        messages.success(request, "Profile Updated")
+        return redirect("/account-details")
