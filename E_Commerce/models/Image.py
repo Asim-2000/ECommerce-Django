@@ -4,8 +4,8 @@ from E_Commerce.models import Product
 
 
 class Image(TimeStampedModel):
-    image = models.ImageField()
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    image = models.ImageField()
 
     def image(self, image, product):
         self.image = image

@@ -3,10 +3,10 @@ from .Store import Store
 from .Product_Category import Product_Category
 from .Tag import Tag
 from .Product import Product
+from .Image import Image
 from .Customer import Customer
 from .Address import Address
 from .Review import Review
-from .Image import Image
 from .Wishlist import Wishlist
 from .Cart import Cart
 from .Order import Order

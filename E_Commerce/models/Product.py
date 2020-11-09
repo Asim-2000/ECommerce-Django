@@ -1,6 +1,6 @@
 from django.db import models
 from django_extensions.db.models import TimeStampedModel
-from E_Commerce.models import Store, Tag, Product_Category, Image
+from E_Commerce.models import Store, Tag, Product_Category
 
 
 class Product(TimeStampedModel):
@@ -14,13 +14,11 @@ class Product(TimeStampedModel):
     featured = models.BooleanField(verbose_name='featured_product', default=False)
     tag = models.ManyToManyField(Tag)
 
-    def create_product(self, name, category, tag, price, discounted_price, description, image):
+    def create_product(self, name, category, tag, price, discounted_price, description):
         self.name = name
         self.product_category = category
         self.tag = tag
         self.price = price
         self.description = description
         self.discounted_price = discounted_price
-        i = Image()
-        i.image(image, self)
         self.save()
