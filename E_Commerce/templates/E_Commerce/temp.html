@@ -1,73 +1,61 @@
 {% extends 'E_Commerce/VendorPanel.html' %}
 {% load static %}
-{% block title %}Vendor Dashboard{% endblock %}
-{% block currentPage %}Vendor Dashboard{% endblock %}
+{% block title %}Vendor Edit Account{% endblock %}
+{% block currentPage %}Vendor Edit Account{% endblock %}
 {% block script %}
-<script src="{% static '/js/datepicker.js'%}"></script>
 {% endblock %}
 
 
 {% block panel_vendor %}
 <div class="m-3 p-5 col-md-8">
-  <div class="container">
-    <div class="row border-bottom small">
-      <ul class="list-group list-group-horizontal">
-        <li class="list-group-item d-flex justify-content-between align-items-center border-0">
-          <a href="#">All</a>
-          <span class="badge badge-danger badge-pill"> 0</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between align-items-center border-0">
-          <a href="#">Completed</a>
-          <span class="badge badge-danger badge-pill"> 0</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between align-items-center border-0">
-          <a href="#">Processing</a>
-          <span class="badge badge-danger badge-pill"> 0</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between align-items-center border-0">
-          <a href="#">OnHold</a>
-          <span class="badge badge-danger badge-pill"> 0</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between align-items-center border-0">
-          <a href="#">Pending</a>
-          <span class="badge badge-danger badge-pill"> 0</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between align-items-center border-0">
-          <a href="#">Cancelled</a>
-          <span class="badge badge-danger badge-pill"> 0</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between align-items-center border-0">
-          <a href="#">Refunded</a>
-          <span class="badge badge-danger badge-pill"> 0</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between align-items-center border-0">
-          <a href="#">Failed</a>
-          <span class="badge badge-danger badge-pill"> 0</span>
-        </li>
-      </ul>
-    </div>
-    <div class="row p-2">
-      <div class="col-3">
-        <input class="form-control" type="date" id="birthday" name="birthday" placeholder="Filter By Date">
-      </div>
-      <div class="col-4">
-                <input class="form-control" placeholder="Filter By Registered customer" type="text" name="" value="">
-      </div>
-        <button class="btn btn-danger" type="button" name="button">Filter</button>
-      <div class="col-4 ml-auto text-right">
-        <button class="btn btn-danger" type="button" name="button">Export</button>
-        <button class="btn btn-danger" type="button" name="button">Export Filtered</button>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        <div class="alert alert-danger" role="alert">
-          No orders found!
-        </div>
-      </div>
-    </div>
-  </div>
+  {% for message in messages %}
+   <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+       </button>
+       {{ message | safe }}
+   </div>
+   {% endfor %}
+ <form action="update_vendor" method="post">
+   {% csrf_token %}
 
+   <div class="form-row">
+     <div class="col">
+       <label for="">First Name</label>
+       <input type="text" class="form-control" required name="firstname" value="{{ user.firstname }}">
+     </div>
+     <div class="col">
+       <label for="">Last Name</label>
+       <input type="text" class="form-control" required name="lastname" value="{{ user.lastname }}">
+     </div>
+   </div>
+   <div class="form-row mx-auto">
+     <label for="">Email</label>
+     <input type="text" class="form-control" required name="email" value="{{ user.email }}">
+   </div>
+   <br>
+   <div class=" container-fluid border" style="padding: 20px;">
+     <p><b>Password</b></p>
+     <div class="form-row">
+       <label for="">Current password (leave blank to leave unchanged)</label>
+       <input type="password" class="form-control" name="c_password">
+     </div>
+     <div class="form-row">
+       <label for="">New password (leave blank to leave unchanged)</label>
+       <input type="password" class="form-control" name="n_password">
+     </div>
+     <div class="form-row">
+       <label for="">Confirm password</label>
+       <input type="password" class="form-control" name="cnfm_password">
+     </div>
+     <hr>
+    <div class="form-row">
+       <button type="submit" class="btn btn-outline-success"
+               style="margin-left: 450px;">Update</button>
+     </div>
+   </div>
+
+
+ </form>
 </div>
-
 {% endblock %}

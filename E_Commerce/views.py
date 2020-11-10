@@ -363,13 +363,7 @@ def store_registration(request):
 
 
 def temp(request):
-    categories = Product_Category.objects.all()
-    tags = Tag.objects.all()
-    cat = {
-        "categories": categories,
-        "tags": tags
-    }
-    return render(request, "E_Commerce/AddProducts.html", cat)
+    return render(request, "E_Commerce/temp.html")
 
 
 def products(request):
@@ -392,6 +386,10 @@ def dashboard_vendor(request):
 
 def orders_vendor(request):
     return render(request, 'E_Commerce/OrdersVendor.html')
+
+
+def vendor_account_details (request):
+    return render(request, 'E_Commerce/VendorAccountDetails.html')
 
 
 def store_setup(request):

@@ -46,6 +46,7 @@ urlpatterns = [
     path('profile', views.profile),
     path('update_vendor', views.update_vendor),
     path('products/create_product', views.create_product),
+    path('vendor_account_details', views.vendor_account_details),
 
 
 ]
