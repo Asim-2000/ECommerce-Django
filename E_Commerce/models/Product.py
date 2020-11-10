@@ -9,16 +9,19 @@ class Product(TimeStampedModel):
     name = models.CharField(max_length=100)
     price = models.FloatField(max_length=100)
     discounted_price = models.FloatField(max_length=100)
+    short_description = models.CharField(max_length=500, null=True)
     description = models.CharField(max_length=1000)
-    stock_count = models.IntegerField()
+    stock_count = models.IntegerField(null=True)
     featured = models.BooleanField(verbose_name='featured_product', default=False)
     tag = models.ManyToManyField(Tag)
 
-    def create_product(self, name, category, tag, price, discounted_price, description):
+    def create_product(self, store, name, category, price, discounted_price, description, s_description):
         self.name = name
         self.product_category = category
-        self.tag = tag
         self.price = price
         self.description = description
         self.discounted_price = discounted_price
+        self.short_description = s_description
+        self.store = store
         self.save()
+

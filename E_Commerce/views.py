@@ -3,7 +3,7 @@ from django.db import IntegrityError
 from django.shortcuts import render, redirect, render_to_response
 from django.utils.encoding import force_text
 from django.utils.http import urlsafe_base64_decode
-from .models import Customer, Vendor, Store, Product_Category
+from .models import Customer, Vendor, Store, Product_Category, Tag, Image, Product
 from django.http import HttpResponse
 from django.utils.datastructures import MultiValueDictKeyError
 from django.contrib.auth.hashers import make_password, check_password
@@ -364,8 +364,10 @@ def store_registration(request):
 
 def temp(request):
     categories = Product_Category.objects.all()
+    tags = Tag.objects.all()
     cat = {
-        "categories": categories
+        "categories": categories,
+        "tags": tags
     }
     return render(request, "E_Commerce/AddProducts.html", cat)
 
@@ -376,8 +378,10 @@ def products(request):
 
 def new_product(request):
     categories = Product_Category.objects.all()
+    tags = Tag.objects.all()
     cat = {
-        "categories": categories
+        "categories": categories,
+        "tags": tags
     }
     return render(request, "E_Commerce/AddProducts.html", cat)
 
@@ -451,4 +455,31 @@ def update_vendor(request):
 
 def create_product(request):
     if request.method == "POST":
-        None
+        prod = Product()
+        user = Vendor.objects.get(encrypted_id=request.session["authenticated"])
+        store = Store.objects.get(vendor=user)
+
+        name = request.POST["ProductName"]
+        price = request.POST["price"]
+        discounted = request.POST["discount"]
+        s_des = request.POST["shortDescription"]
+        des = request.POST["description"]
+        category = Product_Category.objects.get(name=request.POST["categories"])
+        tag = request.POST.getlist("tags")
+
+        prod.create_product(store, name, category, price, discounted, des, s_des)
+
+        tags = []
+        for t in tag:
+            tags.append(Tag.objects.get(name=t))
+
+        prod.tag = tags
+        prod.save()
+
+
+        for file in request.FILES.getlist('myfile'):
+            img = Image()
+            img.image(file, prod)
+
+        messages.success(request, "Product Created Successfully!")
+        return redirect("/products")

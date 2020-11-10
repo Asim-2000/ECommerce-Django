@@ -45,7 +45,7 @@ urlpatterns = [
     path('orders-vendor', views.orders_vendor),
     path('profile', views.profile),
     path('update_vendor', views.update_vendor),
-    path('create_product', views.create_product),
+    path('products/create_product', views.create_product),
 
 
 ]

@@ -4,38 +4,51 @@
 {% block content %}
 
 <div class="container">
-  <div class="row justify-content-center">
-    <div class="col-md-8">
-      <div class="card">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
 
-        <div class="card-header text-center"><img src="/static/images/logo.png" class="text-center" alt="Karkhanay Logo" title="Karkhanay" width="50%"></div>
-        <div class="card-header text-center"><strong> Store Registration</strong></div>
-        <div class="card-body">
-          <form action="store-registration" method="POST">
-          {% csrf_token %}
-          <div class="form-group">
-            <label for="StoreName">Shop Name</label>
-            <input type="text" class="form-control" placeholder="Enter Shop Name" name="StoreName" id="StoreName">
-          </div>
-          <div class="form-group">
-            <label for="StoreURL">Shop URL</label>
-            <input type="text" class="form-control" placeholder="Enter Shop URL"
-                   name="StoreURL" id="StoreURL" onclick="autoFill(); this.onclick=null;">
-          </div>
-              <div class="form-group">
-            <button class="btn btn-secondary btn-lg btn-block" type="submit" onclick="" name="button">Become a Vendor</button>
-          </div>
-          </form>
-          <script>
+                <div class="card-header text-center"><img src="/static/images/logo.png" class="text-center"
+                                                          alt="Karkhanay Logo" title="Karkhanay" width="50%"></div>
+                <div class="card-header text-center"><strong> Store Registration</strong></div>
+                <div class="card-body">
+                    {% for message in messages %}
+                    <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        {{ message | safe }}
+                    </div>
+                    {% endfor %}
+                    <form action="store-registration" method="POST">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="StoreName">Shop Name</label>
+                            <input type="text" class="form-control" placeholder="Enter Shop Name" name="StoreName"
+                                   id="StoreName">
+                        </div>
+                        <div class="form-group">
+                            <label for="StoreURL">Shop URL</label>
+                            <input type="text" class="form-control" placeholder="Enter Shop URL"
+                                   name="StoreURL" id="StoreURL" onclick="autoFill(); this.onclick=null;">
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-secondary btn-lg btn-block" type="submit" onclick="" name="button">
+                                Become a Vendor
+                            </button>
+                        </div>
+                    </form>
+                    <script>
               function autoFill(){
               var str1 = "https://karkhanay.com/store/"
                document.getElementById('StoreURL').value=
                str1.concat(document.getElementById('StoreName').value).toLowerCase();
                }
-          </script>
-        </div>
 
-      </div>
+                    </script>
+                </div>
+
+            </div>
+        </div>
     </div>
-  </div>
-{% endblock %}
+    {% endblock %}
