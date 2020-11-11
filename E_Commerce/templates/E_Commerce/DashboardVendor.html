@@ -9,12 +9,88 @@
 {% block panel_vendor %}
 <div class="m-3 p-5 col-md-8">
   <div class="container">
+    <div class="row mb-2">
+      <div class="col-md-3">
+        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#categoryModal">
+          Request a category
+        </button>
+
+        <div class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="CategoryModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Request a Category</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Category Name</label>
+                    <input type="text" class="form-control" id="category-name">
+                  </div>
+                  <div class="form-group">
+                    <label for="description" class="col-form-label">Description</label>
+                    <textarea class="form-control" id="description"></textarea>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger">Save changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="col-md-3">
+        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#tagModal">
+          Create a Tag
+        </button>
+
+        <div class="modal fade" id="tagModal" tabindex="-1" role="dialog" aria-labelledby="CategoryModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="tag">Create a Tag</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <div class="form-group">
+                    <label for="tag-name" class="col-form-label">Tag Name</label>
+                    <input type="text" class="form-control" id="tag-name">
+                  </div>
+                  <div class="form-group">
+                    <label for="description" class="col-form-label">Description</label>
+                    <textarea class="form-control" id="description"></textarea>
+                  </div>
+                </form>
+                <div class="form-group">
+                  <label for="slug" class="col-form-label">Slug</label>
+                  <input type="text" class="form-control" id="slug">
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger">Save changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
     <div class="row">
       <div class="col border">
         <div class="progress m-3">
           <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
-        <div class="alert alert-primary m-3" role="alert">
+        <div class="alert alert-danger m-3" role="alert">
           Start with adding Banner to gain profile access!
         </div>
       </div>

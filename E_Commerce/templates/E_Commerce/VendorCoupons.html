@@ -1,0 +1,25 @@
+{% extends 'E_Commerce/VendorPanel.html' %}
+{% load static %}
+{% block title %}Vendor Coupons{% endblock %}
+{% block currentPage %}Vendor Coupons{% endblock %}
+{% block script %}
+{% endblock %}
+
+
+{% block panel_vendor %}
+<div class="m-3 p-5 col-md-8">
+  <div class="row p-2">
+    <h3>Coupons</h3>
+    <div class="col-4 ml-auto text-right">
+      <button class="btn btn-danger" type="button" name="AddCoupon"><i class="fas fa-gift"></i> Add New Coupon</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="alert alert-danger" role="alert">
+        No coupons found!
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

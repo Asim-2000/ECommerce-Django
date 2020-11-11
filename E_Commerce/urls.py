@@ -47,6 +47,8 @@ urlpatterns = [
     path('update_vendor', views.update_vendor),
     path('products/create_product', views.create_product),
     path('vendor_account_details', views.vendor_account_details),
+    path('vendor_coupons', views.vendor_coupons),
+    path('edit_product', views.edit_product),
 
 
 ]

@@ -392,6 +392,13 @@ def vendor_account_details (request):
     return render(request, 'E_Commerce/VendorAccountDetails.html')
 
 
+def vendor_coupons (request):
+    return render(request, 'E_Commerce/VendorCoupons.html')
+
+def edit_product (request):
+    return render(request, 'E_Commerce/EditProduct.html')
+
+
 def store_setup(request):
     if request.method == "POST":
         user = Vendor.objects.get(encrypted_id=request.session["authenticated"])
