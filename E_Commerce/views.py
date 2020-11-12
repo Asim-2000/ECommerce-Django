@@ -395,8 +395,37 @@ def vendor_account_details (request):
 def vendor_coupons (request):
     return render(request, 'E_Commerce/VendorCoupons.html')
 
+
 def edit_product (request):
     return render(request, 'E_Commerce/EditProduct.html')
+
+
+def reports_vendor (request):
+    return render(request, 'E_Commerce/ReportsVendor.html')
+
+
+def reviews_vendor (request):
+    return render(request, 'E_Commerce/ReviewsVendor.html')
+
+
+def withdraw_vendor (request):
+    return render(request, 'E_Commerce/WithdrawVendor.html')
+
+
+def returns_vendor (request):
+    return render(request, 'E_Commerce/ReturnsVendor.html')
+
+
+def staff_vendor (request):
+    return render(request, 'E_Commerce/StaffVendor.html')
+
+
+def add_staff (request):
+    return render(request, 'E_Commerce/AddStaff.html')
+
+
+def followers_vendor (request):
+    return render(request, 'E_Commerce/FollowersVendor.html')
 
 
 def store_setup(request):

@@ -1,0 +1,64 @@
+{% extends 'E_Commerce/VendorPanel.html' %}
+{% load static %}
+{% block title %}Vendor Reviews{% endblock %}
+{% block currentPage %}Vendor Reviews{% endblock %}
+{% block script %}
+{% endblock %}
+
+
+{% block panel_vendor %}
+<div class="m-3 p-5 col-md-8">
+  <h4>Reviews</h4>
+  <div class="container">
+    <div class="row border-bottom small">
+      <ul class="list-group list-group-horizontal">
+        <li class="list-group-item d-flex justify-content-between align-items-center border-0">
+          <a href="#">Approved</a>
+          <span class="badge badge-danger badge-pill"> 0</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center border-0">
+          <a href="#">Pending</a>
+          <span class="badge badge-danger badge-pill"> 0</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center border-0">
+          <a href="#">Spam</a>
+          <span class="badge badge-danger badge-pill"> 0</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center border-0">
+          <a href="#">Trash</a>
+          <span class="badge badge-danger badge-pill"> 0</span>
+        </li>
+      </ul>
+    </div>
+    <div class="row p-2">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col"><input type="checkbox" name="" value=""></th>
+            <th scope="col">Author</th>
+            <th scope="col">Comment</th>
+            <th scope="col">Link To</th>
+            <th scope="col">Rating</th>
+          </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+      </table>
+    </div>
+    <div class="row mt-2">
+      <form class="" action="index.html" method="post">
+        <select class="form-control" id="status">
+          <option>-None-</option>
+          <option>Mark Pending</option>
+          <option>Mark Spam </option>
+          <option>Mark Trash</option>
+        </select>
+        <button class="btn btn-danger mt-2" type="button" name="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}

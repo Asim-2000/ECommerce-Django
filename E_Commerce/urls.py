@@ -49,6 +49,13 @@ urlpatterns = [
     path('vendor_account_details', views.vendor_account_details),
     path('vendor_coupons', views.vendor_coupons),
     path('edit_product', views.edit_product),
+    path('reports_vendor', views.reports_vendor),
+    path('reviews_vendor', views.reviews_vendor),
+    path('withdraw_vendor', views.withdraw_vendor),
+    path('returns_vendor', views.returns_vendor),
+    path('staff_vendor', views.staff_vendor),
+    path('add_staff', views.add_staff),
+    path('followers_vendor', views.followers_vendor),
 
 
 ]
