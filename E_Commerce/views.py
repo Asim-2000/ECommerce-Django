@@ -428,6 +428,14 @@ def followers_vendor (request):
     return render(request, 'E_Commerce/FollowersVendor.html')
 
 
+def tools_vendor (request):
+    return render(request, 'E_Commerce/ToolsVendor.html')
+
+
+def support_tickets_vendor (request):
+    return render(request, 'E_Commerce/SupportVendor.html')
+
+
 def store_setup(request):
     if request.method == "POST":
         user = Vendor.objects.get(encrypted_id=request.session["authenticated"])

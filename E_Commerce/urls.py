@@ -56,6 +56,8 @@ urlpatterns = [
     path('staff_vendor', views.staff_vendor),
     path('add_staff', views.add_staff),
     path('followers_vendor', views.followers_vendor),
+    path('tools_vendor', views.tools_vendor),
+    path('support_tickets_vendor', views.support_tickets_vendor),
 
 
 ]
