@@ -1,6 +1,8 @@
 from django.contrib import messages
+from django.core.mail import send_mail
 from django.db import IntegrityError
 from django.shortcuts import render, redirect, render_to_response
+from django.template.loader import render_to_string
 from django.utils.encoding import force_text
 from django.utils.http import urlsafe_base64_decode
 from .models import Customer, Vendor, Store, Product_Category, Tag, Image, Product
@@ -50,7 +52,7 @@ def account_details(request):
     ven = {
         "user": user
     }
-    return render(request, 'E_Commerce/AccountDetails.html', ven)
+    return render(request, 'E_Commerce/VendorAccountDetails.html', ven)
 
 
 def rma_requests(request):
@@ -58,7 +60,7 @@ def rma_requests(request):
 
 
 def vendors(request):
-    return render(request, 'E_Commerce/Vendors.html')
+    return render(request, 'E_Commerce/DashboardVendor.html')
 
 
 def tickets(request):
@@ -119,8 +121,9 @@ def login(request):
         password_login = request.POST["password_login"]
         user = Customer()
         try:
-            if user.login(u_name, password_login):
-                request.session['authenticated'] = True
+            logged_in_user = user.login(u_name, password_login)
+            if logged_in_user is not None:
+                request.session["authenticated"] = logged_in_user.encrypted_id
                 return render(request, 'E_Commerce/Profile.html')
             else:
                 messages.error(request, "Invalid Username/Password")
@@ -388,51 +391,56 @@ def orders_vendor(request):
     return render(request, 'E_Commerce/OrdersVendor.html')
 
 
-def vendor_account_details (request):
-    return render(request, 'E_Commerce/VendorAccountDetails.html')
+def account_details_customer(request):
+    enc_id = request.session["authenticated"]
+    user = Customer.objects.get(encrypted_id=enc_id)
+    ven = {
+        "user": user
+    }
+    return render(request, 'E_Commerce/AccountDetails.html', ven)
 
 
-def vendor_coupons (request):
+def vendor_coupons(request):
     return render(request, 'E_Commerce/VendorCoupons.html')
 
 
-def edit_product (request):
+def edit_product(request):
     return render(request, 'E_Commerce/EditProduct.html')
 
 
-def reports_vendor (request):
+def reports_vendor(request):
     return render(request, 'E_Commerce/ReportsVendor.html')
 
 
-def reviews_vendor (request):
+def reviews_vendor(request):
     return render(request, 'E_Commerce/ReviewsVendor.html')
 
 
-def withdraw_vendor (request):
+def withdraw_vendor(request):
     return render(request, 'E_Commerce/WithdrawVendor.html')
 
 
-def returns_vendor (request):
+def returns_vendor(request):
     return render(request, 'E_Commerce/ReturnsVendor.html')
 
 
-def staff_vendor (request):
+def staff_vendor(request):
     return render(request, 'E_Commerce/StaffVendor.html')
 
 
-def add_staff (request):
+def add_staff(request):
     return render(request, 'E_Commerce/AddStaff.html')
 
 
-def followers_vendor (request):
+def followers_vendor(request):
     return render(request, 'E_Commerce/FollowersVendor.html')
 
 
-def tools_vendor (request):
+def tools_vendor(request):
     return render(request, 'E_Commerce/ToolsVendor.html')
 
 
-def support_tickets_vendor (request):
+def support_tickets_vendor(request):
     return render(request, 'E_Commerce/SupportVendor.html')
 
 
@@ -459,12 +467,12 @@ def store_register_page(request):
 
 
 def profile(request):
-    enc_id = request.session["authenticated"]
-    user = Vendor.objects.get(encrypted_id=enc_id)
-    ven = {
-        "vendor": user
-    }
-    return render(request, "E_Commerce/Profile.html", ven)
+    # enc_id = request.session["authenticated"]
+    # user = Vendor.objects.get(encrypted_id=enc_id)
+    # ven = {
+    #    "vendor": user
+    # }
+    return render(request, "E_Commerce/Profile.html")
 
 
 def update_vendor(request):
@@ -477,6 +485,7 @@ def update_vendor(request):
             user.firstname = firstname
             user.lastname = lastname
             user.email = email
+            user.username = user.generate_username(email)
             user.save()
         except Vendor.DoesNotExist:
             return HttpResponse("404 Error")
@@ -486,13 +495,13 @@ def update_vendor(request):
                 user.save()
             else:
                 messages.error(request, "The two passwords does not match")
-                return redirect("/account-details")
+                return redirect("/vendor_account_details")
         elif request.POST["c_password"] is not "" and not check_password(request.POST["c_password"], user.password):
             messages.error(request, "The current password is not correct")
-            return redirect("/account-details")
+            return redirect("/vendor_account_details")
 
         messages.success(request, "Profile Updated")
-        return redirect("/account-details")
+        return redirect("/vendor_account_details")
 
 
 def create_product(request):
@@ -515,13 +524,71 @@ def create_product(request):
         for t in tag:
             tags.append(Tag.objects.get(name=t))
 
-        prod.tag = tags
+        prod.tag.set(tags)
         prod.save()
 
-
-        for file in request.FILES.getlist('myfile'):
+        for file in request.FILES.getlist("images"):
             img = Image()
             img.image(file, prod)
 
         messages.success(request, "Product Created Successfully!")
         return redirect("/products")
+
+
+def update_customer(request):
+    if request.method == "POST":
+        firstname = request.POST["firstname"]
+        lastname = request.POST["lastname"]
+        email = request.POST["email"]
+        try:
+            user = Customer.objects.get(encrypted_id=request.session["authenticated"])
+            user.firstname = firstname
+            user.lastname = lastname
+            user.email = email
+            user.username = user.generate_username(email)
+            user.save()
+        except Customer.DoesNotExist:
+            return HttpResponse("404 Error")
+        if request.POST["c_password"] is not "" and check_password(request.POST["c_password"], user.password):
+            if request.POST["n_password"] == request.POST["cnfm_password"]:
+                user.password = make_password(request.POST["n_password"])
+                user.save()
+            else:
+                messages.error(request, "The two passwords does not match")
+                return redirect("/account_details_customer")
+        elif request.POST["c_password"] is not "" and not check_password(request.POST["c_password"], user.password):
+            messages.error(request, "The current password is not correct")
+            return redirect("/account_details_customer")
+
+        messages.success(request, "Profile Updated")
+        return redirect("/account_details_customer")
+
+
+def request_category(request):
+    if request.method == "POST":
+        name = request.POST["category-name"]
+        des = request.POST["des"]
+        mail_subject = 'Vendor has requested a Category'
+        message = render_to_string('E_Commerce/Request_Category_Email.html', {
+            'name': name,
+            'des': des,
+        })
+        send_mail(mail_subject, message, 'noreply@karkhanay.com', ['fahadzaheer19@gmail.com'],
+                  fail_silently=False)
+        messages.success(request, "Category Requested.")
+        return redirect('/dashboard-vendor')
+
+
+def tag_create(request):
+    if request.method == "POST":
+        name = request.POST["tag-name"]
+        tag_des = request.POST["tag-description"]
+        slug = request.POST['slug']
+
+        tag = Tag()
+        tag.name = name
+        tag.description = tag_des
+        tag.slug = slug
+        tag.save()
+        messages.success(request, "Tag created successfully.")
+        return redirect("/dashboard-vendor")

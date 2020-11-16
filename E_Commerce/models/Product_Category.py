@@ -10,7 +10,7 @@ class Product_Category(TimeStampedModel):
     category_image = models.ImageField()
 
     class Meta:
-        verbose_name_plural = "Product_Categories"
+        verbose_name_plural = "Product Categories"
 
     def __str__(self):
         return self.name

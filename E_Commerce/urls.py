@@ -18,7 +18,7 @@ urlpatterns = [
     path('orders', views.orders),
     path('downloads', views.downloads),
     path('addresses', views.addresses),
-    path('account-details', views.account_details),
+    path('vendor_account_details', views.account_details),
     path('rma-requests', views.rma_requests),
     path('vendors_page', views.vendors),
     path('tickets', views.tickets),
@@ -45,8 +45,9 @@ urlpatterns = [
     path('orders-vendor', views.orders_vendor),
     path('profile', views.profile),
     path('update_vendor', views.update_vendor),
+    path('update_customer', views.update_customer),
     path('products/create_product', views.create_product),
-    path('vendor_account_details', views.vendor_account_details),
+    path('account_details_customer', views.account_details_customer),
     path('vendor_coupons', views.vendor_coupons),
     path('edit_product', views.edit_product),
     path('reports_vendor', views.reports_vendor),
@@ -58,6 +59,7 @@ urlpatterns = [
     path('followers_vendor', views.followers_vendor),
     path('tools_vendor', views.tools_vendor),
     path('support_tickets_vendor', views.support_tickets_vendor),
-
+    path('request-category', views.request_category),
+    path('tag-create', views.tag_create),
 
 ]

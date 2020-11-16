@@ -58,7 +58,7 @@ class Customer(TimeStampedModel):
         session = Customer.objects.get(username=u_name)
         if check_password(password, session.password):
             if session.verified:
-                return True
+                return session
             else:
                 raise AssertionError
         else:

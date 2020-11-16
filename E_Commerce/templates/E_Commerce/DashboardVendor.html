@@ -25,20 +25,21 @@
                 </button>
               </div>
               <div class="modal-body">
-                <form>
+                <form method="post" action="request-category">
+                    {% csrf_token %}
                   <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">Category Name</label>
-                    <input type="text" class="form-control" id="category-name">
+                    <label for="category-name" class="col-form-label">Category Name</label>
+                    <input type="text" class="form-control" id="category-name" name="category-name">
                   </div>
                   <div class="form-group">
-                    <label for="description" class="col-form-label">Description</label>
-                    <textarea class="form-control" id="description"></textarea>
+                    <label for="des" class="col-form-label">Description</label>
+                    <textarea class="form-control" id="description1" name="des"></textarea>
                   </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-danger">Request</button>
+                    </div>
                 </form>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-danger">Save changes</button>
               </div>
             </div>
           </div>
@@ -60,32 +61,43 @@
                 </button>
               </div>
               <div class="modal-body">
-                <form>
+                <form action="tag-create" method="post">
+                    {% csrf_token %}
                   <div class="form-group">
                     <label for="tag-name" class="col-form-label">Tag Name</label>
-                    <input type="text" class="form-control" id="tag-name">
+                    <input type="text" class="form-control" id="tag-name" name="tag-name">
                   </div>
                   <div class="form-group">
-                    <label for="description" class="col-form-label">Description</label>
-                    <textarea class="form-control" id="description"></textarea>
+                    <label for="tag-description" class="col-form-label">Description</label>
+                    <textarea class="form-control" id="tag-description" name="tag-description"></textarea>
                   </div>
-                </form>
                 <div class="form-group">
                   <label for="slug" class="col-form-label">Slug</label>
-                  <input type="text" class="form-control" id="slug">
+                  <input type="text" class="form-control" id="slug" name="slug">
                 </div>
-              </div>
+
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-danger">Save changes</button>
+                <button type="submit" class="btn btn-danger">Create Tag</button>
               </div>
+                </form>
+                  </div>
             </div>
           </div>
         </div>
 
       </div>
     </div>
-    <div class="row">
+      {% for message in messages %}
+      <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+          </button>
+          {{ message | safe }}
+      </div>
+      {% endfor %}
+      <div class="row">
+    <br/><br/>
       <div class="col border">
         <div class="progress m-3">
           <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
