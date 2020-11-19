@@ -5,7 +5,7 @@ from E_Commerce.models import Product
 
 class Image(TimeStampedModel):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    image = models.ImageField()
+    image = models.ImageField(upload_to="products/")
 
     def image(self, image, product):
         self.image = image

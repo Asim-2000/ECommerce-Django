@@ -1,0 +1,6 @@
+{% extends 'E_Commerce/HomePage.html' %}
+{% block content %}
+{% for product in products %}
+    <img src="{{ product.image.url }}">
+{% endfor %}
+{% endblock %}

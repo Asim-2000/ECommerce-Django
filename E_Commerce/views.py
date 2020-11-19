@@ -15,7 +15,11 @@ from .tokens import account_activation_token, password_reset_token
 
 
 def home(request):
-    return render(request, 'E_Commerce/HomePage.html')
+    products = Image.objects.all()
+    ven = {
+        "products": products
+    }
+    return render(request, 'E_Commerce/DisplayProduct.html',ven)
 
 
 def account(request):
@@ -467,11 +471,6 @@ def store_register_page(request):
 
 
 def profile(request):
-    # enc_id = request.session["authenticated"]
-    # user = Vendor.objects.get(encrypted_id=enc_id)
-    # ven = {
-    #    "vendor": user
-    # }
     return render(request, "E_Commerce/Profile.html")
 
 
@@ -489,14 +488,14 @@ def update_vendor(request):
             user.save()
         except Vendor.DoesNotExist:
             return HttpResponse("404 Error")
-        if request.POST["c_password"] is not "" and check_password(request.POST["c_password"], user.password):
+        if request.POST["c_password"] != "" and check_password(request.POST["c_password"], user.password):
             if request.POST["n_password"] == request.POST["cnfm_password"]:
                 user.password = make_password(request.POST["n_password"])
                 user.save()
             else:
                 messages.error(request, "The two passwords does not match")
                 return redirect("/vendor_account_details")
-        elif request.POST["c_password"] is not "" and not check_password(request.POST["c_password"], user.password):
+        elif request.POST["c_password"] != "" and not check_password(request.POST["c_password"], user.password):
             messages.error(request, "The current password is not correct")
             return redirect("/vendor_account_details")
 
@@ -549,14 +548,14 @@ def update_customer(request):
             user.save()
         except Customer.DoesNotExist:
             return HttpResponse("404 Error")
-        if request.POST["c_password"] is not "" and check_password(request.POST["c_password"], user.password):
+        if request.POST["c_password"] != "" and check_password(request.POST["c_password"], user.password):
             if request.POST["n_password"] == request.POST["cnfm_password"]:
                 user.password = make_password(request.POST["n_password"])
                 user.save()
             else:
                 messages.error(request, "The two passwords does not match")
                 return redirect("/account_details_customer")
-        elif request.POST["c_password"] is not "" and not check_password(request.POST["c_password"], user.password):
+        elif request.POST["c_password"] != "" and not check_password(request.POST["c_password"], user.password):
             messages.error(request, "The current password is not correct")
             return redirect("/account_details_customer")
 
