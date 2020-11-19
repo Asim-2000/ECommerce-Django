@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.core.mail import send_mail
 from django.db import IntegrityError
-from django.shortcuts import render, redirect, render_to_response
+from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 from django.utils.encoding import force_text
 from django.utils.http import urlsafe_base64_decode
@@ -14,12 +14,13 @@ from django.contrib.auth.hashers import make_password, check_password
 from .tokens import account_activation_token, password_reset_token
 import pdb
 
+
 def home(request):
-    products = Image.objects.all()
+    images = Image.objects.all()
     ven = {
-        "products": products
+        "images": images
     }
-    return render(request, 'E_Commerce/DisplayProduct.html',ven)
+    return render(request, 'E_Commerce/DisplayProduct.html', ven)
 
 
 def account(request):

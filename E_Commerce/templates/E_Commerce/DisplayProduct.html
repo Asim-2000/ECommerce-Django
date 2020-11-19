@@ -1,6 +1,12 @@
 {% extends 'E_Commerce/HomePage.html' %}
 {% block content %}
-{% for product in products %}
-    <img src="{{ product.image.url }}">
-{% endfor %}
+    <h1 style="margin-left: 450px;">Products</h1>
+    <div class="row">
+    {% for img in images %}
+        <div class="col">
+        <img src="{{ img.image.url }}" width="100dp" height="100dp" style="margin-left: 20px;">
+        <div class="overlay" style="margin-left: 20px;">{{ img.product.name }}</div>
+        </div>
+    {% endfor %}
+    </div>
 {% endblock %}
