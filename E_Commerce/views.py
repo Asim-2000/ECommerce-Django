@@ -12,7 +12,7 @@ from django.contrib.auth.hashers import make_password, check_password
 
 # Create your views here.
 from .tokens import account_activation_token, password_reset_token
-
+import pdb
 
 def home(request):
     products = Image.objects.all()
@@ -528,8 +528,9 @@ def create_product(request):
 
         for file in request.FILES.getlist("images"):
             img = Image()
-            img.image(file, prod)
-
+            img.image = file
+            img.product = prod
+            img.save()
         messages.success(request, "Product Created Successfully!")
         return redirect("/products")
 
