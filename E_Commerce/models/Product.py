@@ -14,14 +14,23 @@ class Product(TimeStampedModel):
     stock_count = models.IntegerField(null=True)
     featured = models.BooleanField(verbose_name='featured_product', default=False)
     tag = models.ManyToManyField(Tag)
+    stock_status = models.CharField(max_length=20)
+    one_quantity_sale = models.BooleanField(verbose_name="one_quantity_name", default=False)
+    stock_management = models.BooleanField(verbose_name="stock_management", default=False)
+    weight = models.FloatField(max_length=10, null=True)
+    sku = models.CharField(max_length=50, null=True)
+    status = models.CharField(max_length=50, null=True)
+    visibility = models.CharField(max_length=50, null=True)
+    purchase_note = models.CharField(max_length=100,null=True)
 
-    def create_product(self, store, name, category, price, discounted_price, description, s_description):
+    def create_product(self, store, name, category, price, discounted_price, description, s_description, stk_cnt):
         self.name = name
         self.product_category = category
         self.price = price
         self.description = description
         self.discounted_price = discounted_price
         self.short_description = s_description
+        self.stock_count = stk_cnt
         self.store = store
         self.save()
 

@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 from django.utils.encoding import force_text
 from django.utils.http import urlsafe_base64_decode
-from .models import Customer, Vendor, Store, Product_Category, Tag, Image, Product
+from .models import Customer, Vendor, Store, Product_Category, Tag, Image, Product, Cart
 from django.http import HttpResponse
 from django.utils.datastructures import MultiValueDictKeyError
 from django.contrib.auth.hashers import make_password, check_password
@@ -371,7 +371,7 @@ def store_registration(request):
 
 
 def temp(request):
-    return render(request, "E_Commerce/temp.html")
+    return render(request, "E_Commerce/EditProduct.html")
 
 
 def products(request):
@@ -407,10 +407,6 @@ def account_details_customer(request):
 
 def vendor_coupons(request):
     return render(request, 'E_Commerce/VendorCoupons.html')
-
-
-def edit_product(request):
-    return render(request, 'E_Commerce/EditProduct.html')
 
 
 def reports_vendor(request):
@@ -517,8 +513,8 @@ def create_product(request):
         des = request.POST["description"]
         category = Product_Category.objects.get(name=request.POST["categories"])
         tag = request.POST.getlist("tags")
-
-        prod.create_product(store, name, category, price, discounted, des, s_des)
+        stock_count = request.POST["stock_count"]
+        prod.create_product(store, name, category, price, discounted, des, s_des, stock_count)
 
         tags = []
         for t in tag:
@@ -532,6 +528,36 @@ def create_product(request):
             img.image = file
             img.product = prod
             img.save()
+        request.session["product"] = prod.pk
+        return render(request, 'E_Commerce/EditProduct.html')
+
+
+def edit_product(request):
+    pd_id = request.session["product"]
+    product = Product.objects.get(pk=pd_id)
+    if request.method == "POST":
+        # product.name = request.POST["Title"]
+        # product.price = request.POST["price"]
+        # product.discounted_price = request.POST["discount"]
+        # category = Product_Category.objects.get(name=request.POST["categories"])
+        # tag = request.POST.getlist("tags")
+        # product.product_category = category
+        # product.short_description = request.POST["shortDescription"]
+        # product.description = request.POST["description"]
+        # tags = []
+        # for t in tag:
+        #    tags.append(Tag.objects.get(name=t))
+
+        # product.tag.set(tags)
+        product.sku = request.POST["sku"]
+        product.stock_status = request.POST["status"]
+        product.one_quantity_sale = request.POST["one_quantity"] == "on"
+        product.stock_management = request.POST["stock_management"] == "on"
+        product.weight = request.POST["weight"]
+        product.status = request.POST["productStatus"]
+        product.visibility = request.POST["visibility"]
+        product.purchase_note = request.POST["purchaseNote"]
+        product.save()
         messages.success(request, "Product Created Successfully!")
         return redirect("/products")
 
@@ -593,3 +619,8 @@ def tag_create(request):
         tag.save()
         messages.success(request, "Tag created successfully.")
         return redirect("/dashboard-vendor")
+
+
+def add_to_cart(request, prod_pk):
+    cart = Cart()
+    cart.product = Product.objects.get(pk=prod_pk)

@@ -61,5 +61,6 @@ urlpatterns = [
     path('support_tickets_vendor', views.support_tickets_vendor),
     path('request-category', views.request_category),
     path('tag-create', views.tag_create),
+    path('add_to_cart/<prod_pk>', views.add_to_cart)
 
 ]

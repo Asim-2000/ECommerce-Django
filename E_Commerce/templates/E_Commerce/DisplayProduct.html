@@ -6,7 +6,10 @@
         <div class="col">
         <img src="{{ img.image.url }}" width="100dp" height="100dp" style="margin-left: 20px;">
         <div class="overlay" style="margin-left: 20px;">{{ img.product.name }}</div>
+        <button class="btn btn-info" onclick="location.href='/add_to_cart/<img.product.pk>'" style="margin-left: 20px;"> Add to Cart</button>
         </div>
+
     {% endfor %}
+
     </div>
 {% endblock %}
