@@ -6,4 +6,4 @@ from E_Commerce.models import Product, Customer
 class Cart(TimeStampedModel):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.IntegerField()
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null=True)
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)

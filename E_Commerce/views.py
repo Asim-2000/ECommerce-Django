@@ -12,13 +12,14 @@ from django.contrib.auth.hashers import make_password, check_password
 
 # Create your views here.
 from .tokens import account_activation_token, password_reset_token
-import pdb
+
+temp_cart = []
 
 
 def home(request):
-    images = Image.objects.all()
+    prod = Product.objects.all()
     ven = {
-        "images": images
+        "prod": prod
     }
     return render(request, 'E_Commerce/DisplayProduct.html', ven)
 
@@ -28,7 +29,18 @@ def account(request):
 
 
 def cart(request):
-    return render(request, 'E_Commerce/Cart.html')
+    if request.session.has_key("product"):
+        temp = request.session["product"]
+        ls = []
+        for p in temp:
+            product = Product.objects.get(pk=p)
+            if product not in ls:
+                ls.append(product)
+
+        ven = {
+            "product": ls
+        }
+        return render(request, 'E_Commerce/Cart.html', ven)
 
 
 def payment_setup(request):
@@ -521,13 +533,15 @@ def create_product(request):
             tags.append(Tag.objects.get(name=t))
 
         prod.tag.set(tags)
+        prod.featured_image = request.FILES.getlist("images")[0]
         prod.save()
-
         for file in request.FILES.getlist("images"):
             img = Image()
             img.image = file
             img.product = prod
             img.save()
+
+
         request.session["product"] = prod.pk
         return render(request, 'E_Commerce/EditProduct.html')
 
@@ -559,6 +573,8 @@ def edit_product(request):
         product.purchase_note = request.POST["purchaseNote"]
         product.save()
         messages.success(request, "Product Created Successfully!")
+
+        del request.session["product"]
         return redirect("/products")
 
 
@@ -622,5 +638,6 @@ def tag_create(request):
 
 
 def add_to_cart(request, prod_pk):
-    cart = Cart()
-    cart.product = Product.objects.get(pk=prod_pk)
+    temp_cart.append(prod_pk)
+    request.session["product"] = temp_cart
+    return redirect("/")

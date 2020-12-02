@@ -22,6 +22,7 @@ class Product(TimeStampedModel):
     status = models.CharField(max_length=50, null=True)
     visibility = models.CharField(max_length=50, null=True)
     purchase_note = models.CharField(max_length=100,null=True)
+    featured_image = models.ImageField(upload_to="products/")
 
     def create_product(self, store, name, category, price, discounted_price, description, s_description, stk_cnt):
         self.name = name
