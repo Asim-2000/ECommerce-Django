@@ -5,8 +5,10 @@ from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 from django.utils.encoding import force_text
 from django.utils.http import urlsafe_base64_decode
+from django.views.decorators.cache import cache_control
+
 from .models import Customer, Vendor, Store, Product_Category, Tag, Image, Product, Cart
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.utils.datastructures import MultiValueDictKeyError
 from django.contrib.auth.hashers import make_password, check_password
 
@@ -28,6 +30,7 @@ def account(request):
     return render(request, 'E_Commerce/Login_Registration.html')
 
 
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def cart(request):
     if request.session.has_key("product"):
         temp = request.session["product"]
@@ -36,11 +39,33 @@ def cart(request):
             product = Product.objects.get(pk=p)
             if product not in ls:
                 ls.append(product)
-
         ven = {
             "product": ls
         }
         return render(request, 'E_Commerce/Cart.html', ven)
+    return render(request, 'E_Commerce/Cart.html')
+
+
+def checkout(request):
+    if request.method == "POST":
+        if request.session.has_key("product"):
+            temp = request.session["product"]
+            ls = []
+            prod = []
+            quan = []
+            total = 0
+            for p in temp:
+                product = Product.objects.get(pk=p)
+                quantity = request.POST["quantity" + p]
+                prod.append(product)
+                quan.append(quantity)
+                total += product.price * int(quantity)
+
+            zipped = zip(prod, quan)
+            ven = {
+                "zipped": zipped, "total": total
+            }
+            return render(request, "E_Commerce/Checkout.html", ven)
 
 
 def payment_setup(request):
@@ -383,7 +408,7 @@ def store_registration(request):
 
 
 def temp(request):
-    return render(request, "E_Commerce/EditProduct.html")
+    return render(request, "E_Commerce/temp.html")
 
 
 def products(request):
@@ -540,7 +565,6 @@ def create_product(request):
             img.image = file
             img.product = prod
             img.save()
-
 
         request.session["product"] = prod.pk
         return render(request, 'E_Commerce/EditProduct.html')

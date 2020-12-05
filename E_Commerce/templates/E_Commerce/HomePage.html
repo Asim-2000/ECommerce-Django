@@ -12,23 +12,25 @@
     <link rel="stylesheet" href="{% static '/css/all.min.css' %}">
     <link rel="stylesheet" href="{% static '/css/main.css' %}">
     <link rel="stylesheet" href="{% static '/css/style.css' %}">
+
     {% block stylesheet %}{% endblock %}
     {% include 'E_Commerce/MainNavigation.html' %}
 </head>
 <body>
 <div class="">
-  <br>
+    <br>
     {% block content %}
 
     {% endblock %}
 </div>
 <hr>
 </body>
-<script src="{% static '/js/jquery.js'%}"></script>
-<script src="{% static '/js/popper.js'%}"></script>
-<script src="{% static '/js/all.min.js'%}"></script>
-<script src="{% static '/js/bootstrap.js'%}"></script>
-<script src="{% static '/js/form.js'%}"></script>
+<script src="{% static '/js/jquery.js' %}"></script>
+<script src="{% static '/js/popper.js' %}"></script>
+<script src="{% static '/js/all.min.js' %}"></script>
+<script src="{% static '/js/bootstrap.js' %}"></script>
+<script src="{% static '/js/form.js' %}"></script>
+
 {% block script %}{% endblock %}
 <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 </html>
