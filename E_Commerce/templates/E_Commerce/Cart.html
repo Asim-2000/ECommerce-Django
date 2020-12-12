@@ -1,61 +1,92 @@
 {% extends 'E_Commerce/HomePage.html' %}
-    {% block content %}
+{% block title %}Cart{% endblock %}
+{% block script %}
+    <script>
+        function update_Cart(num) {
+            var quantity = document.getElementById("quantity"+num);
+            var price = document.getElementById("price"+num);
+            var total = parseFloat(quantity.value) * parseFloat(price.value);
+            document.getElementById("subtotal"+num).value = total;
+        }
+    </script>
+
+{% endblock %}
+{% block content %}
 
 
-<hr>
+    <hr>
 
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="#">Home</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Cart</li>
-  </ol>
-</nav>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Cart</li>
+        </ol>
+    </nav>
 
-<div class="container">
-	<table id="cart" class="table table-hover table-condensed">
-    				<thead>
-						<tr>
-							<th style="width:50%">Product</th>
-							<th style="width:10%">Price</th>
-							<th style="width:8%">Quantity</th>
-							<th style="width:22%" class="text-center">Subtotal</th>
-							<th style="width:10%"></th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td data-th="Product">
-								<div class="row">
-									<div class="col-sm-2 hidden-xs"><img src="" alt="..." class="img-responsive"/></div>
-									<div class="col-sm-10">
-										<h4 class="nomargin">Product 1</h4>
-										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-									</div>
-								</div>
-							</td>
-							<td data-th="Price">$1.99</td>
-							<td data-th="Quantity">
-								<input type="number" class="form-control text-center" value="1">
-							</td>
-							<td data-th="Subtotal" class="text-center">1.99</td>
-							<td class="actions" data-th="">
-								<button class="btn btn-info btn-sm"><i class="fa fa-refresh"></i></button>
-								<button class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>
-							</td>
-						</tr>
-					</tbody>
-					<tfoot>
-						<tr class="visible-xs">
-							<td class="text-center"><strong>Total 1.99</strong></td>
-						</tr>
-						<tr>
-							<td><a href="#" class="btn btn-secondary"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
-							<td colspan="2" class="hidden-xs"></td>
-							<td class="hidden-xs text-center"><strong>Total $1.99</strong></td>
-							<td><a href="#" class="btn btn-success btn-block">Checkout <i class="fa fa-angle-right"></i></a></td>
-						</tr>
-					</tfoot>
-				</table>
-</div>
+    <div class="container">
 
-    {%endblock%}
+        <form method="post" action="checkout">
+        {% csrf_token %}
+            <table id="cart" class="table table-hover table-condensed">
+
+                <thead>
+
+                <tr>
+                    <th style="width:10%">Image</th>
+                    <th style="width:35%">Product</th>
+                    <th style="width:15%">Price</th>
+                    <th style="width:2%">Quantity</th>
+                    <th style="width:13%" class="text-center">Subtotal</th>
+                    <th style="width:30%"></th>
+                </tr>
+                </thead>
+                {% for p in product %}
+
+                    <tbody>
+                    <tr>
+                        <td data-th="Image">
+                            <div class="col-sm-2 hidden-xs">
+                                <img src="{{ p.featured_image.url }}" class="img-responsive"
+                                     height="100px" width="100px"/>
+                            </div>
+                        </td>
+                        <td data-th="Product">
+                            <div class="col-sm-10">
+                                <h4 class="nomargin">{{ p.name }}</h4>
+                                <p>{{ p.description }}</p>
+                            </div>
+
+                        </td>
+
+                        <td data-th="Price">
+                            <input id="price{{ p.pk }}" disabled style="background-color:white" class="price form-control text-center"
+                                   value={{ p.price }}></td>
+                        <td data-th="Quantity">
+                            <input type="number" class="quantity form-control" onchange="update_Cart({{ p.pk }})" id="quantity{{ p.pk }}" name="quantity{{ p.pk }}" value="1" min="1.0">
+                        </td>
+                        <td data-th="Subtotal" class="text-center">
+                            <input class="subtotal form-control text-center"  id="subtotal{{ p.pk }}" style="background-color:white"
+                                   value={{ p.price }} width="20px;" disabled>
+                        </td>
+                        <td class="actions" data-th="">
+                            <button class="btn btn-info btn-sm"><i class="fa fa-refresh"></i></button>
+                            <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>
+
+                        </td>
+                    </tr>
+                    </tbody>
+
+                {% endfor %}
+                <tfoot>
+                <tr>
+                    <td><a href="" class="btn btn-secondary"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
+                    <td colspan="2" class="hidden-xs"></td>
+                    <td>
+                        <button type="submit" class="btn btn-secondary">Checkout</button>
+                    </td>
+                </tr>
+                </tfoot>
+            </table>
+        </form>
+    </div>
+{% endblock %}

@@ -1,16 +1,16 @@
 {% extends 'E_Commerce/HomePage.html' %}
-
+{% block title %}Login/Registration{% endblock %}
 {% block content %}
 <div class="container">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="">Home</a></li>
             <li class="breadcrumb-item active" aria-current="page">Sign In/Register</li>
         </ol>
     </nav>
     {% for message in messages %}
     <div class="alert {{ message.tags }} alert-dismissible" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <button type="button" onClick="location.href=''" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
         {{ message | safe }}
@@ -41,7 +41,7 @@
                         </div>
 
                     </div>
-                    <button type="submit" class="btn btn-outline-success">Login</button>
+                    <button type="submit" onClick= "opener.location='customer'" class="btn btn-outline-success">Login</button>
                 </form>
                 <h1></h1>
 
@@ -105,7 +105,7 @@
                     </div>
                     </p>
                     <hr>
-                    <button type="submit" class="btn btn-outline-success">Register</button>
+                    <button type="submit" onClick= "opener.location='vendor'" class="btn btn-outline-success">Register</button>
                 </form>
             </div>
 

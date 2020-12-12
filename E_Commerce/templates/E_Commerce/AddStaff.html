@@ -1,0 +1,37 @@
+{% extends 'E_Commerce/VendorPanel.html' %}
+{% load static %}
+{% block title %}Vendor Return{% endblock %}
+{% block currentPage %}Vendor Return{% endblock %}
+{% block script %}
+{% endblock %}
+
+
+{% block panel_vendor %}
+  <div class="m-3 p-5 col-md-8">
+      <h3>Add New Staff</h3>
+    <div class="row">
+      <div class="col">
+        <form>
+          <div class="form-group">
+            <label for="firstname">First Name</label>
+            <input type="text" class="form-control" id="firstname" aria-describedby="emailHelp" placeholder="Enter first name" required>
+          </div>
+          <div class="form-group">
+            <label for="lastname">Last Name</label>
+            <input type="text" class="form-control" id="lastname" placeholder="Enter Last Name" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email address</label>
+            <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email" required>
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="number" class="form-control" id="phone" required>
+          </div>
+          <button type="submit" class="btn btn-danger">Create Staff</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

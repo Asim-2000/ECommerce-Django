@@ -1,74 +1,19 @@
-{% extends 'E_Commerce/HomePage.html' %}
-{% block content %}
-
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a class=" text-success" href="#">Home</a></li>
-    <li class="breadcrumb-item" aria-current="page">Accounts</li>
-    <li class="breadcrumb-item active" aria-current="page">RMA Requests</li>
-  </ol>
-</nav>
-
-<div class="container-fluid" style="margin-top: 100px;">
-  <div class="row">
-    <div class="col-sm-3">
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center  ">
-          <a class="nav-link text-success" href="#">Dashboard</a>
-          <span class=""><a href="#"><i class="fas fa-tachometer-alt  text-success"></i></a></span>
-        </li>
-        <li class="list-group-item list-group-item-action  d-flex justify-content-between align-items-center  ">
-          <a class="nav-link  text-success" href="#">Orders</a>
-          <span class=""><a href="#"><i class="fas fa-shopping-basket text-success"></i></a></span>
-        </li>
-        <li class="list-group-item list-group-item-action  d-flex justify-content-between align-items-center  ">
-          <a class="nav-link text-success" href="#">Downloads</a>
-          <span class=""><a href="#"><i class="far fa-file-archive text-success"></i></a></span>
-        </li>
-        <li class="list-group-item list-group-item-action  d-flex justify-content-between align-items-center  ">
-          <a class="nav-link  text-success" href="#">Addresses</a>
-          <span class=""><a href="#"><i class="fas fa-home text-success"></i></a></span>
-        </li>
-        <li class="list-group-item list-group-item-action  d-flex justify-content-between align-items-center  ">
-          <a class="nav-link  text-success" href="#">Account Details</a>
-          <span class=""><a href="#"><i class="far fa-user text-success"></i></a></span>
-        </li>
-        <li class="list-group-item list-group-item-action  d-flex justify-content-between align-items-center  ">
-          <a class="nav-link  text-success" href="#">RMA Requests</a>
-          <span class=""><a href="#"><i class="far fa-file-alt text-success"></i></a></span>
-        </li>
-        <li class="list-group-item list-group-item-action  d-flex justify-content-between align-items-center  ">
-          <a class="nav-link text-success" href="#">Vendors</a>
-          <span class=""><a href="#"><i class="far fa-file-alt text-success"></i></a></span>
-        </li>
-        <li class="list-group-item list-group-item-action  d-flex justify-content-between align-items-center  ">
-          <a class="nav-link text-success" href="#">Seller Support Tickets</a>
-          <span class=""><a href="#"><i class="far fa-file-alt text-success"></i></a></span>
-        </li>
-        <li class="list-group-item list-group-item-action  d-flex justify-content-between align-items-center  ">
-          <a class="nav-link  text-success" href="#">Logout</a>
-          <span class=""><a href="#"><i class="fas fa-sign-out-alt  text-success"></i></a></span>
-        </li>
-      </ul>
-    </div>
-    <div class="col-md-8">
-      <table class="table">
-  <thead class="thead-light">
-    <tr>
-      <th scope="col">Order ID</th>
-      <th scope="col">Vendor</th>
-      <th scope="col">Type</th>
-      <th scope="col">Status</th>
-    </tr>
-  </thead>
-  <tbody>
-  </tbody>
-</table>
-    </div>
-
+{% extends 'E_Commerce/CustomerPanel.html' %}
+{% block title %}RMA Request{% endblock %}
+{% block currentPage %}RMA Requests{% endblock %}
+{% block panel %}
+  <div class="m-3 p-5 col-md-8">
+    <table class="table">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">Order ID</th>
+          <th scope="col">Vendor</th>
+          <th scope="col">Type</th>
+          <th scope="col">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
   </div>
-</div>
-
-
-
 {% endblock %}

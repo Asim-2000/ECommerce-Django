@@ -1,33 +1,37 @@
 {% extends 'E_Commerce/HomePage.html' %}
+{% block title %}Payment Setup{% endblock %}
 {% block content %}
-
-<div class="container">
-  <div class="row justify-content-center">
-    <div class="col-md-8">
-      <div class="card">
-
-        <div class="card-header text-center"><img src="/static/images/logo.png" class="text-center" alt="Karkhanay Logo" title="Karkhanay" width="50%"></div>
-        <div class="card-header text-center"> <strong> Welcome to the Marketplace!</strong></div>
-        <div class="card-body">
-          <p>Thankyou for choosing The Marketplace to power your online store! This quick step wizard will help you configure the basic settings. <strong>It's completeley optional and shouldn't take longer than two minutes.</strong> </p>
-          <br>
-          <p>No time right now? If you dont want to go through the wizard you can skip and return to the Store!</p>
-          <div class="col-md-6 offset-md-3">
-            <button type="submit" class="btn btn-warning btn-lg">
-              Let's Go
-            </button>
-            <button type="submit" class="btn btn-warning btn-lg">
-              Not Right Now
-            </button>
+<main class="my-form">
+  <div class="cotainer">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header text-center"><img src="/static/images/logo.png" class="text-center" alt="Karkhanay Logo" title="Karkhanay" width="50%"></div>
+          <div class="card-header text-center"> <strong>Payment Setup</strong></div>
+          <div class="card-body">
+            <form name="my-form" onsubmit="return validform()" action="" method="">
+              <div class="container text-justify p-3">
+                <h1 class="">Welcome to the Marketplace!</h1>
+                <p>Thankyou for choosing The Marketplace to power your online store! This quick setup wizard will help you configure the basic settings. <b>Its completely optional and shouldn't take longer than 2 minutes</b>.</p>
+                <p>No time right now? If you don't want to go through the wizard, you can skip and return to the Store!</p>
+              </div>
+              <div class="col-md-6 offset-md-4">
+                <button type="submit" onClick="location.href='paymentsetup'" class="btn btn-warning btn-lg">
+                  Let's Go
+                </button>
+                <button type="submit" onClick="location.href='ready'" class="btn btn-warning btn-lg">
+                  Not Right Now
+                </button>
+              </div>
+          </form>
           </div>
         </div>
-
       </div>
-
     </div>
   </div>
 
-</div>
+
+</main>
 
 
 {%endblock%}

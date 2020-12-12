@@ -1,0 +1,53 @@
+{% extends 'E_Commerce/VendorPanel.html' %}
+{% load static %}
+{% block title %}Vendor Withdraw{% endblock %}
+{% block currentPage %}Vendor Withdraw{% endblock %}
+{% block script %}
+{% endblock %}
+
+
+{% block panel_vendor %}
+<div class="m-3 p-5 col-md-8">
+  <h4>Withdraw</h4>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <div class="alert alert-warning" role="alert">
+          <p>Current Balance: ₨0.00 </p>
+          <p>Minimum Withdraw amount: ₨50.00 </p>
+          <p>Withdraw Threshold: 0 days </p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <ul class="nav nav-tabs">
+        <li class="nav-item active"><a class="nav-link" data-toggle="tab" href="#withdraw">Withdraw Request</a></li>
+        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#approve">Approve Requests</a></li>
+        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#cancelled">Cancelled Requests</a></li>
+      </ul>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="tab-content">
+          <div id="withdraw" class="tab-pane fade in active m-2">
+              <div class="alert alert-danger" role="alert">
+                You don't have sufficient balance for a withdraw request!
+              </div>
+          </div>
+          <div id="approve" class="tab-pane fade m-2">
+            <div class="alert alert-warning" role="alert">
+              Sorry, no transactions were found!
+            </div>
+          </div>
+          <div id="cancelled" class="tab-pane fade m-2">
+            <div class="alert alert-warning" role="alert">
+              Sorry, no transactions were found!
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

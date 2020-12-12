@@ -1,6 +1,5 @@
 import random
 import string
-
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import send_mail
 from django.db import models
@@ -9,9 +8,7 @@ from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 from django_extensions.db.models import TimeStampedModel
 from django.contrib.auth.hashers import check_password
-
 from E_Commerce.tokens import account_activation_token, password_reset_token
-
 
 class Customer(TimeStampedModel):
     firstname = models.CharField(max_length=30)
@@ -22,15 +19,8 @@ class Customer(TimeStampedModel):
     contact_number = models.CharField(max_length=30)
     verified = models.BooleanField(verbose_name='verified', default=False)
     encrypted_id = models.CharField(max_length=35)
-    def generate_username(self, email="123@gmail.com"):
-        i = email.index("@")
-        username = email[:i]
-        return username
 
-    def __str__(self):
-        return self.username
-
-    def create_Customer(self, firstname, lastname, email, password, contact_number):
+    def create_customer(self, firstname, lastname, email, password, contact_number):
         self.firstname = self.set_name(firstname)
         self.lastname = self.set_name(lastname)
         self.email = email
@@ -40,6 +30,15 @@ class Customer(TimeStampedModel):
         self.verified = False
         self.encrypted_id = self.get_random_string()
         self.save()
+
+
+    def generate_username(self, email="123@gmail.com"):
+        i = email.index("@")
+        username = email[:i]
+        return username
+
+    def __str__(self):
+        return self.username
 
     def set_contact_number(self, contactNumber):
         if not contactNumber.isdecimal() or not len(contactNumber) == 10:
@@ -59,13 +58,13 @@ class Customer(TimeStampedModel):
         session = Customer.objects.get(username=u_name)
         if check_password(password, session.password):
             if session.verified:
-                return True
+                return session
             else:
                 raise AssertionError
         else:
             return False
 
-    def sendEmail(self, user, request):
+    def sendemail(self, user, request):
         current_site = get_current_site(request)
         mail_subject = 'Activate your account.'
         message = render_to_string('E_Commerce/Activation_email.html', {

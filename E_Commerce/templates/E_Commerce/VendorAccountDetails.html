@@ -1,0 +1,60 @@
+{% extends 'E_Commerce/VendorPanel.html' %}
+{% load static %}
+{% block title %}Vendor Edit Account{% endblock %}
+{% block currentPage %}Vendor Edit Account{% endblock %}
+{% block script %}
+{% endblock %}
+
+
+{% block panel_vendor %}
+<div class="m-3 p-5 col-md-8">
+  {% for message in messages %}
+  <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    {{ message | safe }}
+  </div>
+  {% endfor %}
+  <form action="update_vendor" method="post">
+    {% csrf_token %}
+
+    <div class="form-row">
+      <div class="col">
+        <label for="">First Name</label>
+        <input type="text" class="form-control" required name="firstname" value="{{ user.firstname }}">
+      </div>
+      <div class="col">
+        <label for="">Last Name</label>
+        <input type="text" class="form-control" required name="lastname" value="{{ user.lastname }}">
+      </div>
+    </div>
+    <div class="form-row mx-auto">
+      <label for="">Email</label>
+      <input type="text" class="form-control" required name="email" value="{{ user.email }}">
+    </div>
+    <br>
+    <div class=" container-fluid border" style="padding: 20px;">
+      <p><b>Password</b></p>
+      <div class="form-row">
+        <label for="">Current password (leave blank to leave unchanged)</label>
+        <input type="password" class="form-control" name="c_password" minlength="8">
+      </div>
+      <div class="form-row">
+        <label for="">New password (leave blank to leave unchanged)</label>
+        <input type="password" class="form-control" name="n_password" minlength="8">
+      </div>
+      <div class="form-row">
+        <label for="">Confirm password</label>
+        <input type="password" class="form-control" name="cnfm_password" minlength="8">
+      </div>
+      <hr>
+      <div class="form-row">
+        <button type="submit" class="btn btn-outline-success" style="margin-left: 450px;">Update</button>
+      </div>
+    </div>
+
+
+  </form>
+</div>
+{% endblock %}

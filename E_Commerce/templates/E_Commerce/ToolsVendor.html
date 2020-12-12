@@ -1,0 +1,63 @@
+{% extends 'E_Commerce/VendorPanel.html' %}
+{% load static %}
+{% block title %}Vendor Tools{% endblock %}
+{% block currentPage %}Vendor Tools{% endblock %}
+{% block script %}
+{% endblock %}
+
+
+{% block panel_vendor %}
+<div class="m-3 p-5 col-md-8">
+  <h3>Support Tickets</h3>
+  <div class="row">
+    <ul class="nav nav-tabs">
+      <li class="nav-item active"><a class="nav-link" data-toggle="tab" href="#import">Import</a></li>
+      <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#export">Export</a></li>
+    </ul>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="tab-content">
+        <div id="import" class="tab-pane fade in active m-2">
+          <h4>Import XML</h4>
+          <form class="p-4" action="index.html" method="post">
+            <div class="border-bottom p-3">
+              <p>Click Browse button and choose a XML file that you want to import.</p>
+              <input type="file" name="" value="">
+              <button type="button" class="btn btn-danger" name="importxml">Import</button>
+            </div>
+            <div class="p-3">
+              <h4>Import CSV</h4>
+              <button type="button" class="btn btn-danger" name="importcsv">Import</button>
+            </div>
+          </form>
+        </div>
+        <div id="export" class="tab-pane fade m-2">
+          <h4>Export XML</h4>
+          <form class="p-4" action="index.html" method="post">
+            <div class="border-bottom p-3">
+              <p>Chose your type of product and click export button to export all data in XML form.</p>
+              <div class="radio">
+                <label><input type="radio" name="optradio" checked>All</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="optradio">Product</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="optradio">Variation</label>
+              </div>
+              <button type="button" class="btn btn-danger" name="exportxml">Export</button>
+            </div>
+            <div class="p-3">
+              <h4>Export CSV</h4>
+              <button type="button" class="btn btn-danger" name="exportcsv">Export</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'E_Commerce/HomePage.html' %}
+{% block content %}
+    <h1 style="margin-left: 450px;">Products</h1>
+    <div class="row">
+    {% for p in prod %}
+        <div class="col">
+        <img src="{{ p.featured_image.url }}" width="100dp" height="100dp" style="margin-left: 20px;">
+        <div class="overlay" style="margin-left: 20px;">{{ p.name }}</div>
+        <button class="btn btn-info" onclick="location.href='/add_to_cart/{{ p.pk }}'" style="margin-left: 20px;"> Add to Cart</button>
+        </div>
+
+    {% endfor %}
+
+    </div>
+{% endblock %}

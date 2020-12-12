@@ -1,0 +1,83 @@
+.support-menu * {
+  margin: 0;
+  padding: 0;
+  outline: none;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+div.support-menu {
+  margin: 20px auto;
+  width: 350px;
+}
+
+.support-menu nav.vertical {
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, .15);
+  overflow: hidden;
+  text-align: center;
+}
+
+.support-menu nav.vertical>ul {
+  list-style-type: none;
+}
+
+.support-menu nav.vertical>ul>li {
+  display: block;
+}
+
+.support-menu nav.vertical>ul>li>a {
+  background-color: rgb(157, 34, 60);
+  background-image: -webkit-linear-gradient(135deg, #9D403C, #F05025);
+  background-image: -moz-linear-gradient(135deg, #9D403C, #F05025);
+  background-image: -o-linear-gradient(135deg, #9D403C, #F05025);
+  background-image: linear-gradient(135deg, #9D403C, #F05025);
+  border-bottom: 1px solid rgba(255, 255, 255, .1);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, .1), 0 1px 1px rgba(0, 0, 0, .1);
+  color: rgb(255, 255, 255);
+  display: block;
+  font-size: .85rem;
+  font-weight: 500;
+  height: 50px;
+  letter-spacing: .5rem;
+  line-height: 50px;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, .1);
+  text-transform: uppercase;
+  transition: all .1s ease;
+  text-decoration: none;
+}
+
+.support-menu nav.vertical>ul>li>a:hover {
+  background-color: #F05025;
+  background-image: -webkit-linear-gradient(150deg, #F05025, #F05025);
+  background-image: -moz-linear-gradient(150deg,  #F05025, #F05025);
+  background-image: -o-linear-gradient(150deg, #F05025, #F05025);
+  background-image: linear-gradient(150deg, #F05025, #F05025);
+  cursor: pointer;
+}
+
+.support-menu nav.vertical>ul>li>div {
+  background-color: rgb(255, 255, 255);
+}
+
+.support-menu nav.vertical>ul>li>div>ul {
+  list-style-type: none;
+}
+
+.support-menu nav.vertical>ul>li>div>ul>li>a {
+  background-color: rgb(255, 255, 255);
+  border-bottom: 1px solid rgba(0, 0, 0, .05);
+  color: #333331;
+  display: block;
+  font-size: 1.1rem;
+  padding: 10px 0;
+  text-decoration: none;
+  transition: all 0.15s linear;
+}
+
+.support-menu nav.vertical>ul>li>div>ul>li:hover>a {
+  background-color: #F05025;
+  color: rgb(255, 255, 255);
+  padding: 10px 0 10px 50px;
+}

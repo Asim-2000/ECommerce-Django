@@ -1,6 +1,8 @@
 from django.db import models
 from django_extensions.db.models import TimeStampedModel
 
+from E_Commerce.models import Vendor
+
 
 class Payment_Info(TimeStampedModel):
     vendor = models.ForeignKey(Vendor, on_delete=models.CASCADE)

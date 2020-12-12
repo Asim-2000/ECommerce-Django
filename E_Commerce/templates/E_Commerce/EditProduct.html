@@ -1,0 +1,374 @@
+{% extends 'E_Commerce/VendorPanel.html' %}
+{% load static %}
+{% block stylesheet %}
+    <link rel="stylesheet" href="{% static '/css/sidebar-vendor.css' %}">
+    <link rel="stylesheet" href="{% static '/css/image-uplaod.css' %}">
+{% endblock %}
+{% block title %}Products{% endblock %}
+{% block currentPage %}Products{% endblock %}
+{% block script %}
+    <script src="{% static '/js/image_upload.js' %}">
+    </script>
+    <script type="text/javascript">
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        function preview_images() {
+            var total_file = document.getElementById("images").files.length;
+            for (var i = 0; i < total_file; i++) {
+                $('#image_preview').append("<div class='col-md-3'><img class='img-responsive img-thumbnail' src='" + URL.createObjectURL(event.target.files[i]) + "'></div>");
+            }
+        }
+    </script>
+{% endblock %}
+
+
+
+{% block panel_vendor %}
+
+    <div class="m-3 p-5 col-md-8">
+        <div class="d-flex justify-content-between">
+            <div class="p-2">
+                <h4>Edit Product</h4>
+            </div>
+            <div class="p-2">
+                <button type="button" class="btn btn-danger">View Product</button>
+            </div>
+        </div>
+
+        <div class="text-center border p-2">
+            <!--  <label><strong>Upload Pictures</strong></label>
+              <div class="mx-auto">
+                  <input type="file" class="border form-control-file m-2" id="images" name="images[]" onchange="preview_images();" multiple required />
+                  <input type="submit" class="btn btn-danger" name='submit_image' value="Upload Multiple Image" />
+              </div>
+              <div class="row pt-2" id="image_preview"></div>
+            </div> -->
+
+
+            <div class="text-center p-2">
+                <form method="post" enctype="multipart/form-data" action="edit_product">
+                    {% csrf_token %}
+                    <!--          <div class="text-left p-2">
+                        <div class="form-group">
+                            <label for="Title">Title</label>
+                            <input type="text" class="form-control" id="Title" name="Title" placeholder="Product Name"
+                                   required>
+                        </div>
+                        <div class="form-group">
+                            <label for="Title">Product Type</label>
+                            <select class="form-control" id="productType" name="productType">
+                                <option>Simple</option>
+                                <option>variable</option>
+                                <option>Group Product</option>
+                            </select>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-md-4">
+                                   <label class="checkbox-inline"><input type="checkbox" value=""> Downloadable</label>
+                                    <button type="button" class="btn" data-toggle="tooltip" data-placement="right" title="Downloadable products give access to a file upon purchase.">
+                                      <i class="fas fa-question-circle"></i>
+                                    </button>
+                                    <br>
+
+                                <label for="price">Price</label>
+                                <div class="form-group input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">Rs</div>
+                                    </div>
+                                    <input type="text" class="form-control" id="price" name="price" placeholder="0.00"
+                                           required>
+                                </div>
+                                <label for="">From</label>
+                              <div class="form-group input-group">
+                                <input type="date" class="form-control" id="from" name="from" placeholder="">
+                              </div>
+                            </div>
+                            <div class="col-md-4 m-auto">
+                                <label class="checkbox-inline"><input type="checkbox" value="" name="Virtual"> Virtual</label>
+                                <button type="button" class="btn" data-toggle="tooltip" data-placement="right" title="Virtual products are intangible and aren't shipped.">
+                                  <i class="fas fa-question-circle"></i>
+                                </button>
+                                <br>
+                                <label for="discount">Discounted Price</label>
+                                <div class="form-group input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">Rs</div>
+                                    </div>
+                                    <input type="text" class="form-control" id="discount" name="discount"
+                                           placeholder="0.00" required>
+                                </div>
+                                 <label for="to">To</label>
+                                <div class="form-group input-group">
+                                  <input type="date" class="form-control" id="to" name="to" placeholder="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="categories">Categories</label>
+                            <select class="form-control" name="categories" required>
+                                {% for cat in categories %}
+                                    <option value="{{ cat }}">{{ cat.name }}</option>
+                                {% endfor %}
+
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="tags">Tags</label>
+                            <select class="form-control" id="tags" name="tags" multiple required>
+                                {% for tag in tags %}
+                                    <option value="{{ tag.name }}">{{ tag.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="shortDescription">Short Description</label>
+                            <textarea class="form-control" rows="5" id="shortDescription" name="shortDescription"
+                                      required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <textarea class="form-control" rows="5" id="description" name="description"
+                                      placeholder="Full Description of your product" required></textarea>
+                        </div>
+              -->
+                    <div class="card mb-2">
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between">
+                                <div class="p-2"><i class="fas fa-boxes"></i> <b>Inventory</b><small><em> Manage
+                                    inventory for this product.</em></small></div>
+                                <div class="p-2">
+                                    <a class="btn" data-toggle="collapse" href="#collapseInventory" role="button"
+                                       aria-expanded="false" aria-controls="collapseInventory">
+                                        <i class="fas fa-angle-down"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="collapse" id="collapseInventory">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <div class="col-md-6"><label for="sku">SKU </label><input class="form-control"
+                                                                                              type="text" name="sku"
+                                                                                              value=""></div>
+                                    <div class="col-md-6">
+                                        <label for="status">Stock Status</label>
+                                        <select class="form-control" id="status" name="status">
+                                            <option>In stock</option>
+                                            <option>Out of Stock</option>
+                                            <option>On Backorder</option>
+                                        </select>
+                                    </div>
+                                    <br>
+                                </div>
+                                <p><input type="checkbox" aria-label="Checkbox for following text input"
+                                          name="stock_management"> Enable product stock management</p>
+                                <p><input type="checkbox" aria-label="Checkbox for following text input"
+                                          name="one_quantity"> Allow only one quantity of this product to be bought
+                                    in a single order</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!--        <div class="card mb-2">
+                    <div class="card-header">
+                           <div class="d-flex justify-content-between">
+                             <div class="p-2"><i class="fas fa-redo"></i> <b>RMA Options</b><small><em> Set your return and warranty settings for override global settings</em></small> </div>
+                             <div class="p-2">
+                               <a class="btn" data-toggle="collapse" href="#collapseRMA" role="button" aria-expanded="false" aria-controls="collapseRMA">
+                                 <i class="fas fa-angle-down"></i>
+                               </a>
+                             </div>
+                           </div>
+                         </div>
+                         <div class="collapse" id="collapseRMA">
+                           <div class="card-body">
+                             <p><input type="checkbox" aria-label="Checkbox for following text input"> Override your default RMA settings for this product</p>
+                           </div>
+                         </div>
+                       </div>-->
+                    <div class="card mb-2">
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between">
+                                <div class="p-2"><i class="fas fa-truck"></i> <b>Shipping and Tax</b><small><em>
+                                    Manage shipping and tax for this product</em></small></div>
+                                <div class="p-2">
+                                    <a class="btn" data-toggle="collapse" href="#collapseShipping" role="button"
+                                       aria-expanded="false" aria-controls="collapseShipping">
+                                        <i class="fas fa-angle-down"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="collapse" id="collapseShipping">
+                            <div class="card-body">
+                       <!--         <p><input type="checkbox" aria-label="Checkbox for following text input"> This
+                                    product requires shipping</p>-->
+                                <div class="d-flex justify-content-between">
+                                    <div class="form-group">
+                                        <label for="weight">Weight</label>
+                                        <input class="form-control" type="text" class="form-control" id="weight" name="weight"
+                                               placeholder="0.0">
+                                    </div>
+                                    <!--      <div class="col-md-3">
+                                            <input type="text" class="form-control" name="" value="" placeholder="length">
+                                          </div>
+                                          <div class="col-md-3">
+                                            <input type="text" class="form-control" name="" value="" placeholder="width">
+                                          </div>
+                                          <div class="col-md-3">
+                                            <input type="text" class="form-control" name="" value="" placeholder="height">
+                                          </div> -->
+                                </div>
+                                <label for="class">Shipping Class</label>
+                                <select class="m-2 form-control" id="class">
+                                    <option>No Shipping Class</option>
+                                    <option>Free Shipping</option>
+                                </select>
+                                <small><em>Shipping classes are used by certain shipping methods to group similar
+                                    products.</em></small>
+                            </div>
+                        </div>
+                    </div>
+                    <!--     <div class="card mb-2">
+                           <div class="card-header">
+                             <div class="d-flex justify-content-between">
+                               <div class="p-2"><i class="fas fa-link"></i> <b>Linked Products</b><small><em> Set your linked products for upsell and cross-sells</em></small> </div>
+                               <div class="p-2">
+                                 <a class="btn" data-toggle="collapse" href="#collapseLink" role="button" aria-expanded="false" aria-controls="collapseLink">
+                                   <i class="fas fa-angle-down"></i>
+                                 </a>
+                               </div>
+                             </div>
+                           </div>
+                           <div class="collapse" id="collapseLink">
+                             <div class="card-body">
+                               <div class="d-flex justify-content-between">
+                                 <div class="col-md-6">
+                                   <label for="">Up sells <button type="button" class="btn" data-toggle="tooltip" data-placement="right"
+                                       title="Upsells are products which you recommend instead of currently viewed product, for example, products that are more profitable or better quality or more expensive.">
+                                       <i class="fas fa-question-circle"></i>
+                                     </button></label>
+                                   <input type="text" class="form-control" name="" value="" placeholder="Search products...">
+                                 </div>
+                                 <div class="col-md-6">
+                                   <label for="">Cross Sells <button type="button" class="btn" data-toggle="tooltip" data-placement="right" title="Cross Sells are product which you promote in the cart based on current product.">
+                                       <i class="fas fa-question-circle"></i>
+                                     </button> </label>
+                                   <input type="text" class="form-control" name="" value="" placeholder="Search products...">
+                                 </div>
+                               </div>
+                             </div>
+                           </div>
+                         </div>
+                         <div class="card mb-2">
+                           <div class="card-header">
+                             <div class="d-flex justify-content-between">
+                               <div class="p-2"><i class="far fa-newspaper"></i> <b>Attribute</b><small><em> Manage attributes for this simple product.</em></small> </div>
+                               <div class="p-2">
+                                 <a class="btn" data-toggle="collapse" href="#collapseAttribute" role="button" aria-expanded="false" aria-controls="collapseAttribute">
+                                   <i class="fas fa-angle-down"></i>
+                                 </a>
+                               </div>
+                             </div>
+                           </div>
+                           <div class="collapse" id="collapseAttribute">
+                             <div class="card-body">
+                               <select class="m-2 form-control" id="class">
+                                 <option>Custom Attribute</option>
+                                 <option>Color</option>
+                                 <option>Images</option>
+                                 <option>Numeric-size</option>
+                                 <option>size</option>
+                               </select>
+                               <button type="button" class="btn btn-light mr-2" name="add">Add Attribute</button>
+                               <button type="button" class="btn btn-danger mr-2" name="save">Save Attribute</button>
+                             </div>
+                           </div>
+                         </div>
+                         <div class="card mb-2">
+                           <div class="card-header">
+                             <div class="d-flex justify-content-between">
+                               <div class="p-2"><i class="fas fa-gift"></i> <b>Discount Options</b><small><em> OptionsSet your discount for this product.</em></small> </div>
+                               <div class="p-2">
+                                 <a class="btn" data-toggle="collapse" href="#collapseDiscount" role="button" aria-expanded="false" aria-controls="collapseDiscount">
+                                   <i class="fas fa-angle-down"></i>
+                                 </a>
+                               </div>
+                             </div>
+                           </div>
+                           <div class="collapse" id="collapseDiscount">
+                             <div class="card-body">
+                               <p><input type="checkbox" aria-label="Checkbox for following text input"> Enable bulk discount.</p>
+                             </div>
+                           </div>
+                         </div>
+                         <div class="card mb-2">
+                           <div class="card-header">
+                             <div class="d-flex justify-content-between">
+                               <div class="p-2"><i class="fas fa-cart-arrow-down"></i> <b>Wholesale Options</b><small><em> If you want to sell this product as wholesale then set your setting to the right way.</em></small> </div>
+                               <div class="p-2">
+                                 <a class="btn" data-toggle="collapse" href="#collapseWholesale" role="button" aria-expanded="false" aria-controls="collapseWholesale">
+                                   <i class="fas fa-angle-down"></i>
+                                 </a>
+                               </div>
+                             </div>
+                           </div>
+                           <div class="collapse" id="collapseWholesale">
+                             <div class="card-body">
+                               <p><input type="checkbox" aria-label="Checkbox for following text input"> Enable Wholesale for this product.</p>
+                             </div>
+                           </div>
+                         </div>-->
+                    <div class="card mb-2">
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between">
+                                <div class="p-2"><i class="fas fa-cog"></i> <b>Other Options</b><small><em> Set your
+                                    extra product options.</em></small></div>
+                                <div class="p-2">
+                                    <a class="btn" data-toggle="collapse" href="#collapseOther" role="button"
+                                       aria-expanded="false" aria-controls="collapseOther">
+                                        <i class="fas fa-angle-down"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="collapse" id="collapseOther">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <div class="col-md-6">
+                                        <label for="productStatus">Product Status</label>
+                                        <select class="form-control" id="productStatus" name="productStatus">
+                                            <option>Online</option>
+                                            <option>Draft</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="">Visibility</label>
+                                        <select class="form-control" id="visibility" name="visibility">
+                                            <option>Visible</option>
+                                            <option>Catalog</option>
+                                            <option>Search</option>
+                                            <option>Hidden</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <label for="purchaseNote">Purchase Note</label>
+                                <textarea class="form-control p-2" rows="5" id="purchaseNote"
+                                          name="purchaseNote"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-secondary btn-lg btn-block" type="submit" name="button">
+                                Edit Product
+                            </button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

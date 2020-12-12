@@ -1,69 +1,13 @@
-{% extends 'E_Commerce/HomePage.html' %}
-{% block content %}
-
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a class=" text-success" href="#">Home</a></li>
-    <li class="breadcrumb-item" aria-current="page">Accounts</li>
-    <li class="breadcrumb-item active" aria-current="page">Orders</li>
-  </ol>
-</nav>
-
-<div class="container-fluid" style="margin-top: 100px;">
-  <div class="row">
-    <div class="col-sm-3">
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center  ">
-          <a class="nav-link text-success" href="#">Dashboard</a>
-          <span class="badge"><a href="#"><i class="fas fa-tachometer-alt  text-success"></i></a></span>
-        </li>
-        <li class="list-group-item list-group-item-action  d-flex justify-content-between align-items-center  ">
-          <a class="nav-link  text-success" href="#">Orders</a>
-          <span class="badge"><a href="#"><i class="fas fa-shopping-basket text-success"></i></a></span>
-        </li>
-        <li class="list-group-item list-group-item-action  d-flex justify-content-between align-items-center  ">
-          <a class="nav-link text-success" href="#">Downloads</a>
-          <span class="badge"><a href="#"><i class="far fa-file-archive text-success"></i></a></span>
-        </li>
-        <li class="list-group-item list-group-item-action  d-flex justify-content-between align-items-center  ">
-          <a class="nav-link  text-success" href="#">Addresses</a>
-          <span class="badge"><a href="#"><i class="fas fa-home text-success"></i></a></span>
-        </li>
-        <li class="list-group-item list-group-item-action  d-flex justify-content-between align-items-center  ">
-          <a class="nav-link  text-success" href="#">Account Details</a>
-          <span class="badge"><a href="#"><i class="far fa-user text-success"></i></a></span>
-        </li>
-        <li class="list-group-item list-group-item-action  d-flex justify-content-between align-items-center  ">
-          <a class="nav-link  text-success" href="#">RMA Requests</a>
-          <span class="badge"><a href="#"><i class="far fa-file-alt text-success"></i></a></span>
-        </li>
-        <li class="list-group-item list-group-item-action  d-flex justify-content-between align-items-center  ">
-          <a class="nav-link text-success" href="#">Vendors</a>
-          <span class="badge"><a href="#"><i class="far fa-file-alt text-success"></i></a></span>
-        </li>
-        <li class="list-group-item list-group-item-action  d-flex justify-content-between align-items-center  ">
-          <a class="nav-link text-success" href="#">Seller Support Tickets</a>
-          <span class="badge"><a href="#"><i class="far fa-file-alt text-success"></i></a></span>
-        </li>
-        <li class="list-group-item list-group-item-action  d-flex justify-content-between align-items-center  ">
-          <a class="nav-link  text-success" href="#">Logout</a>
-          <span class="badge"><a href="#"><i class="fas fa-sign-out-alt  text-success"></i></a></span>
-        </li>
+{% extends 'E_Commerce/CustomerPanel.html' %}
+{% block title %}Orders{% endblock %}
+{% block currentPage %}Orders{% endblock %}
+{% block panel %}
+<div class="m-3 p-5 col-md-8">
+  <div class="alert alert-primary" role="alert">
+    <div class="row">
+      <span class="col-9 text-left">No order has been made yet.</span>
+      <span class="col-3"> <a href="#">Browse Products</a> </span>
     </div>
-
-    <div class="col-md-8">
-      <div class="alert alert-primary" role="alert">
-        <div class="row">
-          <span class="col-9 text-left">No order has been made yet.</span>
-          <span class="col-3"> <a href="#">Browse Products</a> </span>
-        </div>
-      </div>
-    </div>
-
-
   </div>
 </div>
-
-
-
 {% endblock %}

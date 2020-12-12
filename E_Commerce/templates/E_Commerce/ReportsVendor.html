@@ -1,0 +1,189 @@
+{% extends 'E_Commerce/VendorPanel.html' %}
+{% load static %}
+{% block title %}Vendor Reports{% endblock %}
+{% block currentPage %}Vendor Reports{% endblock %}
+{% block script %}
+{% endblock %}
+
+
+{% block panel_vendor %}
+<div class="m-3 p-5 col-md-8">
+  <div class="container">
+    <h2>Reports</h2>
+    <ul class="nav nav-tabs">
+      <li class="nav-item active"><a class="nav-link" data-toggle="tab" href="#overview">Overview</a></li>
+      <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#day">Sales by day</a></li>
+      <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#top">Top Selling</a></li>
+      <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#earning">Top Earning</a></li>
+      <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#statement">Statement</a></li>
+    </ul>
+
+    <div class="tab-content">
+      <div id="overview" class="tab-pane fade in active">
+        <div class="row mt-4">
+          <div class="col-md-4">
+            <div class="card">
+              <ul class="list-group list-group-flush text-center">
+                <li class="list-group-item">
+                  <h4>Rs. 00</h4>
+                  <span>sales in this period</span>
+                </li>
+                <li class="list-group-item">
+                  <h4>Rs. 00</h4>
+                  <span>average daily sales</span>
+                </li>
+                <li class="list-group-item">
+                  <h4>0</h4>
+                  <span>orders placed</span>
+                </li>
+                <li class="list-group-item">
+                  <h4>0</h4>
+                  <span>items purchased</span>
+                </li>
+                <li class="list-group-item">
+                  <h4>Rs. 00</h4>
+                  <span>charged for shipping</span>
+                </li>
+                <li class="list-group-item">
+                  <h4>Rs. 00</h4>
+                  <span>worth of coupons used</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="day" class="tab-pane fade">
+        <div class="row">
+          <label for="">From</label>
+          <div class="form-group input-group">
+            <input type="date" class="form-control" id="from" name="from" placeholder="">
+          </div>
+          <label for="">To</label>
+          <div class="form-group input-group">
+            <input type="date" class="form-control" id="to" name="to" placeholder="">
+          </div>
+          <button class="btn btn-danger" type="button" name="show">Show</button>
+        </div>
+        <div class="row mt-4">
+          <div class="col-md-4">
+            <div class="card">
+              <ul class="list-group list-group-flush text-center">
+                <li class="list-group-item">
+                  <h4>Rs. 00</h4>
+                  <span>sales in this period</span>
+                </li>
+                <li class="list-group-item">
+                  <h4>Rs. 00</h4>
+                  <span>average daily sales</span>
+                </li>
+                <li class="list-group-item">
+                  <h4>0</h4>
+                  <span>orders placed</span>
+                </li>
+                <li class="list-group-item">
+                  <h4>0</h4>
+                  <span>items purchased</span>
+                </li>
+                <li class="list-group-item">
+                  <h4>Rs. 00</h4>
+                  <span>charged for shipping</span>
+                </li>
+                <li class="list-group-item">
+                  <h4>Rs. 00</h4>
+                  <span>worth of coupons used</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="top" class="tab-pane fade">
+        <div class="row">
+          <label for="">From</label>
+          <div class="form-group input-group">
+            <input type="date" class="form-control" id="from" name="from" placeholder="">
+          </div>
+          <label for="">To</label>
+          <div class="form-group input-group">
+            <input type="date" class="form-control" id="to" name="to" placeholder="">
+          </div>
+          <button class="btn btn-danger" type="button" name="show">Show</button>
+        </div>
+        <div class="row mt-2">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">Product</th>
+                <th scope="col">Sales</th>
+              </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div id="earning" class="tab-pane fade">
+        <div class="row">
+          <label for="from">From</label>
+          <div class="form-group input-group">
+            <input type="date" class="form-control" id="from" name="from" placeholder="">
+          </div>
+          <label for="to">To</label>
+          <div class="form-group input-group">
+            <input type="date" class="form-control" id="to" name="to" placeholder="">
+          </div>
+          <button class="btn btn-danger" type="button" name="show">Show</button>
+        </div>
+        <div class="row mt-2">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">Product</th>
+                <th scope="col">Sales</th>
+                <th scope="col">Earning</th>
+              </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div id="statement" class="tab-pane fade">
+        <div class="row">
+          <label for="from">From</label>
+          <div class="form-group input-group">
+            <input type="date" class="form-control" id="from" name="from" placeholder="">
+          </div>
+          <label for="to">To</label>
+          <div class="form-group input-group">
+            <input type="date" class="form-control" id="to" name="to" placeholder="">
+          </div>
+          <button class="btn btn-danger" type="button" name="show">Show</button>
+        </div>
+        <div class="row mt-2">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">Balance Date</th>
+                <th scope="col">Trn Date</th>
+                <th scope="col">ID</th>
+                <th scope="col">Type</th>
+                <th scope="col">Debit</th>
+                <th scope="col">Credit</th>
+                <th scope="col">Balance</th>
+              </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}
