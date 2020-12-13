@@ -31,12 +31,24 @@ Login/Registration
       x.style.display = "none";
     }
   }
+
+  function showhide_password() {
+    var x = document.getElementById("reveal_pass_field");
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    } else {
+      x.style.display = "none";
+    }
+  }
+
+
 </script>
 
 <style>
   #hover-area_card {
     cursor: pointer;
   }
+
   #reveal_card {
     display: none;
   }
@@ -54,6 +66,15 @@ Login/Registration
   #reveal_shop {
     display: none;
   }
+
+  #hover-area_pass {
+    cursor: pointer;
+  }
+
+  #reveal_pass_field{
+    display: block;
+  }
+
 </style>
 <body>
   <div class="container">
@@ -137,10 +158,17 @@ Login/Registration
             <label for="newsletter">Subscribe to our newsletter</label>
           </div>
 
-          <div class="form-check">
-            <input id="account" type="checkbox" />
-            <label for="account">Create an account?</label>
+          <div onchange="showhide_password()" class="form-check">
+            <input id="account" type="checkbox" checked/>
+            <label id="hover-area_pass" for="account">Create an account?</label>
           </div>
+
+          <div id="reveal_pass_field" class="mt-3">
+            <label for="pass" class="form-label">Password</label>
+
+            <input id="pass" class="form-control" type="password"/>
+          </div>
+
 
           <hr />
           <div class="form-check">
