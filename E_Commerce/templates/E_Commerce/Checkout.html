@@ -1,190 +1,395 @@
-{% extends 'E_Commerce/HomePage.html' %} 
-{% block title %}Login/Registration{%endblock %} 
+{% extends 'E_Commerce/HomePage.html' %}
+{% block title%} 
+Login/Registration
+{% endblock %} 
 {% block content %}
 
+<script>
+  function showhide_card() {
+    var x = document.getElementById("reveal_card");
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    } else {
+      x.style.display = "none";
+    }
+  }
+
+  function showhide_mobile() {
+    var x = document.getElementById("reveal_mobile");
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    } else {
+      x.style.display = "none";
+    }
+  }
+
+  function showhide_shop() {
+    var x = document.getElementById("reveal_shop");
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    } else {
+      x.style.display = "none";
+    }
+  }
+
+  function showhide_password() {
+    var x = document.getElementById("reveal_pass_field");
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    } else {
+      x.style.display = "none";
+    }
+  }
+
+  function showhide_form() {
+    var x = document.getElementById("form-reveal");
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    } else {
+      x.style.display = "none";
+    }
+  }
+
+</script>
+
+<style>
+  #hover-area_card {
+    cursor: pointer;
+  }
+
+  #reveal_card {
+    display: none;
+  }
+
+  #hover-area_mobile {
+    cursor: pointer;
+  }
+  #reveal_mobile {
+    display: none;
+  }
+
+  #hover-area_shop {
+    cursor: pointer;
+  }
+  #reveal_shop {
+    display: none;
+  }
+
+  #hover-area_pass {
+    cursor: pointer;
+  }
+
+  #reveal_pass_field{
+    display: block;
+  }
+
+  #form-reveal{
+    display: none;
+  }
+
+</style>
 <body>
   <div class="container">
-      <div class="row">
-          <div class="col-8">
-            <h4 class="mb-3">Billing Details</h4>
-          <form novalidate>
+    <div class="row">
+      <div class="col-8">
+        <h4 class="mb-3">Billing Details</h4>
+        <form novalidate>
+          <div class="row">
+            <div class="col-6">
+              <label for="firstname" class="form-label">First Name</label>
+              <input id="firstname" type="text" class="form-control" 
+              name="first_name" required />
+              <div class="invalid-feedback">Valid First Name Required</div>
+            </div>
+
+            <div class="col-sm-6">
+              <label for="lastname" class="form-label">Last Name</label>
+              <input id="lastname" type="text" class="form-control" 
+              name="last_name" required />
+              <div class="invalid-feedback">Valid Last Name Required</div>
+            </div>
+          </div>
+
+          <div class="mt-3">
+            <label for="country" class="form-label">Country/Region</label>
+            <br />
+            <select class="form-select col-12" id="country">
+              <option value="">Select a Country/Region</option>
+              <option value="">Pakistan</option>
+              <option value="">USA</option>
+            </select>
+          </div>
+
+          <div class="mt-3">
+            <label for="street" class="form-label">Street Address</label>
+
+            <input id="street" class="form-control" type="text" 
+            name="street_address" required />
+          </div>
+
+          <div class="mt-3">
+            <label for="city" class="form-label">Town/City</label>
+
+            <input id="city" class="form-control" type="text" 
+            name="town_city" required />
+          </div>
+
+          <div class="mt-3">
+            <label for="state" class="form-label">State/Province</label>
+            <br />
+            <select class="form-select col-12" id="country">
+              <option value="">Select a State/Provice</option>
+              <option value="">Sindh</option>
+              <option value="">KPK</option>
+            </select>
+          </div>
+
+          <div class="mt-3">
+            <label for="postalcode" class="form-label">Postal Code</label>
+
+            <input
+              id="postalcode"
+              class="form-control"
+              type="number"
+              name="postal_code"
+              required
+            />
+          </div>
+
+          <div class="mt-3">
+            <label for="phone" class="form-label">Phone</label>
+
+            <input id="phone" class="form-control" type="number"
+            name="phone_number" required />
+          </div>
+
+          <div class="mt-3">
+            <label for="email" class="form-label">Email Addres</label>
+
+            <input id="email" class="form-control" type="email"
+            name="email_id" required />
+          </div>
+
+          <hr class="my-4" />
+
+          <div class="form-check">
+            <input id="newsletter" type="checkbox" 
+            name="news_letter" />
+            <label for="newsletter">Subscribe to our newsletter</label>
+          </div>
+
+          <div onchange="showhide_password()" class="form-check">
+            <input id="account" type="checkbox" 
+            name="create_account" checked/>
+            <label id="hover-area_pass" for="account">Create an account?</label>
+          </div>
+
+          <div id="reveal_pass_field" class="mt-3">
+            <label for="pass" class="form-label">Password</label>
+
+            <input id="pass" class="form-control" type="password"
+            name="password"/>
+          </div>
+
+
+          <hr />
+          <div onchange="showhide_form()" class="form-check">
+            <input id="shipchange" type="checkbox" checked
+            name="ship_change" />
+            <label id="hover-area_form" for="shipchange" style="cursor: pointer"
+              >Ship to a different address?</label
+            >
+          </div>
+
+          <div id="form-reveal">
+
+
             <div class="row">
               <div class="col-6">
                 <label for="firstname" class="form-label">First Name</label>
-                <input id="firstname" type="text" class="form-control" required />
+                <input id="firstname" type="text" class="form-control"
+                name="reveaL_firstname" required />
                 <div class="invalid-feedback">Valid First Name Required</div>
               </div>
-      
+  
               <div class="col-sm-6">
                 <label for="lastname" class="form-label">Last Name</label>
-                <input id="lastname" type="text" class="form-control" required />
+                <input id="lastname" type="text" class="form-control"
+                name="reveal_lastname" required />
                 <div class="invalid-feedback">Valid Last Name Required</div>
               </div>
             </div>
-      
+  
             <div class="mt-3">
               <label for="country" class="form-label">Country/Region</label>
-              <br>
+              <br />
               <select class="form-select col-12" id="country">
                 <option value="">Select a Country/Region</option>
                 <option value="">Pakistan</option>
                 <option value="">USA</option>
               </select>
             </div>
-      
+  
             <div class="mt-3">
               <label for="street" class="form-label">Street Address</label>
-      
-              <input id="street" class="form-control" type="text" required />
+  
+              <input id="street" class="form-control" type="text" required
+              name="reveal_address" />
             </div>
-      
+  
             <div class="mt-3">
               <label for="city" class="form-label">Town/City</label>
-      
-              <input id="city" class="form-control" type="text" required />
+  
+              <input id="city" class="form-control" type="text"
+              name="reveal_city" required />
             </div>
-      
+  
             <div class="mt-3">
               <label for="state" class="form-label">State/Province</label>
-              <br>
+              <br />
               <select class="form-select col-12" id="country">
                 <option value="">Select a State/Provice</option>
                 <option value="">Sindh</option>
                 <option value="">KPK</option>
               </select>
             </div>
-      
+  
             <div class="mt-3">
               <label for="postalcode" class="form-label">Postal Code</label>
-      
-              <input id="postalcode" class="form-control" type="number" required />
+  
+              <input
+                id="postalcode"
+                class="form-control"
+                type="number"
+                name="reveal_postalcode"
+                required
+              />
             </div>
-      
-            <div class="mt-3">
-              <label for="phone" class="form-label">Phone</label>
-      
-              <input id="phone" class="form-control" type="number" required />
-            </div>
-      
-            <div class="mt-3">
-              <label for="email" class="form-label">Email Addres</label>
-      
-              <input id="email" class="form-control" type="email" required />
-            </div>
-      
-            <hr class="my-4">
-      
-            <div class="form-check">
-              <input id="newsletter" type="checkbox">
-              <label for="newsletter">Subscribe to our newsletter</label>
-      
-            </div>
-      
-            <div class="form-check">
-              <input id="account" type="checkbox">
-              <label for="account">Create an account?</label>
-      
-            </div>
+  
 
-            <hr>
-            <div class="form-check">
-                <input id="shipchange" type="checkbox">
-                <label for="shipchange">Ship to a different address?</label>
-            </div>
-      
-            <hr>
-            <div class="mt-3">
-                <label for="optionalnotes" class="form-label">Order Notes (Optional)</label>
-        
-                <textarea class="form-control" id="optionalnotes" rows="3"></textarea>
-              </div>
-      
+          </div>
+             
+          <hr />
+          <div class="mt-3">
+            <label for="optionalnotes" class="form-label"
+              >Order Notes (Optional)</label
+            >
 
-          </form>
+            <textarea
+              class="form-control"
+              id="optionalnotes"
+              rows="3"
+            ></textarea>
+          </div>
+        </form>
+      </div>
+
+      <div class="container bg-light col-4">
+        <h4>
+          <span class="mx-3 text-muted"> Your Order </span>
+        </h4>
+
+        <ul class="list-group">
+          <li class="list-group-item d-flex justify-content-between">
+            <div>
+              <h6>Product</h6>
+              <span class="text-muted"> Brief Description </span>
+            </div>
+            <span class="text-muted"> Rs.500 </span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            <div>
+              <h6>Sub-Total</h6>
+            </div>
+            <h6 class="text-muted">Rs.500</h6>
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            <div>
+              <h6>Total</h6>
+            </div>
+            <h6 class="text-muted">Rs.500</h6>
+          </li>
+        </ul>
+
+        <div class="radio mx-3">
+          <label
+            ><input type="radio" class="mx-3" name="optradio" checked />Cash On
+            delivery</label
+          >
         </div>
 
-        <div class="container bg-light col-4">
-                <h4>
-                    <span class="mx-3 text-muted">
-                        Your Order
-                    </span>
-                </h4>
-
-                <ul class="list-group">
-                    <li class="list-group-item d-flex justify-content-between">
-                        <div>
-                            <h6>
-                                Product
-                            </h6>
-                            <span class="text-muted">
-                                Brief Description
-                            </span>
-                        </div>
-                        <span class="text-muted">
-                            Rs.500
-                        </span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between">
-                        <div>
-                            <h6>
-                                Sub-Total
-                            </h6>
-                        </div>
-                        <h6 class="text-muted">
-                            Rs.500
-                        </h6>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between">
-                        <div>
-                            <h6>
-                                Total
-                            </h6>
-                        </div>
-                        <h6 class="text-muted">
-                            Rs.500
-                        </h6>
-                    </li>
-                </ul>
-
-                <div class="radio mx-3">
-                    <label><input type="radio" class="mx-3" name="optradio" checked>Cash On delivery</label>
-                  </div>
-
-                <div class="mx-3">
-                    <span>
-                        Pay with cash on delivery
-                    </span>
-                </div>
-                 
-                <hr>
-
-                <div>
-                    Jazz Cash Card
-                </div>
-
-                <hr>
-                <div>
-                    Jazz Cash Mobile Account
-                </div>
-
-                <hr>
-                <div>
-                    Jazz Cash Shop
-                </div>
-                <hr>
-                
-                <div>
-                    <p>
-                        Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our <a href="#">privacy policy</a>.
-                    </p>
-                </div>
-
-                <hr>
-                <button type="submit" class="btn btn-primary btn-block">Place Order
-                </button>
-
-            </div>
+        <div class="mx-3">
+          <span> Pay with cash on delivery </span>
         </div>
+
+        <hr />
+
+        <div id="hover-area_card" onclick="showhide_card()">Jazz Cash Card</div>
+
+        <div id="reveal_card">
+          <p>
+            Any local or international Visa/Mastercard Credit or Debit Card
+            holder can pay online. Please make sure your card is activated for
+            online shopping. For more information about card activation
+            <a href="https://www.jazzcash.com.pk/digital-payments/"
+              >click here</a
+            >
+
+            You're almost done! To change or edit your order, go back. No
+            changes will be allowed once you click "PLACE ORDER".
+          </p>
+        </div>
+
+        <hr />
+        <div id="hover-area_mobile" onclick="showhide_mobile()">
+          Jazz Cash Mobile Account
+        </div>
+
+        <div id="reveal_mobile">
+          <p>
+            JazzCash Mobile Account can be registered on any Jazz or Warid
+            number Biometric-verified Jazz and Warid customers can self-register
+            their Mobile Account simply by dialing *786#. Enter the confirmation
+            code within 30 seconds to make a successful payment! You're almost
+            done! To change or edit your order, go back. No changes will be
+            allowed once you click "PLACE ORDER".
+          </p>
+        </div>
+
+        <hr />
+        <div id="hover-area_shop" onclick="showhide_shop()">Jazz Cash Shop</div>
+
+        <div id="reveal_shop">
+          <p>
+            JazzCash Shop is an easy payment solution. Click "PLACE ORDER" and
+            your JazzCash voucher number will be generated and displayed on your
+            screen You can visit any JazzCash shop and pay against your token
+            within 24 hours. To see the list of JazzCash shop locations,<a
+              href="http://www.jazzcash.com.pk/agent-locator/"
+              >click here</a
+            >
+
+            You're almost done! To change or edit your order, go back. No
+            changes will be allowed once you click "PLACE ORDER".
+          </p>
+        </div>
+
+        <hr />
+
+        <div>
+          <p>
+            Your personal data will be used to process your order, support your
+            experience throughout this website, and for other purposes described
+            in our <a href="#">privacy policy</a>.
+          </p>
+        </div>
+
+        <hr />
+        <button type="submit" class="btn btn-primary btn-block">
+          Place Order
+        </button>
+      </div>
     </div>
-    </body>
+  </div>
+</body>
 {% endblock %}
