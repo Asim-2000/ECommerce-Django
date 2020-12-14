@@ -3,10 +3,14 @@ import warnings
 import django.utils
 import django.utils.encoding
 import django.shortcuts
+
+
 class Six:
     string_types = str,
     text_type = str
     next = next
+
+
 def _compact(cls):
     warnings.warn(f"Remove python_2_unicode_compatible() for {cls}")
     return cls
