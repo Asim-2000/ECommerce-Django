@@ -813,17 +813,21 @@
                         <div class="row">
                         <h6>Product</h6>
                         </div>
-                        {% for k,v in zipped %}
-                            <div class="row">
-                                <div class="col-6">
-                                    <span class="text-muted"> {{ k.name }} </span>
-                                </div>
-                                <div class="col-sm-6">
-                                    <span class="text-muted"> {{ v }} </span>
-                                </div>
-                            </div>
-                        {% endfor %}
+                        
                     </li>
+                    {% for k,v in zipped %}
+
+                            <li class="list-group-item d-flex justify-content-between">
+
+                                <div>
+                                    <h6 class="text-muted"> {{ k.name }} </h6>
+                                </div>
+                                <div class="text-muted">
+                                    <h6> {{ v }} </h6>
+                                </div>
+                          
+                            </ul>
+                        {% endfor %}
 
 
                     <li class="list-group-item d-flex justify-content-between">
