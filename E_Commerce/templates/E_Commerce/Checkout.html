@@ -62,6 +62,15 @@ Login/Registration
     }
   }
 
+  function showhide_pass() {
+  var x = document.getElementById("pass");
+  if (x.type === "password") {
+    x.type = "text";
+  } else {
+    x.type = "password";
+  }
+}
+
 </script>
 
 <style>
@@ -434,19 +443,27 @@ Login/Registration
             <label for="newsletter">Subscribe to our newsletter</label>
           </div>
 
+        
           <div onchange="showhide_password()" class="form-check">
             <input id="account" type="checkbox" 
             name="create_account"/>
             <label id="hover-area_pass" for="account" style="cursor: pointer;">Create an account?</label>
           </div>
 
-          <div id="reveal_pass_field" class="mt-3">
-            <label for="pass" class="form-label">Password</label>
+          
 
-            <input id="pass" class="form-control" type="password"
-            name="password"/>
+            <div id="reveal_pass_field" class="mt-3">
+              <label for="pass" class="form-label">Password</label>
+
+              <div class="wrapper">
+              <input id="pass" class="form-control" type="password"
+              name="password"/>
+              <span class="show-btn"><i class="fas fa-eye" onclick="showhide_pass()" style="color: black;"></i></span>
+            </div>
+  
+
           </div>
-
+          
 
           <hr />
           <div onchange="showhide_form()" class="form-check">
