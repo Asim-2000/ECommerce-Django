@@ -63,5 +63,6 @@ urlpatterns = [
     path('tag-create', views.tag_create),
     path('add_to_cart/<prod_pk>', views.add_to_cart),
     path('checkout', views.checkout),
+    path('place_order', views.place_order)
 
 ]

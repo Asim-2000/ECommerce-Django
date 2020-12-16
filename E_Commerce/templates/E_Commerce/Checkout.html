@@ -105,21 +105,30 @@
     <div class="container">
         <div class="row">
             <div class="col-8">
+                {% for message in messages %}
+                    <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        {{ message | safe }}
+                    </div>
+                {% endfor %}
                 <h4 class="mb-3">Billing Details</h4>
-                <form novalidate>
+                <form id="order" action="place_order" method="post">
+                    {% csrf_token %}
                     <div class="row">
 
                         <div class="col-6">
                             <label for="firstname" class="form-label">First Name</label>
-                            <input id="firstname" type="text" class="form-control"
-                                   name="first_name" required/>
+                            <input id="firstname" type="text" class="form-control" value={{ customer.firstname }}
+                                    name="first_name" required/>
                             <div class="invalid-feedback">Valid First Name Required</div>
                         </div>
 
                         <div class="col-sm-6">
                             <label for="lastname" class="form-label">Last Name</label>
-                            <input id="lastname" type="text" class="form-control"
-                                   name="last_name" required/>
+                            <input id="lastname" type="text" class="form-control" value={{ customer.lastname }}
+                                    name="last_name" required/>
                             <div class="invalid-feedback">Valid Last Name Required</div>
                         </div>
                     </div>
@@ -128,6 +137,9 @@
                         <br/>
                         <select class="form-control col-12" id="address" name="address">
                             <option value="">Select from your adresses...</option>
+                            {% for add in address %}
+                                <option value="{{ add }}">{{ add.tostr }}</option>
+                            {% endfor %}
 
                         </select>
                     </div>
@@ -438,27 +450,27 @@
                               </div>
 
                               <hr class="my-4" /> -->
-
-                    <div class="form-check">
-                        <input id="newsletter" type="checkbox"
-                               name="news_letter"/>
-                        <label for="newsletter">Subscribe to our newsletter</label>
-                    </div>
-
                     <!--
-                  <div onchange="showhide_password()" class="form-check">
-                    <input id="account" type="checkbox"
-                    name="create_account"/>
-                    <label id="hover-area_pass" for="account" style="cursor: pointer;">Create an account?</label>
-                  </div>
+                                        <div class="form-check">
+                                            <input id="newsletter" type="checkbox"
+                                                   name="news_letter"/>
+                                            <label for="newsletter">Subscribe to our newsletter</label>
+                                        </div>
 
-                  <div id="reveal_pass_field" class="mt-3">
-                    <label for="pass" class="form-label">Password</label>
 
-                    <input id="pass" class="form-control" type="password"
-                    name="password"/>
-                  </div>
-        -->
+                                      <div onchange="showhide_password()" class="form-check">
+                                        <input id="account" type="checkbox"
+                                        name="create_account"/>
+                                        <label id="hover-area_pass" for="account" style="cursor: pointer;">Create an account?</label>
+                                      </div>
+
+                                      <div id="reveal_pass_field" class="mt-3">
+                                        <label for="pass" class="form-label">Password</label>
+
+                                        <input id="pass" class="form-control" type="password"
+                                        name="password"/>
+                                      </div>
+                            -->
 
                     <hr/>
                     <div onchange="showhide_form()" class="form-check">
@@ -492,7 +504,7 @@
                         <div class="mt-3">
                             <label for="country" class="form-label">Country/Region</label>
                             <br/>
-                            <select class="form-control col-12" id="country">
+                            <select class="form-control col-12" id="country" name="country">
                                 <option value="">Select a country...</option>
                                 <option value="AF">Afghanistan</option>
                                 <option value="AX">Åland Islands</option>
@@ -746,7 +758,7 @@
                         <div class="mt-3">
                             <label for="street" class="form-label">Street Address</label>
 
-                            <input id="street" class="form-control" type="text" required
+                            <input id="street" class="form-control" type="text"
                                    name="reveal_address"/>
                         </div>
 
@@ -754,13 +766,13 @@
                             <label for="city" class="form-label">Town/City</label>
 
                             <input id="city" class="form-control" type="text"
-                                   name="reveal_city" required/>
+                                   name="reveal_city"/>
                         </div>
 
                         <div class="mt-3">
                             <label for="state" class="form-label">State/Province</label>
                             <br/>
-                            <select class="form-control col-12" id="country">
+                            <select class="form-control col-12" id="country" name="state">
                                 <option value="">Select a State/Provice</option>
                                 <option value="Sindh">Sindh</option>
                                 <option value="KPK">KPK</option>
@@ -781,7 +793,6 @@
                                     class="form-control"
                                     type="number"
                                     name="reveal_postalcode"
-                                    required
                             />
                         </div>
 
@@ -798,6 +809,7 @@
                                 class="form-control"
                                 id="optionalnotes"
                                 rows="3"
+                                name="optionalNotes"
                         ></textarea>
                     </div>
                 </form>
@@ -811,44 +823,42 @@
                 <ul class="list-group">
                     <li class="list-group-item d-flex justify-content-between">
                         <div class="row">
-                        <h6>Product</h6>
+                            <h6>Product</h6>
                         </div>
-                        
+
                     </li>
                     {% for k,v in zipped %}
 
-                            <li class="list-group-item d-flex justify-content-between">
+                        <li class="list-group-item d-flex justify-content-between">
 
-                                <div>
-                                    <h6 class="text-muted"> {{ k.name }} </h6>
-                                </div>
-                                <div class="text-muted">
-                                    <h6> {{ v }} </h6>
-                                </div>
-                          
-                            </ul>
-                        {% endfor %}
+                            <div>
+                                <h6 class="text-muted"> {{ k.name }} </h6>
+                            </div>
+                            <div class="text-muted">
+                                <h6> {{ v }} </h6>
+                            </div>
+
+                        </ul>
+                    {% endfor %}
 
 
-                    <li class="list-group-item d-flex justify-content-between">
-                        <div>
-                            <h6>Sub-Total</h6>
-                        </div>
-                        <h6 class="text-muted">{{ total }}</h6>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between">
-                        <div>
-                            <h6>Total</h6>
-                        </div>
-                        <h6 class="text-muted">{{ total }}</h6>
-                    </li>
+                <li class="list-group-item d-flex justify-content-between">
+                    <div>
+                        <h6>Sub-Total</h6>
+                    </div>
+                    <h6 class="text-muted">{{ total }}</h6>
+                </li>
+                <li class="list-group-item d-flex justify-content-between">
+                    <div>
+                        <h6>Total</h6>
+                    </div>
+                    <h6 class="text-muted">{{ total }}</h6>
+                </li>
                 </ul>
 
                 <div class="radio mx-3">
-                    <label
-                    ><input id="radio_opt" type="radio" class="mx-3" name="optradio" checked/>Cash On
-                        delivery</label
-                    >
+                    <label><input id="radio_opt" type="radio" class="mx-3" name="optradio" checked/>Cash On
+                        delivery</label>
                 </div>
 
                 <div class="mx-3">
@@ -918,7 +928,8 @@
                 </div>
 
                 <hr/>
-                <button type="submit" class="btn btn-primary btn-block">
+                <button type="submit" form="order" formaction="place_order" formmethod="post"
+                        class="btn btn-primary btn-block">
                     Place Order
                 </button>
             </div>

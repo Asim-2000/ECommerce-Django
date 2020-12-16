@@ -7,8 +7,8 @@ from django.utils.encoding import force_text
 from django.utils.http import urlsafe_base64_decode
 from django.views.decorators.cache import cache_control
 
-from .models import Customer, Vendor, Store, Product_Category, Tag, Image, Product, Cart
-from django.http import HttpResponse, JsonResponse
+from .models import Customer, Vendor, Store, Product_Category, Tag, Image, Product, Address
+from django.http import HttpResponse
 from django.utils.datastructures import MultiValueDictKeyError
 from django.contrib.auth.hashers import make_password, check_password
 
@@ -47,6 +47,16 @@ def cart(request):
 
 
 def checkout(request):
+    try:
+        customer = Customer.objects.get(encrypted_id=request.session["authenticated"])
+    except Customer.DoesNotExist:
+        customer = Vendor.objects.get(encrypted_id=request.session["authenticated"])
+
+    try:
+        address = Address.objects.filter(customer=customer)
+    except ValueError:
+        messages.error(request, "You will have to create a customer account to purchase")
+        return redirect("/cart")
     if request.method == "POST":
         if request.session.has_key("product"):
             temp = request.session["product"]
@@ -63,7 +73,7 @@ def checkout(request):
 
             zipped = zip(prod, quan)
             ven = {
-                "zipped": zipped, "total": total
+                "zipped": zipped, "total": total, "customer": customer, "address": address
             }
             return render(request, "E_Commerce/Checkout.html", ven)
 
@@ -665,3 +675,30 @@ def add_to_cart(request, prod_pk):
     temp_cart.append(prod_pk)
     request.session["product"] = temp_cart
     return redirect("/")
+
+
+def place_order(request):
+    try:
+        customer = Customer.objects.get(encrypted_id=request.session["authenticated"])
+    except Customer.DoesNotExist:
+        customer = Vendor.objects.get(encrypted_id=request.session["authenticated"])
+    if request.method == "POST":
+        f_name = request.POST["first_name"]
+        l_name = request.POST['last_name']
+        try:
+            new_address = request.POST["ship_change"]
+            country = request.POST['country']
+            st_address = request.POST['reveal_address']
+            city = request.POST['reveal_city']
+            postal_code = request.POST['reveal_postalcode']
+            state = request.POST['state']
+
+            address = Address()
+            address.createAddress(customer, st_address, city, state, postal_code, country)
+        except MultiValueDictKeyError:
+            address = request.POST['address']
+
+
+        notes = request.POST['optionalNotes']
+        return HttpResponse("404")
+

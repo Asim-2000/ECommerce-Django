@@ -3,10 +3,10 @@
 {% block script %}
     <script>
         function update_Cart(num) {
-            var quantity = document.getElementById("quantity"+num);
-            var price = document.getElementById("price"+num);
+            var quantity = document.getElementById("quantity" + num);
+            var price = document.getElementById("price" + num);
             var total = parseFloat(quantity.value) * parseFloat(price.value);
-            document.getElementById("subtotal"+num).value = total;
+            document.getElementById("subtotal" + num).value = total;
         }
     </script>
 
@@ -24,9 +24,16 @@
     </nav>
 
     <div class="container">
-
+        {% for message in messages %}
+            <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                {{ message | safe }}
+            </div>
+        {% endfor %}
         <form method="post" action="checkout">
-        {% csrf_token %}
+            {% csrf_token %}
             <table id="cart" class="table table-hover table-condensed">
 
                 <thead>
@@ -59,13 +66,16 @@
                         </td>
 
                         <td data-th="Price">
-                            <input id="price{{ p.pk }}" disabled style="background-color:white" class="price form-control text-center"
+                            <input id="price{{ p.pk }}" disabled style="background-color:white"
+                                   class="price form-control text-center"
                                    value={{ p.price }}></td>
                         <td data-th="Quantity">
-                            <input type="number" class="quantity form-control" onchange="update_Cart({{ p.pk }})" id="quantity{{ p.pk }}" name="quantity{{ p.pk }}" value="1" min="1.0">
+                            <input type="number" class="quantity form-control" onchange="update_Cart({{ p.pk }})"
+                                   id="quantity{{ p.pk }}" name="quantity{{ p.pk }}" value="1" min="1.0">
                         </td>
                         <td data-th="Subtotal" class="text-center">
-                            <input class="subtotal form-control text-center"  id="subtotal{{ p.pk }}" style="background-color:white"
+                            <input class="subtotal form-control text-center" id="subtotal{{ p.pk }}"
+                                   style="background-color:white"
                                    value={{ p.price }} width="20px;" disabled>
                         </td>
                         <td class="actions" data-th="">
