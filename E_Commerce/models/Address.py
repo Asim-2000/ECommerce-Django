@@ -12,13 +12,19 @@ class Address(TimeStampedModel):
     country = models.CharField(max_length=30, null=False)
 
     def createAddress(self, customer, st_adress, city, state, zipcode, country):
-        self.customer = customer
-        self.streetaddress = st_adress
-        self.city = city
-        self.country = country
-        self.state = state
-        self.zipcode = zipcode
+        self.customer = self.notEmpty(customer)
+        self.streetaddress = self.notEmpty(st_adress)
+        self.city = self.notEmpty(city)
+        self.country = self.notEmpty(country)
+        self.state = self.notEmpty(state)
+        self.zipcode = self.notEmpty(zipcode)
         self.save()
 
     def tostr(self):
         return self.streetaddress + " " + self.city
+
+    def notEmpty(self, parameter):
+        if parameter != "":
+            return parameter
+        raise TypeError
+
