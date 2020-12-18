@@ -1,0 +1,485 @@
+{% extends 'E_Commerce/HomePage.html' %}
+{% block title %}Login/Registration{% endblock %}
+{% block content %}
+
+
+<style>
+
+img {
+  max-width: 100%; }
+
+.preview {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column; }
+  @media screen and (max-width: 996px) {
+    .preview {
+      margin-bottom: 20px; } }
+
+.preview-pic {
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1; }
+
+.preview-thumbnail.nav-tabs {
+  border: none;
+  margin-top: 15px; }
+  .preview-thumbnail.nav-tabs li {
+    width: 18%;
+    margin-right: 2.5%; }
+    .preview-thumbnail.nav-tabs li img {
+      max-width: 100%;
+      display: block; }
+    .preview-thumbnail.nav-tabs li a {
+      padding: 0;
+      margin: 0; }
+    .preview-thumbnail.nav-tabs li:last-of-type {
+      margin-right: 0; }
+
+.tab-content {
+  overflow: hidden; }
+  .tab-content img {
+    width: 100%;
+    -webkit-animation-name: opacity;
+            animation-name: opacity;
+    -webkit-animation-duration: .3s;
+            animation-duration: .3s; }
+
+.card {
+  margin-top: 50px;
+  background: #eee;
+  padding: 3em;
+  line-height: 1.5em; }
+
+@media screen and (min-width: 997px) {
+  .wrapper {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex; } }
+
+.details {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column; }
+
+.colors {
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1; }
+
+.product-title, .price, .sizes, .colors {
+  text-transform: UPPERCASE;
+  font-weight: bold; }
+
+.checked, .price span {
+  color: #ff9f1a; }
+
+.product-title, .rating, .product-description, .price, .vote, .sizes {
+  margin-bottom: 15px; }
+
+.product-title {
+  margin-top: 0; }
+
+.size {
+  margin-right: 10px; }
+  .size:first-of-type {
+    margin-left: 40px; }
+
+.color {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 10px;
+  height: 2em;
+  width: 2em;
+  border-radius: 2px; }
+  .color:first-of-type {
+    margin-left: 20px; }
+
+.add-to-cart, .like {
+  background: green;
+  
+  width: fit-content;
+  border: none;
+  text-transform: UPPERCASE;
+  font-weight: bold;
+  color: #fff;
+  -webkit-transition: background .3s ease;
+          transition: background .3s ease; }
+  .add-to-cart:hover, .like:hover {
+    background: greenyellow;
+    color: #fff; }
+
+.not-available {
+  text-align: center;
+  line-height: 2em; }
+  .not-available:before {
+    font-family: fontawesome;
+    content: "\f00d";
+    color: #fff; }
+
+.orange {
+  background: #ff9f1a; }
+
+.green {
+  background: #85ad00; }
+
+.blue {
+  background: #0076ad; }
+
+.tooltip-inner {
+  padding: 1.3em; }
+
+@-webkit-keyframes opacity {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale(3);
+            transform: scale(3); }
+  100% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+            transform: scale(1); } }
+
+@keyframes opacity {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale(3);
+            transform: scale(3); }
+  100% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+            transform: scale(1); } }
+
+
+
+
+
+
+.rate {
+    float: left;
+    height: 46px;
+    padding: 0 10px;
+}
+.rate:not(:checked) > input {
+    position:absolute;
+    top:-9999px;
+}
+.rate:not(:checked) > label {
+    float:right;
+    width:1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:30px;
+    color:#ccc;
+}
+.rate:not(:checked) > label:before {
+    content: '★ ';
+}
+.rate > input:checked ~ label {
+    color: #ffc700;    
+}
+.rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
+    color: #deb217;  
+}
+.rate > input:checked + label:hover,
+.rate > input:checked + label:hover ~ label,
+.rate > input:checked ~ label:hover,
+.rate > input:checked ~ label:hover ~ label,
+.rate > label:hover ~ input:checked ~ label {
+    color: #c59b08;
+}
+
+
+</style>
+
+<div style="border: 1px solid black;" class="container">
+
+
+  <div class="row">
+    <div class="preview col-md-6">
+						
+      <div class="preview-pic tab-content">
+        <div class="tab-pane active" id="pic-1"><img src="http://placekitten.com/400/252" /></div>
+        <div class="tab-pane" id="pic-2"><img src="http://placekitten.com/400/252" /></div>
+        <div class="tab-pane" id="pic-3"><img src="http://placekitten.com/400/252" /></div>
+        <div class="tab-pane" id="pic-4"><img src="http://placekitten.com/400/252" /></div>
+        <div class="tab-pane" id="pic-5"><img src="http://placekitten.com/400/252" /></div>
+      </div>
+      <ul class="preview-thumbnail nav nav-tabs">
+        <li class="active"><a data-target="#pic-1" data-toggle="tab"><img src="http://placekitten.com/200/126" /></a></li>
+        <li><a data-target="#pic-2" data-toggle="tab"><img src="http://placekitten.com/200/126" /></a></li>
+        <li><a data-target="#pic-3" data-toggle="tab"><img src="http://placekitten.com/200/126" /></a></li>
+        <li><a data-target="#pic-4" data-toggle="tab"><img src="http://placekitten.com/200/126" /></a></li>
+        <li><a data-target="#pic-5" data-toggle="tab"><img src="http://placekitten.com/200/126" /></a></li>
+      </ul>
+      
+    </div>
+
+
+    <div class="details col-md-6">
+
+      <div class="product-title">
+
+        <h3>men's shoes fashion</h3>
+
+
+      </div>
+
+      <h5>Price: <span>$180</span> <span><strike>$250</strike></span></h5>
+
+
+      <div class="price">
+
+      </div>
+
+      <div class="product-description">
+        <p>
+          Suspendisse quos? Tempus cras iure temporibus? Eu laudantium cubilia sem sem! Repudiandae et! Massa senectus enim minim sociosqu delectus posuere.</p>
+      </div>
+     
+      <div class="vendor">
+        <span>Vendor: </span>
+  
+        <span>Harry</span>
+
+      </div>
+      <br>
+
+
+      <div class="action">
+
+        <label for="quantity_"></label>
+        <input id="quantity" type="number" name="quantity" value="1" >
+
+        <button class="add-to-cart btn btn-default" type="button"><span class="fa fa-cart-plus"</span></span>Add to Cart</button>
+       
+      </div>
+    
+      <div class="more-actions">
+
+        <br>
+     <span>
+       <i class="fa fa-heart" aria-hidden="true"></i>
+       Add to Wishlist
+     </span>
+
+     <span class="pl-2">
+
+      <i class="fa fa-crosshairs" aria-hidden="true"></i>
+      Compare
+     </span>
+
+      </div>
+
+    </div>
+
+
+   </div><!-- end row -->
+
+</div>
+
+
+
+
+<div style="border: 1px solid red;" class="container">
+
+ 
+  
+
+
+  <div class="row">
+    <div class="col-md">
+
+
+      <ul class="nav justify-content-center">
+      <li class="nav-item">
+      <a class="nav-link" href="#" onclick="">Description</a>
+      </li>
+      <li class="nav-item">
+      <a class="nav-link" href="#" onclick="">Reviews(0)</a>
+      </li>
+      <li class="nav-item">
+      <a class="nav-link" href="#">Vendor Info</a>
+      </li>
+      <li class="nav-item">
+      <a class="nav-link" href="#">More Products</a>
+      </li>
+      <li class="nav-item">
+      <a class="nav-link" href="#">Product Inquiry</a>
+      </li>
+      </ul>
+
+  <div id="Description" style="border: 1px solid black;" class="pl-5 pr-5">
+
+    <p>
+      Hlelooo
+    </p>
+
+  </div> 
+
+  <div id="Enquiry" style="border: 1px solid yellow;" class="pl-5 pr-5">
+
+    <div style="border: 1px solid black;" class="col-md-6 container">
+    
+
+      <form>
+
+        <div style="clear: both;" class="form-group">
+          <label for="enquiry_name_">Name</label>
+          <input type="text" class="form-control" id="enquiry_name_" placeholder="Enter Name"
+          name="enquiry_name">
+        </div>
+        
+        <div class="form-group">
+          <label for="inquiry_email_">Email address</label>
+          <input type="email" class="form-control" id="inquiry_email_" aria-describedby="emailHelp" placeholder="Enter email"
+          name="inquiry_name">
+          <small id="emailHelp" class="form-text text-muted">We won't share your email with anyone else</small>
+        </div>
+
+        <div class="form-group">
+          <label for="inquiry_">Your Enquiry</label>
+<br>
+          <textarea name="inquiry" id="inquiry_" style="width: 100%;" placeholder="Enter details about your inqquiry here ... "></textarea>
+
+        </div>
+
+        <div class="form-group">
+
+          <button type="submit" class="btn btn-primary">Submit</button>
+
+        </div>
+        
+        
+      </form>
+  
+
+
+
+    </div>
+
+
+
+
+  </div>
+
+  <div id="reviews" class="row pl-5 pr-5"> 
+
+    <div style="border: 1px solid blue" class="col-md-6 ">
+
+      <div class="p-3 mb-2" style="border: 1px solid blue;">
+      
+      </div>
+      <div class="p-3 mb-2">
+      
+      </div>
+      <div class="p-3 mb-2">
+      
+      </div>
+      <div class="p-3 mb-2">
+      
+      </div>
+    </div>
+
+    <div style="border: 1px solid black;" class="col-md-6 container">
+    
+
+      <form>
+
+    
+        <div style="" class="form-group">
+          Your Rating
+        </div>
+
+        <div class="form-group rate">
+          <input type="radio" id="star5" 
+          name="rate" value="5" />
+          <label for="star5" title="text">5 stars</label>
+          <input type="radio" id="star4" 
+          name="rate" value="4" />
+          <label for="star4" title="text">4 stars</label>
+          <input type="radio" id="star3" 
+          name="rate" value="3" />
+          <label for="star3" title="text">3 stars</label>
+          <input type="radio" id="star2" 
+          name="rate" value="2" />
+          <label for="star2" title="text">2 stars</label>
+          <input type="radio" id="star1" 
+          name="rate" value="1" />
+          <label for="star1" title="text">1 star</label>
+        </div>
+
+        <div style="clear: both;" class="form-group">
+          <label for="name_">Name</label>
+          <input type="text" class="form-control" id="name_" placeholder="Enter Name"
+          name="name">
+        </div>
+        
+        <div class="form-group">
+          <label for="email_">Email address</label>
+          <input type="email" class="form-control" id="email_" aria-describedby="emailHelp" placeholder="Enter email"
+          name="email">
+          <small id="emailHelp" class="form-text text-muted">We won't publish your email here.</small>
+        </div>
+
+        <div class="form-group">
+          <label for="review_">Your Review</label>
+<br>
+          <textarea name="review" id="review" style="width: 100%;"></textarea>
+
+        </div>
+
+        <div class="form-group">
+
+          <button type="submit" class="btn btn-primary">Submit</button>
+
+        </div>
+        
+        
+      </form>
+  
+
+
+
+    </div>
+
+
+    </div>
+
+
+
+
+  </div>
+
+
+ 
+
+
+</div>
+</div>
+  
+
+
+
+
+
+{% endblock %}
+
+
+
