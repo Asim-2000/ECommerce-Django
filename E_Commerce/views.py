@@ -15,7 +15,6 @@ from django.contrib.auth.hashers import make_password, check_password
 # Create your views here.
 from .tokens import account_activation_token, password_reset_token
 
-temp_cart = []
 
 
 def home(request):
@@ -70,12 +69,14 @@ def checkout(request):
                 prod.append(product)
                 quan.append(quantity)
                 total += product.price * int(quantity)
-
+            request.session["quan"] = quan
+            request.session["total"] = total
             zipped = zip(prod, quan)
             ven = {
                 "zipped": zipped, "total": total, "customer": customer, "address": address
             }
             return render(request, "E_Commerce/Checkout.html", ven)
+
 
 
 def payment_setup(request):
@@ -398,7 +399,9 @@ def new_password_vendor(request, enc_id):
 def logout(request):
     if request.session.has_key("authenticated"):
         del request.session["authenticated"]
-    return redirect("/")
+        del request.session["product"]
+        del request.session["cache"]
+    return redirect("/customer")
 
 
 def store_registration(request):
@@ -672,6 +675,7 @@ def tag_create(request):
 
 
 def add_to_cart(request, prod_pk):
+    temp_cart = []
     temp_cart.append(prod_pk)
     request.session["product"] = temp_cart
     return redirect("/")
@@ -697,7 +701,12 @@ def place_order(request):
             address.createAddress(customer, st_address, city, state, postal_code, country)
         except MultiValueDictKeyError:
             address = request.POST['address']
-
+            if address == "":
+                messages.error(request, "Invalid Address")
+                return render(request,"E_Commerce/Cart.html")
+        except TypeError:
+            messages.error(request, "Please fill in all the fields of new Address")
+            return render(request,"E_Commerce/Cart.html")
 
         notes = request.POST['optionalNotes']
         return HttpResponse("404")
