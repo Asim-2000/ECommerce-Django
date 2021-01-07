@@ -421,7 +421,7 @@ def store_registration(request):
 
 
 def temp(request):
-    return render(request, "E_Commerce/SingleProduct.html")
+    return render(request, "E_Commerce/AgencyPage.html")
 
 
 def products(request):
