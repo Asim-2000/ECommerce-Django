@@ -34,7 +34,7 @@
 
 
 .list-group.list-group-root > .list-group-item:first-child {
-  border-top-width: 0;
+  border-top-width: 1px;
 
 }
 
@@ -47,7 +47,6 @@
   padding-left: 45px;
   
 }
-
 
 
 
@@ -371,97 +370,75 @@
 
     
 
-<div class="container" >
-    <div class="row" >
+<div  class="container-fluid" >
+    <div style="margin-left: 300px; margin-right: 300px;" class="row" >
 
         <div class="col-md-3">
 
 
             <div class="list-group list-group-root well">
   
-  <a href="#" class="list-group-item">Item 1</a>
-  <div class="list-group">
-    
-    <a href="#" class="list-group-item">Item 1.1</a>
-    
-    
-    <a href="#" class="list-group-item">Item 1.2</a>
-    
-    
-    <a href="#" class="list-group-item">Item 1.3</a>
-   
-    
-  </div>
+  <a style="font-size: x-large; font-weight: 600;" href="#" class="list-group-item" >Store Product Category</a>
+ 
   
-  <a href="#" class="list-group-item">Item 2</a>
-  <div class="list-group">
+  <a class="list-group-item">Uncategorized</a>
+
+  <a href="#construction" class="list-group-item" data-toggle="collapse">Construction <i class="fas fa-sort-down mb-1"></i></a>
+  <div id="construction" class="list-group collapse">
     
-    <a href="#" class="list-group-item">Item 2.1</a>
+    <a href="#" class="list-group-item">Home Appliances</a>
    
     
-    <a href="#" class="list-group-item">Item 2.2</a>
+    <a href="#" class="list-group-item">Steel</a>
     
-    <a href="#" class="list-group-item">Item 2.3</a>
+    <a href="#" class="list-group-item">Electronics</a>
    
-    
   </div>
   
   
-  <a href="#" class="list-group-item">Item 3</a>
-  <div class="list-group">
-    
-    <a href="#" class="list-group-item">Item 3.1</a>
-   
-    
-    <a href="#" class="list-group-item">Item 3.2</a>
-   
-    
-    <a href="#" class="list-group-item">Item 3.3</a>
-    
-    
-  </div>
+  <a href="#" class="list-group-item">Decor</a>
   
 </div>
 
 
         </div>
 
-        <div style="background-color:  rgba(0, 0, 0, 0.65); max-height: 300px;" class="col-md-3 mt-2 mx-auto">
+        <div style="background-color:  rgba(0, 0, 0, 0.65); max-height: 420px;" class="col-md-3 mt-2 mx-auto">
 
             <!--      <h3>{{ agency.agency_name }}</h3> -->
-            <div class="imgcont ml-5" style="width: 75%; display: block; margin: auto;">
+            <div class="imgcont ml-5" style="width: 75%; display: block; margin: auto;background-size: cover;">
 
         {% if agency.logo %}
-     <img style="max-width: 100%; max-height: 100%; display: block;" src="{{agency.logo}}" alt="" class="vendor-logo">
+     <img style="max-width: 100%; max-height: 100%; display: block; " src="{{agency.logo}}" alt="" class="vendor-logo rounded-circle">
         {% else %}
             <br>
-        <img src="../../../static/images/logo.png" style="max-width: 110%; max-height: 110%; display: block;" alt="" class="vendor-logo">
+        <img src="../../../static/images/logo.png" style="max-width: 110%; max-height: 110%; display: block; background-size: cover;" alt="" class="vendor-logo rounded-circle">
         {% endif %}
 
             </div>
             <br>
-            <div style="color: white; font-size: 1.1rem; overflow-wrap: break-word;" class="vendor-details mt-3 ml-4">
+            <div style="color: white; font-size: 1.1rem; overflow-wrap: break-word;" class="vendor-details mt-3">
 
-                <div >
-                    <span><strong>Email: </strong></span>
-                    <span>{{ agency.agency_email }}</span>
+        
+                <div style="text-align: center; ">
+                  <h5 style="font-weight: 800;">Sample Agency Name</h5>
                 </div>
-
-                <div>
-                    {% if agency.street_address %}
-                    <span><strong>Address: </strong></span>
-                    <!-- <span>Hosue No.356, Street Number 6 Media Town, Block 8, Rawalpindi, Punjab</span> -->
-                    <span>{{ agency.street_address }}.</span>
-                    <span>{{ agency.city }},</span>
-                    <span>{{ agency.country }}.</span>
-                    {% endif %}
+        
+                <div class="ml-2">
+                    <span><i class="fa fa-star" aria-hidden="true"> </i></span>
+                    <span class="ml-2">No Ratings Found yet!</span>
+                 
                 </div>
-
-
-                <div>
-                    <span><strong>Contact Number: </strong></span>
-                    <span>{{ agency.agency_contact }}</span>
+        
+                <div class="ml-2">
+                    <span><i class="fa fa-cart-arrow-down" aria-hidden="true"> </i></span>
+                    <span class=" ml-2">Store Closed</span>
+                 
                 </div>
+        
+              
+
+
 
             </div>
         </div>
@@ -484,112 +461,35 @@
     </div>
 
 
-    <div class="row mt-2" >
+    <div style="margin-left: 300px; margin-right: 300px;" class="row mt-2" >
 
         <div class="col-md-3">
 
+<div style="font-size: x-large; font-weight: 600;">Store Product Category</div>
 
-            <div class="list-group list-group-root well">
-  
-  <a href="#" class="list-group-item">Item 1</a>
-  <div class="list-group">
-    
-    <a href="#" class="list-group-item">Item 1.1</a>
-    
-    
-    <a href="#" class="list-group-item">Item 1.2</a>
-    
-    
-    <a href="#" class="list-group-item">Item 1.3</a>
+<hr>
+
+        </div>
+
+        <div class="col-md-8">
+          <ul class="nav nav-tabs list-group-horizontal">
+    <li class="list-group-item"><a style="text-decoration: none;" href="#aaa" data-toggle="tab">Products</a></li>
+
+    <li class="list-group-item"><a style="text-decoration: none;" href="#bbb" data-toggle="tab">Reviews</a></li>
+</ul>
+<div class="tab-content" id="tabs">
+    <div class="tab-pane active" id="aaa">Products</div>
+    <div class="tab-pane" id="bbb">Reviews</div>
    
-    
-  </div>
-  
-  <a href="#" class="list-group-item">Item 2</a>
-  <div class="list-group">
-    
-    <a href="#" class="list-group-item">Item 2.1</a>
-   
-    
-    <a href="#" class="list-group-item">Item 2.2</a>
-    
-    <a href="#" class="list-group-item">Item 2.3</a>
-   
-    
-  </div>
-  
-  
-  <a href="#" class="list-group-item">Item 3</a>
-  <div class="list-group">
-    
-    <a href="#" class="list-group-item">Item 3.1</a>
-   
-    
-    <a href="#" class="list-group-item">Item 3.2</a>
-   
-    
-    <a href="#" class="list-group-item">Item 3.3</a>
-    
-    
-  </div>
-  
 </div>
-
-
         </div>
-
-        <div style="background-color:  #731b1b; max-height: 300px;" class="col-md-3 mt-2 mx-auto">
-
-            <!--      <h3>{{ agency.agency_name }}</h3> -->
-            <div class="imgcont ml-5" style="width: 75%; display: block; margin: auto;">
-
-        {% if agency.logo %}
-     <img style="max-width: 100%; max-height: 100%; display: block;" src="{{agency.logo}}" alt="" class="vendor-logo">
-        {% else %}
-            <br>
-        <img src="../../../static/images/logo.png" style="max-width: 110%; max-height: 110%; display: block;" alt="" class="vendor-logo">
-        {% endif %}
-
-            </div>
-            <br>
-            <div style="color: white; font-size: 1.1rem; overflow-wrap: break-word;" class="vendor-details mt-3 ml-4">
-
-                <div >
-                    <span><strong>Email: </strong></span>
-                    <span>{{ agency.agency_email }}</span>
-                </div>
-
-                <div>
-                    {% if agency.street_address %}
-                    <span><strong>Address: </strong></span>
-                    <!-- <span>Hosue No.356, Street Number 6 Media Town, Block 8, Rawalpindi, Punjab</span> -->
-                    <span>{{ agency.street_address }}.</span>
-                    <span>{{ agency.city }},</span>
-                    <span>{{ agency.country }}.</span>
-                    {% endif %}
-                </div>
-
-
-                <div>
-                    <span><strong>Contact Number: </strong></span>
-                    <span>{{ agency.agency_contact }}</span>
-                </div>
-
-            </div>
-        </div>
-
+        
+     
        
 
        
 
-        <div class="col-md-5 mt-2" style="max-height: 300px;">
-            {% if agency.banner %}
-            <img src="{{ agency.banner }}" style="display: block; width: 100%;" height="100%" alt="" class="banner">
-            {% else %}
-            <img src="../../../static/images/placeholder-banner.png"  style="display: block; width: 100%;" height="100%" alt="" class="banner">
-            {% endif %}
-
-        </div>
+        
         
 
     
@@ -614,6 +514,16 @@
 
         
 </div>
+   <script>
+ $(document).ready(function(){
+    activaTab('aaa');
+});
+
+function activaTab(tab){
+    $('.nav-tabs a[href="#' + tab + '"]').tab('show');
+};
+        </script>
+
 
 
 {% endblock %}
