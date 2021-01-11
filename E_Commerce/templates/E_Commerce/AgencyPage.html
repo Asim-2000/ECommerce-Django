@@ -373,7 +373,7 @@
 <div  class="container-fluid" >
     <div style="margin-left: 300px; margin-right: 300px;" class="row" >
 
-        <div class="col-md-3">
+        <div class="col-md-4">
 
 
             <div class="list-group list-group-root well">
@@ -463,9 +463,29 @@
 
     <div style="margin-left: 300px; margin-right: 300px;" class="row mt-2" >
 
-        <div class="col-md-3">
+        <div class="col-md-4">
 
-<div style="font-size: x-large; font-weight: 600;">Store Product Category</div>
+<div class="ml-3" style="font-size: x-large; font-weight: 600;">Contact Vendor</div>
+<hr>
+<div class="form">
+    <form>
+
+        <div class="form-group">
+<input class="form-control" type="text" name="name" id="name" placeholder="Your Name">
+        </div>
+
+        <div class="form-group">
+<input class="form-control" type="email" name="email" id="email" placeholder="you@example.com">
+        </div>
+
+        <div class="form-group">
+<textarea class="form-control" placeholder="Your Message"></textarea>
+        </div>
+
+        
+        
+    </form>
+</div>
 
 <hr>
 
@@ -476,10 +496,68 @@
     <li class="list-group-item"><a style="text-decoration: none;" href="#aaa" data-toggle="tab">Products</a></li>
 
     <li class="list-group-item"><a style="text-decoration: none;" href="#bbb" data-toggle="tab">Reviews</a></li>
+    <li class="list-group-item"><a style="text-decoration: none;">Follow</a></li>
+
+    <li class="list-group-item"><a style="text-decoration: none;">Share</a></li>
 </ul>
 <div class="tab-content" id="tabs">
-    <div class="tab-pane active" id="aaa">Products</div>
-    <div class="tab-pane" id="bbb">Reviews</div>
+    <div class="tab-pane active" id="aaa">
+        <div class="row">
+       
+            <div class="col-md-4 col-sm-6 mt-3">
+                <div class="product-grid">
+                    <div class="product-image">
+                        <a href="#">
+                            <img
+                                    class="pic-1"
+                                    src="http://bestjquery.com/tutorial/product-grid/demo9/images/img-1.jpg"
+                            />
+                            <img
+                                    class="pic-2"
+                                    src="http://bestjquery.com/tutorial/product-grid/demo9/images/img-2.jpg"
+                            />
+                        </a>
+                        <ul class="social">
+                            <li>
+                                <a href="" data-tip="Quick View"
+                                ><i class="fa fa-search"></i
+                                ></a>
+                            </li>
+                            <li>
+                                <a href="" data-tip="Add to Wishlist"
+                                ><i class="fa fa-shopping-bag"></i
+                                ></a>
+                            </li>
+                            <li>
+                                <a href="" data-tip="Add to Cart"
+                                ><i class="fa fa-shopping-cart"></i
+                                ></a>
+                            </li>
+                        </ul>
+                        <span class="product-new-label">Sale</span>
+                        <span class="product-discount-label">20%</span>
+                    </div>
+                    <ul class="rating">
+                        <li class="fa fa-star"></li>
+                        <li class="fa fa-star"></li>
+                        <li class="fa fa-star"></li>
+                        <li class="fa fa-star"></li>
+                        <li class="fa fa-star disable"></li>
+                    </ul>
+                    <div class="product-content">
+                        <h3 class="title"><a href="#"></a></h3>
+                        <div class="price">
+                           
+                            <span></span>
+                        </div>
+                        <a class="add-to-cart" href="">+ Add To Cart</a>
+                    </div>
+                </div>
+            </div>
+
+          </div>
+    </div>
+    <div class="tab-pane" id="bbb">No Reviews Yet</div>
    
 </div>
         </div>
