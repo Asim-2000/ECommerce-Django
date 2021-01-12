@@ -1,0 +1,616 @@
+{% extends 'E_Commerce/HomePage.html' %}
+{% block title %}{% endblock %}
+{% block content %}
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital@0;1&display=swap" rel="stylesheet">
+
+    <style>
+
+
+.list-group.list-group-root {
+  padding: 0;
+  overflow: hidden;
+
+}
+
+.list-group.list-group-root .list-group {
+  margin-bottom: 0;
+  
+}
+
+.list-group.list-group-root .list-group-item {
+  border-radius: 0;
+  border-width: 1px 1px 1px 1px;
+  text-decoration: none;
+  color: black;
+  
+ 
+}
+
+.list-group.list-group-root .list-group-item:hover{
+    color: rgb(96, 155, 8);
+}
+
+
+.list-group.list-group-root > .list-group-item:first-child {
+  border-top-width: 1px;
+
+}
+
+.list-group.list-group-root > .list-group > .list-group-item {
+  padding-left: 30px;
+ 
+}
+
+.list-group.list-group-root > .list-group > .list-group > .list-group-item {
+  padding-left: 45px;
+  
+}
+
+
+
+
+        .col-md-4 {
+            text-align: center;
+        }
+       *{
+        font-family: 'Crimson Text', serif;
+       }
+
+        .vendor-logo {
+            width: 85%;
+        }
+
+        .vendor-details {
+
+            text-align: left;
+
+        }
+
+        .banner {
+            width: 100%;
+        }
+
+        h3.h3 {
+            text-align: center;
+            margin: 1em;
+            text-transform: capitalize;
+            font-size: 1.7em;
+        }
+
+        /********************* shopping Demo-1 **********************/
+
+        .product-grid {
+            font-family: Raleway, sans-serif;
+            text-align: center;
+            padding: 0 0 72px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            position: relative;
+            z-index: 1;
+        }
+
+        .product-grid .product-image {
+            position: relative;
+            transition: all 0.3s ease 0s;
+        }
+
+        .product-grid .product-image a {
+            display: block;
+        }
+
+        .product-grid .product-image img {
+            width: 100%;
+            height: auto;
+        }
+
+        .product-grid .pic-1 {
+            opacity: 1;
+            transition: all 0.3s ease-out 0s;
+        }
+
+        .product-grid:hover .pic-1 {
+            opacity: 1;
+        }
+
+        .product-grid .pic-2 {
+            opacity: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: all 0.3s ease-out 0s;
+        }
+
+        .product-grid:hover .pic-2 {
+            opacity: 1;
+        }
+
+        .product-grid .social {
+            width: 150px;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            opacity: 0;
+            transform: translateY(-50%) translateX(-50%);
+            position: absolute;
+            top: 60%;
+            left: 50%;
+            z-index: 1;
+            transition: all 0.3s ease 0s;
+        }
+
+        .product-grid:hover .social {
+            opacity: 1;
+            top: 50%;
+        }
+
+        .product-grid .social li {
+            display: inline-block;
+        }
+
+        .product-grid .social li a {
+            color: #fff;
+            background-color: #333;
+            font-size: 16px;
+            line-height: 40px;
+            text-align: center;
+            height: 40px;
+            width: 40px;
+            margin: 0 2px;
+            display: block;
+            position: relative;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .product-grid .social li a:hover {
+            color: #fff;
+            background-color: #ef5777;
+        }
+
+        .product-grid .social li a:after,
+        .product-grid .social li a:before {
+            content: attr(data-tip);
+            color: #fff;
+            background-color: #000;
+            font-size: 12px;
+            letter-spacing: 1px;
+            line-height: 20px;
+            padding: 1px 5px;
+            white-space: nowrap;
+            opacity: 0;
+            transform: translateX(-50%);
+            position: absolute;
+            left: 50%;
+            top: -30px;
+        }
+
+        .product-grid .social li a:after {
+            content: "";
+            height: 15px;
+            width: 15px;
+            border-radius: 0;
+            transform: translateX(-50%) rotate(45deg);
+            top: -20px;
+            z-index: -1;
+        }
+
+        .product-grid .social li a:hover:after,
+        .product-grid .social li a:hover:before {
+            opacity: 1;
+        }
+
+        .product-grid .product-discount-label,
+        .product-grid .product-new-label {
+            color: #fff;
+            background-color: #ef5777;
+            font-size: 12px;
+            text-transform: uppercase;
+            padding: 2px 7px;
+            display: block;
+            position: absolute;
+            top: 10px;
+            left: 0;
+        }
+
+        .product-grid .product-discount-label {
+            background-color: #333;
+            left: auto;
+            right: 0;
+        }
+
+        .product-grid .rating {
+            color: #ffd200;
+            font-size: 12px;
+            padding: 12px 0 0;
+            margin: 0;
+            list-style: none;
+            position: relative;
+            z-index: -1;
+        }
+
+        .product-grid .rating li.disable {
+            color: rgba(0, 0, 0, 0.2);
+        }
+
+        .product-grid .product-content {
+            background-color: #fff;
+            text-align: center;
+            padding: 12px 0;
+            margin: 0 auto;
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: -27px;
+            z-index: 1;
+            transition: all 0.3s;
+        }
+
+        .product-grid:hover .product-content {
+            bottom: 0;
+        }
+
+        .product-grid .title {
+            font-size: 13px;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+            text-transform: capitalize;
+            margin: 0 0 10px;
+            transition: all 0.3s ease 0s;
+        }
+
+        .product-grid .title a {
+            color: #828282;
+        }
+
+        .product-grid .title a:hover,
+        .product-grid:hover .title a {
+            color: #ef5777;
+        }
+
+        .product-grid .price {
+            color: #333;
+            font-size: 17px;
+            font-family: Montserrat, sans-serif;
+            font-weight: 700;
+            letter-spacing: 0.6px;
+            margin-bottom: 8px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .product-grid .price span {
+            color: #999;
+            font-size: 13px;
+            font-weight: 400;
+            text-decoration: line-through;
+            margin-left: 3px;
+            display: inline-block;
+        }
+
+        .product-grid .add-to-cart {
+            color: #000;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        @media only screen and (max-width: 990px) {
+            .product-grid {
+                margin-bottom: 30px;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .col-md-2 {
+                -ms-flex: 0 0 16.666667%;
+                flex: 0 0 21%;
+                max-width: 20%;
+            }
+        }
+
+        .category-grid {
+            font-family: Raleway, sans-serif;
+            text-align: center;
+            padding: 0 -172px;
+            overflow: hidden;
+            position: relative;
+            z-index: 1;
+        }
+
+        .category-grid .category-image {
+            position: relative;
+            transition: all 0.3s ease 0s;
+        }
+
+        .category-grid .category-image a {
+            display: block;
+        }
+
+        .category-grid .category-image img {
+            width: 100%;
+            height: auto;
+        }
+
+        .categoryimage .pic-1 {
+            opacity: 1;
+            transition: all 0.3s ease-out 0s;
+        }
+
+        .custom-toggler .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,102,203, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+        }
+
+        .custom-toggler.navbar-toggler {
+            border-color: rgb(255, 102, 203);
+        }
+
+
+
+        @media (min-width:481px)  {
+             /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */ }
+
+
+@media (min-width:641px){
+
+}
+        
+
+        @media only screen and (max-width: 768px) {
+            .col-md-4 {
+                width: 50%;
+
+
+            }
+        }
+
+
+    </style>
+
+
+
+    
+
+<div  class="container-fluid" >
+    <div style="margin-left: 300px; margin-right: 300px;" class="row" >
+
+        <div class="col-md-4">
+
+
+            <div class="list-group list-group-root well">
+  
+  <a style="font-size: x-large; font-weight: 600;" href="#" class="list-group-item" >Store Product Category</a>
+ 
+  
+  <a class="list-group-item">Uncategorized</a>
+
+  <a href="#construction" class="list-group-item" data-toggle="collapse">Construction <i class="fas fa-sort-down mb-1"></i></a>
+  <div id="construction" class="list-group collapse">
+    
+    <a href="#" class="list-group-item">Home Appliances</a>
+   
+    
+    <a href="#" class="list-group-item">Steel</a>
+    
+    <a href="#" class="list-group-item">Electronics</a>
+   
+  </div>
+  
+  
+  <a href="#" class="list-group-item">Decor</a>
+  
+</div>
+
+
+        </div>
+
+        <div style="background-color:  rgba(0, 0, 0, 0.65); max-height: 420px;" class="col-md-3 mt-2 mx-auto">
+
+            <!--      <h3>{{ agency.agency_name }}</h3> -->
+            <div class="imgcont ml-5" style="width: 75%; display: block; margin: auto;background-size: cover;">
+
+        {% if agency.logo %}
+     <img style="max-width: 100%; max-height: 100%; display: block; " src="{{agency.logo}}" alt="" class="vendor-logo rounded-circle">
+        {% else %}
+            <br>
+        <img src="../../../static/images/logo.png" style="max-width: 110%; max-height: 110%; display: block; background-size: cover;" alt="" class="vendor-logo rounded-circle">
+        {% endif %}
+
+            </div>
+            <br>
+            <div style="color: white; font-size: 1.1rem; overflow-wrap: break-word;" class="vendor-details mt-3">
+
+        
+                <div style="text-align: center; ">
+                  <h5 style="font-weight: 800;">Sample Agency Name</h5>
+                </div>
+        
+                <div class="ml-2">
+                    <span><i class="fa fa-star" aria-hidden="true"> </i></span>
+                    <span class="ml-2">No Ratings Found yet!</span>
+                 
+                </div>
+        
+                <div class="ml-2">
+                    <span><i class="fa fa-cart-arrow-down" aria-hidden="true"> </i></span>
+                    <span class=" ml-2">Store Closed</span>
+                 
+                </div>
+        
+              
+
+
+
+            </div>
+        </div>
+
+       
+
+       
+
+        <div class="col-md-5 mt-2" style="max-height: 300px;">
+            {% if agency.banner %}
+            <img src="{{ agency.banner }}" style="display: block; width: 100%;" height="100%" alt="" class="banner">
+            {% else %}
+            <img src="../../../static/images/placeholder-banner.png"  style="display: block; width: 100%;" height="100%" alt="" class="banner">
+            {% endif %}
+
+        </div>
+        
+
+    
+    </div>
+
+
+    <div style="margin-left: 300px; margin-right: 300px;" class="row mt-2" >
+
+        <div class="col-md-4">
+
+<div class="ml-3" style="font-size: x-large; font-weight: 600;">Contact Vendor</div>
+<hr>
+<div class="form">
+    <form>
+
+        <div class="form-group">
+<input class="form-control" type="text" name="name" id="name" placeholder="Your Name">
+        </div>
+
+        <div class="form-group">
+<input class="form-control" type="email" name="email" id="email" placeholder="you@example.com">
+        </div>
+
+        <div class="form-group">
+<textarea class="form-control" placeholder="Your Message"></textarea>
+        </div>
+
+        
+        
+    </form>
+</div>
+
+<hr>
+
+        </div>
+
+        <div class="col-md-8">
+            <div class="nav nav-tabs list-group-horizontal ">
+
+                 <ul class="nav nav-tabs list-group-horizontal mr-auto">
+    <li class="list-group-item"><a style="text-decoration: none; color: green;" href="#aaa" data-toggle="tab">Products</a></li>
+
+    <li class="list-group-item"><a style="text-decoration: none; color: green;" href="#bbb" data-toggle="tab">Reviews</a></li>
+                 </ul>
+      <ul class="nav nav-tabs list-group-horizontal">
+                    <li style="background-color: rgba(255, 157, 0, 0.986);" class="list-group-item"><a style="text-decoration: none;">Follow</a></li>
+
+    <li style="background-color: rgba(255, 157, 0, 0.986);" class="list-group-item"><a style="text-decoration: none;">Share</a></li>
+    </ul>
+            </div>
+         
+      
+   
+
+<div class="tab-content" id="tabs">
+    <div class="tab-pane active" id="aaa">
+        <div class="row">
+       
+            <div class="col-md-4 col-sm-6 mt-3">
+                <div class="product-grid">
+                    <div class="product-image">
+                        <a href="#">
+                            <img
+                                    class="pic-1"
+                                    src="http://bestjquery.com/tutorial/product-grid/demo9/images/img-1.jpg"
+                            />
+                            <img
+                                    class="pic-2"
+                                    src="http://bestjquery.com/tutorial/product-grid/demo9/images/img-2.jpg"
+                            />
+                        </a>
+                        <ul class="social">
+                            <li>
+                                <a href="" data-tip="Quick View"
+                                ><i class="fa fa-search"></i
+                                ></a>
+                            </li>
+                            <li>
+                                <a href="" data-tip="Add to Wishlist"
+                                ><i class="fa fa-shopping-bag"></i
+                                ></a>
+                            </li>
+                            <li>
+                                <a href="" data-tip="Add to Cart"
+                                ><i class="fa fa-shopping-cart"></i
+                                ></a>
+                            </li>
+                        </ul>
+                        <span class="product-new-label">Sale</span>
+                        <span class="product-discount-label">20%</span>
+                    </div>
+                    <ul class="rating">
+                        <li class="fa fa-star"></li>
+                        <li class="fa fa-star"></li>
+                        <li class="fa fa-star"></li>
+                        <li class="fa fa-star"></li>
+                        <li class="fa fa-star disable"></li>
+                    </ul>
+                    <div class="product-content">
+                        <h3 class="title"><a href="#"></a></h3>
+                        <div class="price">
+                           
+                            <span></span>
+                        </div>
+                        <a class="add-to-cart" href="">+ Add To Cart</a>
+                    </div>
+                </div>
+            </div>
+
+          </div>
+    </div>
+    <div class="tab-pane" id="bbb">No Reviews Yet</div>
+   
+</div>
+        </div>
+        
+     
+       
+
+       
+
+        
+        
+
+    
+    </div>
+
+
+
+
+
+</div>
+    {% for message in messages %}
+            <div class="container alert {{ message.tags }} alert-dismissible" role="alert">
+                <button type="button" onClick="location.href=''" class="close" data-dismiss="alert"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                {{ message | safe }}
+            </div>
+        {% endfor %}
+<br>
+    
+
+        
+</div>
+   <script>
+ $(document).ready(function(){
+    activaTab('aaa');
+});
+
+function activaTab(tab){
+    $('.nav-tabs a[href="#' + tab + '"]').tab('show');
+};
+        </script>
+
+
+
+{% endblock %}
