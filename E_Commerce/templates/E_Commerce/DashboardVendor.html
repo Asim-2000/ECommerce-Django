@@ -7,8 +7,10 @@
 
 
 
+
 {% block panel_vendor %}
-<div class="m-3 p-5 col-md-8">
+
+<div class="m-3 p-5 col-lg-6 col-md-12 sm-12">
   <div class="container">
     <div class="row mb-2">
       <div class="col-md-3">
@@ -25,6 +27,8 @@
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
+
+
               <div class="modal-body">
                 <form method="post" action="request-category">
                     {% csrf_token %}
