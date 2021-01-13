@@ -263,13 +263,67 @@
         .categoryimage .pic-1 {
             opacity: 1;
             transition: all 0.3s ease-out 0s;
-        }
+
+        
+}
+@media (min-width: 576px){
+.low-width {
+    
+    flex: 0 0 56.666667%;
+    max-width: 56.666667%;
+}
+}
 
     </style>
 
+<div style="background-color: #626262;">
+<img src="../../../static/images/banner.jpg" class="d-block mx-auto" style="height: auto; width: 80vw;" alt="Responsive image">
+</div>
 
-    <div class="container">
-    <h3 class="h3">Products</h3>
+<div class="container">
+<!-- <div class="row">
+    <div class="col-md-6">
+        <row class="justify-content-end">
+
+        <img style="max-width:100%; max-height:100%;" src="../../../static/images/banner-2.jpg" alt="">
+    
+        </row>
+    </div>
+    <div class="col-md-4">
+
+        <div class="row justify-content-start">
+        <img style="max-width: 100%; max-height: 100%;" src="../../../static/images/banner-3.jpg" alt="">    
+        </div>
+        
+    </div>
+    
+    
+</div> -->
+
+
+
+<body class="bg-light">
+    
+
+
+<div class="container p-0 m-0">
+    <div class="row">                                     
+        <div class="col-sm-8">                 
+            <img style="max-height: 400px; max-width: 104%;" class="img-responsive" src="../../../static/images/banner-2.jpg"  />
+        </div>                  
+        <div class="col-sm-4">
+            <img style="max-height: 400px; max-width: 108%;" class="img-responsive" src="../../../static/images/banner-3.jpg" />
+        </div>                  
+    </div>
+</div>
+
+
+
+</div>
+
+    <div class="container-fluid">
+    <h3 style="font-size: 50px; color: #6ec1e4; text-align: center;" class="mt-5">FEATURE PRODUCTS</h3>
+    <h3 style="font-size: small; text-align: center;">Visit our Shop to see amazing products</h3>
     <div class="row">
         {% for p in prod %}
             <div class="col-md-2 col-sm-6 mt-3">
@@ -277,10 +331,14 @@
                     <div class="product-image">
                         <a href="#">
                             <img
+                            style="width: 182.15px; height: 232.94px; object-fit: contain;"
+                            
                                     class="pic-1"
                                     src={{ p.featured_image.url }}
                             />
                             <img
+                            style="width: 182.15px; height: 232.94px; object-fit: contain;"
+                            
                                     class="pic-2"
                                     src={{ p.featured_image.url }}
                             />
@@ -328,9 +386,32 @@
     </div>
 
 
+    <div class="container mt-5">
+    <div class="row">                                     
+        <div class="col-sm-8 low-width">                 
+            <img style="max-height: 800px; max-width: 104%;" class="img-responsive" src="../../../static/images/banner-6.jpg"  />
+        </div>                  
+        <div class="col-sm-4">
+            <div>
+<img style="max-height: 400px; max-width: 180%;" class="img-responsive" src="../../../static/images/banner-4.jpg" />
+            </div>
+            
+            <div class="mt-2">
+<img style="max-height: 400px; max-width: 180%;" class="img-responsive" src="../../../static/images/banner-5.jpg" />
+            </div>
+            
+            
+        </div>                  
+    </div>
+</div>
+
+
+
 
     <div class="container">
-        <h3 class="h3">Categories</h3>
+        <h3 style="font-size: 50px; color: #6ec1e4; text-align: center;" class="mt-5">CATEGORIES</h3>
+    <h3 style="font-size: small; text-align: center;">Visit our amazing Categories</h3>
+    
         <div class="row">
 
             <div class="col-md-2 sm-6 mt-3">
@@ -338,6 +419,7 @@
                     <div class="category-image">
                         <a href="#">
                             <img
+                            style="width: 182.15px; height: 232.94px; object-fit: contain;"
                                     class="pic-1"
                                     src="http://bestjquery.com/tutorial/product-grid/demo9/images/img-1.jpg"
                                     alt=""
@@ -356,6 +438,7 @@
                     <div class="category-image">
                         <a href="#">
                             <img
+                            style="width: 182.15px; height: 232.94px; object-fit: contain;"
                                     class="pic-1"
                                     src="http://bestjquery.com/tutorial/product-grid/demo9/images/img-1.jpg"
                                     alt=""
@@ -371,6 +454,123 @@
             </div>
         </div>
     </div>
+    
+
+    <section class="bg-white">
+    <div class="container">
+    <div id="demo" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            <i style="color: green; font-size: xx-large; display:inline-block;width: 100%; text-align: center;" class="fas fa-quote-left mt-2"></i>
+            <div class="carousel-item active">
+                <div class="carousel-caption">
+                    <p>If Shai Reznik's TDD videos don't convince you to add automated testing your code, I don't know what will.This was the very best explanation of frameworks for brginners that I've ever seen. </p> 
+                    <div id="image-caption">Nick Doe</div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="carousel-caption">
+                    <p>If Shai Reznik's TDD videos don't convince you to add automated testing your code, I don't know what will.This was the very best explanation of frameworks for brginners that I've ever seen.</p> 
+                    <div id="image-caption">Cromption Greves</div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="carousel-caption">
+                    <p>If Shai Reznik's TDD videos don't convince you to add automated testing your code, I don't know what will.This was the very best explanation of frameworks for brginners that I've ever seen.</p> 
+                    <div id="image-caption">Harry Mon</div>
+                </div>
+            </div>
+        </div> <a class="carousel-control-prev" href="#demo" data-slide="prev"> <i style="color:#000; font-size: x-large;" class='fas fa-arrow-circle-left'></i> </a> <a class="carousel-control-next" href="#demo" data-slide="next"> <i style="color: #000; font-size: x-large;" class='fas fa-arrow-circle-right'></i> </a>
+    </div>
+</div>
+</section>
+
+<style>
+
+#demo {
+    background: white;
+    max-width: 900px;
+    margin: auto
+}
+
+.carousel-caption {
+    position: initial;
+    z-index: 10;
+    padding: 5rem 8rem;
+    color: rgba(78, 77, 77, 0.856);
+    text-align: center;
+    font-size: 1.2rem;
+    line-height: 2rem
+}
+
+@media(max-width:767px) {
+    .carousel-caption {
+        position: initial;
+        z-index: 10;
+        padding: 3rem 2rem;
+        color: rgba(78, 77, 77, 0.856);
+        text-align: center;
+        font-size: 0.7rem;
+        line-height: 1.5rem
+    }
+}
+
+.carousel-caption img {
+    width: 6rem;
+    border-radius: 5rem;
+    margin-top: 2rem
+}
+
+@media(max-width:767px) {
+    .carousel-caption img {
+        width: 4rem;
+        border-radius: 4rem;
+        margin-top: 1rem
+    }
+}
+
+#image-caption {
+    font-style: normal;
+    font-size: 1rem;
+    margin-top: 0.5rem
+}
+
+@media(max-width:767px) {
+    #image-caption {
+        font-style: normal;
+        font-size: 0.6rem;
+        margin-top: 0.5rem
+    }
+}
+
+i {
+    background-color: white;
+    padding: 1.4rem
+}
+
+@media(max-width:767px) {
+    i {
+        padding: 0.8rem
+    }
+}
+
+.carousel-control-prev {
+    justify-content: flex-start
+}
+
+.carousel-control-next {
+    justify-content: flex-end
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    transition: none;
+    opacity: unset
+}
+
+</style>
+
+
 
 {% endblock %}
 </div>
+</body>
