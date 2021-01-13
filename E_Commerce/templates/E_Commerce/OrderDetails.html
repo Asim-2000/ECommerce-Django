@@ -1,0 +1,462 @@
+{% extends 'E_Commerce/HomePage.html' %}
+{% block title %}Login/Registration{% endblock %}
+{% block content %}
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+<style>
+    .product-grid {
+            font-family: Raleway, sans-serif;
+            text-align: center;
+            padding: 0 0 72px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            position: relative;
+            z-index: 1;
+        }
+
+        .product-grid .product-image {
+            position: relative;
+            transition: all 0.3s ease 0s;
+        }
+
+        .product-grid .product-image a {
+            display: block;
+        }
+
+        .product-grid .product-image img {
+            width: 100%;
+            height: auto;
+        }
+
+        .product-grid .pic-1 {
+            opacity: 1;
+            transition: all 0.3s ease-out 0s;
+        }
+
+        .product-grid:hover .pic-1 {
+            opacity: 1;
+        }
+
+        .product-grid .pic-2 {
+            opacity: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: all 0.3s ease-out 0s;
+        }
+
+        .product-grid:hover .pic-2 {
+            opacity: 1;
+        }
+
+        .product-grid .social {
+            width: 150px;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            opacity: 0;
+            transform: translateY(-50%) translateX(-50%);
+            position: absolute;
+            top: 60%;
+            left: 50%;
+            z-index: 1;
+            transition: all 0.3s ease 0s;
+        }
+
+        .product-grid:hover .social {
+            opacity: 1;
+            top: 50%;
+        }
+
+        .product-grid .social li {
+            display: inline-block;
+        }
+
+        .product-grid .social li a {
+            color: #fff;
+            background-color: #333;
+            font-size: 16px;
+            line-height: 40px;
+            text-align: center;
+            height: 40px;
+            width: 40px;
+            margin: 0 2px;
+            display: block;
+            position: relative;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .product-grid .social li a:hover {
+            color: #fff;
+            background-color: #ef5777;
+        }
+
+        .product-grid .social li a:after,
+        .product-grid .social li a:before {
+            content: attr(data-tip);
+            color: #fff;
+            background-color: #000;
+            font-size: 12px;
+            letter-spacing: 1px;
+            line-height: 20px;
+            padding: 1px 5px;
+            white-space: nowrap;
+            opacity: 0;
+            transform: translateX(-50%);
+            position: absolute;
+            left: 50%;
+            top: -30px;
+        }
+
+        .product-grid .social li a:after {
+            content: "";
+            height: 15px;
+            width: 15px;
+            border-radius: 0;
+            transform: translateX(-50%) rotate(45deg);
+            top: -20px;
+            z-index: -1;
+        }
+
+        .product-grid .social li a:hover:after,
+        .product-grid .social li a:hover:before {
+            opacity: 1;
+        }
+
+        .product-grid .product-discount-label,
+        .product-grid .product-new-label {
+            color: #fff;
+            background-color: #ef5777;
+            font-size: 12px;
+            text-transform: uppercase;
+            padding: 2px 7px;
+            display: block;
+            position: absolute;
+            top: 10px;
+            left: 0;
+        }
+
+        .product-grid .product-discount-label {
+            background-color: #333;
+            left: auto;
+            right: 0;
+        }
+
+        .product-grid .rating {
+            color: #ffd200;
+            font-size: 12px;
+            padding: 12px 0 0;
+            margin: 0;
+            list-style: none;
+            position: relative;
+            z-index: -1;
+        }
+
+        .product-grid .rating li.disable {
+            color: rgba(0, 0, 0, 0.2);
+        }
+
+        .product-grid .product-content {
+            background-color: #fff;
+            text-align: center;
+            padding: 12px 0;
+            margin: 0 auto;
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: -27px;
+            z-index: 1;
+            transition: all 0.3s;
+        }
+
+        .product-grid:hover .product-content {
+            bottom: 0;
+        }
+
+        .product-grid .title {
+            font-size: 13px;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+            text-transform: capitalize;
+            margin: 0 0 10px;
+            transition: all 0.3s ease 0s;
+        }
+
+        .product-grid .title a {
+            color: #828282;
+        }
+
+        .product-grid .title a:hover,
+        .product-grid:hover .title a {
+            color: #ef5777;
+        }
+
+        .product-grid .price {
+            color: #333;
+            font-size: 17px;
+            font-family: Montserrat, sans-serif;
+            font-weight: 700;
+            letter-spacing: 0.6px;
+            margin-bottom: 8px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .product-grid .price span {
+            color: #999;
+            font-size: 13px;
+            font-weight: 400;
+            text-decoration: line-through;
+            margin-left: 3px;
+            display: inline-block;
+        }
+
+        .product-grid .add-to-cart {
+            color: #000;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        @media only screen and (max-width: 990px) {
+            .product-grid {
+                margin-bottom: 30px;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .col-md-2 {
+                -ms-flex: 0 0 16.666667%;
+                flex: 0 0 21%;
+                max-width: 20%;
+            }
+        }
+
+        .category-grid {
+            font-family: Raleway, sans-serif;
+            text-align: center;
+            padding: 0 -172px;
+            overflow: hidden;
+            position: relative;
+            z-index: 1;
+        }
+
+        .category-grid .category-image {
+            position: relative;
+            transition: all 0.3s ease 0s;
+        }
+
+        .category-grid .category-image a {
+            display: block;
+        }
+
+        .category-grid .category-image img {
+            width: 100%;
+            height: auto;
+        }
+
+        .categoryimage .pic-1 {
+            opacity: 1;
+            transition: all 0.3s ease-out 0s;
+
+        
+}
+</style>
+
+
+<h1 class="col-12 text-center">
+    YOUR KARKHANAY.COM ORDER HAS SHIPPED
+</h1>
+
+
+<div style="border: 5px solid black;" class="col-6 mx-auto p-5 mt-5">
+    <h3 class="text-center">
+        ORDER NUMBER: SAMPLE
+        
+    </h3>
+</div>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-lg-6 col-md-12 col-sm-12 mx-auto text-center">
+            <h3>HOW TO REACH US</h3>
+           <div><i style="font-size: xx-large;" class="fas fa-phone"></i><span class="ml-2" style="font-size: xx-large;">8-23483-3423</span></div> 
+           <div><i style="font-size: xx-large;" class="fas fa-envelope"></i><span class="ml-2" style="font-size: xx-large;">support@karkhanay.com</span></div> 
+        
+        </div>
+        <div class="col-lg-4 col-md-12 col-sm-12 mx-auto text-center mt-2">
+            <h3>LEARN ABOUT OUR</h3>
+            <a style="color: black;" href=""><h3>RETURN POLICY</h3></a>
+           <div><a style="color: black; text-decoration: none;" href=""><i style="font-size: xx-large;" class="fas fa-arrow-alt-circle-right"></i></a></div> 
+        </div>
+    </div>
+</div>
+
+
+<h3 class="text-center mt-5">
+    ORDER SUMMARY
+</h3>
+
+<hr style="height:3px;border:none;color:#333;background-color:#333;" />
+
+
+<div class="container">
+
+    <div class="row">
+
+    <div class="col-lg-6 col-md-6 col-sm-12">
+        <h3>ITEMS</h3>
+
+        <div class="items mt-5">
+
+        <h5>item tag</h5>
+        <h5><span>Style: </span> <span>Sample Style</span> </h5>
+        <h5>SAMPLE COLOR</h5>
+        <h5>SAMPLE PRICE</h5>
+        <h5> <span>Quantity:</span> <span>Sample Quantity</span></h5>
+        <h5>Standard Ground</h5>
+
+        </div>
+        
+    </div>
+
+    <div class="col-lg-6 col-md-6 col-sm-12">
+
+    <h3>SHIPPING ADDRESS</h3>
+
+    <div class="address mt-5">
+        <h5>Sample address</h5>
+    </div>
+
+    <div class="tracking mt-5">
+        <h3><span>Tracking #: </span> <span>Sample</span></h3>
+    </div>
+    </div>
+
+</div>
+
+
+<div class="row mt-5">
+
+    <div class="col-lg-6 col-md-6 col-sm-12">
+        <h3>COST</h3>
+        
+
+        <div class="row">
+
+              <div class="col-6">
+           <h4>Subtotal</h4> 
+        </div>
+        <div class="col-6">
+            <h4>Sample Sub-total
+</h4> 
+       </div>
+
+        </div>
+        <div class="row">
+
+              <div class="col-6">
+           <h4>Taxes</h4> 
+        </div>
+        <div class="col-6">
+          <h4> Sample Tax</h4> 
+        </div>
+
+        </div>
+        <hr>
+
+        <div class="row">
+
+              <div class="col-6">
+           <h4>Total</h4> 
+        </div>
+        <div class="col-6">
+           <h4 style="text-decoration: double;"> <u>Sample Total</u> </h4> 
+        </div>
+
+        </div>
+      
+</div>
+
+<div class="col-lg-6 col-md-6 col-sm-12">
+
+    <h3>BILLING INFORMATION</h3>
+
+    <div class="billing mt-5">
+        <h5>
+            Sample Billing Info
+        </h5>
+    </div>
+
+</div>
+
+
+</div>
+
+</div>
+
+
+
+<div class="container-fluid">
+    <h3 style="font-size: 50px; text-align: center;" class="mt-5">SEE WHATS IN STORE</h3>
+    <div class="row">
+
+            <div class="col-md-2 col-sm-6 mt-3">
+                <div class="product-grid">
+                    <div class="product-image">
+                        <a href="#">
+                            <img
+                            style="width: 182.15px; height: 232.94px; object-fit: cover;"
+                            
+                                    class="pic-1"
+                                    src="../../../static/images/banner-5.jpg"
+                            />
+                                            </a>
+                        <ul class="social">
+                            <li>
+                                <a href="/single_product/{{ p.pk }}/{{ p.name }}" data-tip="Quick View"
+                                ><i class="fa fa-search"></i
+                                ></a>
+                            </li>
+                            <li>
+                                <a href="/add_to_wishlist/{{ p.pk }}" data-tip="Add to Wishlist"
+                                ><i class="fa fa-shopping-bag"></i
+                                ></a>
+                            </li>
+                            <li>
+                                <a href="/add_to_cart/{{ p.pk }}" data-tip="Add to Cart"
+                                ><i class="fa fa-shopping-cart"></i
+                                ></a>
+                            </li>
+                        </ul>
+                        <span class="product-new-label">Sale</span>
+                        <span class="product-discount-label">20%</span>
+                    </div>
+                    <ul class="rating">
+                        <li class="fa fa-star"></li>
+                        <li class="fa fa-star"></li>
+                        <li class="fa fa-star"></li>
+                        <li class="fa fa-star"></li>
+                        <li class="fa fa-star disable"></li>
+                    </ul>
+                    <div class="product-content">
+                        <h3 class="title"><a href="#">{{ p.name }}</a></h3>
+                        <div class="price">
+                            {{ p.price }}
+                            <span>{{ p.discounted_price }}</span>
+                        </div>
+                        <a class="add-to-cart" href="">+ Add To Cart</a>
+                    </div>
+                </div>
+            </div>
+
+          </div>
+
+    </div>
+
+
+
+
+
+
+{% endblock %}
