@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.db import IntegrityError
 from django.shortcuts import render, redirect
@@ -7,14 +8,13 @@ from django.utils.encoding import force_text
 from django.utils.http import urlsafe_base64_decode
 from django.views.decorators.cache import cache_control
 
-from .models import Customer, Vendor, Store, Product_Category, Tag, Image, Product, Address
+from .models import Customer, Vendor, Store, Product_Category, Tag, Image, Product, Address, Wishlist, Review
 from django.http import HttpResponse
 from django.utils.datastructures import MultiValueDictKeyError
 from django.contrib.auth.hashers import make_password, check_password
 
 # Create your views here.
 from .tokens import account_activation_token, password_reset_token
-
 
 
 def home(request):
@@ -25,6 +25,7 @@ def home(request):
     return render(request, 'E_Commerce/DisplayProduct.html', ven)
 
 
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def account(request):
     return render(request, 'E_Commerce/Login_Registration.html')
 
@@ -45,11 +46,12 @@ def cart(request):
     return render(request, 'E_Commerce/Cart.html')
 
 
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def checkout(request):
     try:
-        customer = Customer.objects.get(encrypted_id=request.session["authenticated"])
+        customer = Customer.objects.get(encrypted_id=request.session["customer"])
     except Customer.DoesNotExist:
-        customer = Vendor.objects.get(encrypted_id=request.session["authenticated"])
+        return redirect("/customer")
 
     try:
         address = Address.objects.filter(customer=customer)
@@ -75,30 +77,36 @@ def checkout(request):
             ven = {
                 "zipped": zipped, "total": total, "customer": customer, "address": address
             }
+            del request.session["product"]
             return render(request, "E_Commerce/Checkout.html", ven)
 
 
-
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def payment_setup(request):
     return render(request, 'E_Commerce/PaymentSetup.html')
 
 
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def ready(request):
     return render(request, 'E_Commerce/Ready.html')
 
 
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def orders(request):
     return render(request, 'E_Commerce/Orders.html')
 
 
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def downloads(request):
     return render(request, 'E_Commerce/Downloads.html')
 
 
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def addresses(request):
     return render(request, 'E_Commerce/Addresses.html')
 
 
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def account_details(request):
     enc_id = request.session["authenticated"]
     user = Vendor.objects.get(encrypted_id=enc_id)
@@ -108,18 +116,22 @@ def account_details(request):
     return render(request, 'E_Commerce/VendorAccountDetails.html', ven)
 
 
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def rma_requests(request):
     return render(request, 'E_Commerce/RMA_Requests.html')
 
 
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def vendors(request):
     return render(request, 'E_Commerce/DashboardVendor.html')
 
 
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def tickets(request):
     return render(request, 'E_Commerce/Tickets.html')
 
 
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def signup(request):
     if request.method == "POST":
         email = request.POST["email"]
@@ -153,6 +165,7 @@ def signup(request):
         return HttpResponse("404 not Found")
 
 
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def activate(request, uidb64, token):
     try:
         uid = force_text(urlsafe_base64_decode(uidb64))
@@ -168,6 +181,7 @@ def activate(request, uidb64, token):
         return HttpResponse('Activation link is invalid!')
 
 
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def login(request):
     if request.method == "POST":
         u_name = request.POST["u_name"]
@@ -175,8 +189,8 @@ def login(request):
         user = Customer()
         try:
             logged_in_user = user.login(u_name, password_login)
-            if logged_in_user is not None:
-                request.session["authenticated"] = logged_in_user.encrypted_id
+            if logged_in_user:
+                request.session["customer"] = logged_in_user.encrypted_id
                 return render(request, 'E_Commerce/Profile.html')
             else:
                 messages.error(request, "Invalid Username/Password")
@@ -195,6 +209,7 @@ def login(request):
             return redirect("/customer")
 
 
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def activation_email(request, username):
     user = Customer.objects.get(username=username)
     user.sendemail(user, request)
@@ -202,14 +217,17 @@ def activation_email(request, username):
     return redirect("/customer")
 
 
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def lost_password(request):
     return render(request, 'E_Commerce/LostPassword.html')
 
 
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def reset_password(request, enc_id):
     return render(request, 'E_Commerce/ResetPassword.html')
 
 
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def lost_password_email(request):
     if request.method == "POST":
         name_email = request.POST["u_name_email"]
@@ -228,6 +246,7 @@ def lost_password_email(request):
             return redirect("/customer/lost-password")
 
 
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def password_reset(request, uidb64, token):
     try:
         uid = force_text(urlsafe_base64_decode(uidb64))
@@ -241,6 +260,7 @@ def password_reset(request, uidb64, token):
         return HttpResponse('Reset password link is invalid!')
 
 
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def new_password(request, enc_id):
     user = Customer.objects.get(encrypted_id=enc_id)
     if request.method == "POST":
@@ -256,10 +276,12 @@ def new_password(request, enc_id):
             return redirect("/customer/reset-password/" + user.encrypted_id + "/")
 
 
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def vendor_account(request):
     return render(request, "E_Commerce/Login_Registration_Vendor.html")
 
 
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def login_vendor(request):
     if request.method == "POST":
         u_name = request.POST["u_name"]
@@ -267,7 +289,7 @@ def login_vendor(request):
         user = Vendor()
         try:
             logged_in_user = user.login(u_name, password_login)
-            if logged_in_user is not None:
+            if logged_in_user:
                 request.session["authenticated"] = logged_in_user.encrypted_id
                 return redirect("/vendors_page")
             else:
@@ -287,6 +309,7 @@ def login_vendor(request):
             return redirect("/vendor")
 
 
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def signup_vendor(request):
     if request.method == "POST":
         email = request.POST["email"]
@@ -320,6 +343,7 @@ def signup_vendor(request):
         return HttpResponse("404 not Found")
 
 
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def activation_email_vendor(request, username):
     user = Vendor.objects.get(username=username)
     user.sendemail(user, request)
@@ -327,6 +351,7 @@ def activation_email_vendor(request, username):
     return redirect("/vendor")
 
 
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def activate_vendor(request, uidb64, token):
     try:
         uid = force_text(urlsafe_base64_decode(uidb64))
@@ -342,10 +367,12 @@ def activate_vendor(request, uidb64, token):
         return HttpResponse('Activation link is invalid!')
 
 
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def lost_password_vendor(request):
     return render(request, "E_Commerce/LostPasswordVendor.html")
 
 
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def lost_password_email_vendor(request):
     if request.method == "POST":
         name_email = request.POST["u_name_email"]
@@ -364,6 +391,7 @@ def lost_password_email_vendor(request):
             return redirect("/vendor/lost-password")
 
 
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def password_reset_vendor(request, uidb64, token):
     try:
         uid = force_text(urlsafe_base64_decode(uidb64))
@@ -377,10 +405,12 @@ def password_reset_vendor(request, uidb64, token):
         return HttpResponse('Reset password link is invalid!')
 
 
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def reset_password_vendor(request, enc_id):
     return render(request, 'E_Commerce/ResetPasswordVendor.html')
 
 
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def new_password_vendor(request, enc_id):
     user = Vendor.objects.get(encrypted_id=enc_id)
     if request.method == "POST":
@@ -396,14 +426,18 @@ def new_password_vendor(request, enc_id):
             return redirect("/vendor/reset-password-vendor/" + user.encrypted_id + "/")
 
 
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def logout(request):
+    if request.session.has_key("customer"):
+        del request.session["customer"]
     if request.session.has_key("authenticated"):
         del request.session["authenticated"]
+    if request.session.has_key("product"):
         del request.session["product"]
-        del request.session["cache"]
     return redirect("/customer")
 
 
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def store_registration(request):
     if request.method == "POST":
         store_name = request.POST["StoreName"]
@@ -424,10 +458,12 @@ def temp(request):
     return render(request, "E_Commerce/VendorPanel.html")
 
 
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def products(request):
     return render(request, "E_Commerce/Products.html")
 
 
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def new_product(request):
     categories = Product_Category.objects.all()
     tags = Tag.objects.all()
@@ -438,6 +474,7 @@ def new_product(request):
     return render(request, "E_Commerce/AddProducts.html", cat)
 
 
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def dashboard_vendor(request):
     return render(request, "E_Commerce/DashboardVendor.html")
 
@@ -447,7 +484,7 @@ def orders_vendor(request):
 
 
 def account_details_customer(request):
-    enc_id = request.session["authenticated"]
+    enc_id = request.session["customer"]
     user = Customer.objects.get(encrypted_id=enc_id)
     ven = {
         "user": user
@@ -517,6 +554,7 @@ def store_register_page(request):
     return render(request, 'E_Commerce/StoreRegistration.html')
 
 
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def profile(request):
     return render(request, "E_Commerce/Profile.html")
 
@@ -644,6 +682,7 @@ def update_customer(request):
         return redirect("/account_details_customer")
 
 
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def request_category(request):
     if request.method == "POST":
         name = request.POST["category-name"]
@@ -653,12 +692,13 @@ def request_category(request):
             'name': name,
             'des': des,
         })
-        send_mail(mail_subject, message, 'noreply@karkhanay.com', ['fahadzaheer19@gmail.com'],
+        send_mail(mail_subject, message, 'noreply@karkhanay.com', ['noreply@karkhanay.com', 'fahadzaheer19@gmail.com'],
                   fail_silently=False)
         messages.success(request, "Category Requested.")
         return redirect('/dashboard-vendor')
 
 
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def tag_create(request):
     if request.method == "POST":
         name = request.POST["tag-name"]
@@ -674,6 +714,7 @@ def tag_create(request):
         return redirect("/dashboard-vendor")
 
 
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def add_to_cart(request, prod_pk):
     temp_cart = []
     temp_cart.append(prod_pk)
@@ -681,6 +722,7 @@ def add_to_cart(request, prod_pk):
     return redirect("/")
 
 
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def place_order(request):
     try:
         customer = Customer.objects.get(encrypted_id=request.session["authenticated"])
@@ -703,11 +745,85 @@ def place_order(request):
             address = request.POST['address']
             if address == "":
                 messages.error(request, "Invalid Address")
-                return render(request,"E_Commerce/Cart.html")
+                return render(request, "E_Commerce/Cart.html")
         except TypeError:
             messages.error(request, "Please fill in all the fields of new Address")
-            return render(request,"E_Commerce/Cart.html")
+            return render(request, "E_Commerce/Cart.html")
 
         notes = request.POST['optionalNotes']
         return HttpResponse("404")
 
+
+def add_to_wishlist(request, prod_pk):
+    try:
+        wish = Wishlist()
+        wish.product = Product.objects.get(pk=prod_pk)
+        wish.customer = Customer.objects.get(encrypted_id=request.session['customer'])
+        wish.save()
+    except IntegrityError:
+        messages.warning(request, "Product already in wishlist")
+    return redirect('/')
+
+
+def wishlist(request):
+    ven = {}
+    if request.session.has_key('customer'):
+        customer = Customer.objects.get(encrypted_id=request.session['customer'])
+        wish = Wishlist.objects.filter(customer=customer)
+
+        ven = {
+            'wishlist': wish,
+        }
+    return render(request, 'E_Commerce/Wishlist.html', ven)
+
+
+def product_page(request, prod_pk, prod_name):
+    prod = Product.objects.get(pk=prod_pk, name=prod_name)
+    image = Image.objects.filter(product=prod)
+    rev = Review.objects.filter(product=prod)
+    ven = {
+        'prod': prod, "image":image, 'review':rev
+    }
+    return render(request, "E_Commerce/SingleProduct.html", ven)
+
+
+def review(request, prod_pk):
+    if request.method == 'POST':
+        rev = Review()
+        rev.customer = Customer.objects.get(encrypted_id=request.session['customer'])
+        rev.product = Product.objects.get(pk=prod_pk)
+        rev.rating = request.POST["rate"]
+        rev.description = request.POST["review"]
+        rev.save()
+        prod = Product.objects.get(pk=prod_pk)
+        image = Image.objects.filter(product=prod)
+        rev = Review.objects.filter(product=prod)
+        ven = {
+            'prod': prod, "image": image, 'review': rev
+        }
+        return redirect('single_product/' + prod.pk + '/' + prod.name)
+
+
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+def inquiry(request,prod_pk):
+    if request.method == "POST":
+        name = request.POST["enquiry_name"]
+        des = request.POST["inquiry"]
+        mail_subject = 'Inquiry for a product'
+        email = request.POST['inquiry_email']
+        prod = Product.objects.get(pk=prod_pk)
+        message = render_to_string('E_Commerce/Enquiry_Email.html', {
+            'name': name,
+            'des': des,
+            'prod_name':prod.name,
+            'prod_url':'single_product/' + prod_pk + '/' + prod.name,
+        })
+        send_mail(mail_subject, message, 'noreply@karkhanay.com', [prod.store.vendor.email],
+                  fail_silently=False)
+        messages.success(request, "Inquired")
+        image = Image.objects.filter(product=prod)
+        rev = Review.objects.filter(product=prod)
+        ven = {
+            'prod': prod, "image": image, 'review': rev
+        }
+        return redirect('single_product/' + prod.pk + '/' + prod.name)

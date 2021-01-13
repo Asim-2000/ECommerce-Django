@@ -5,11 +5,11 @@ from E_Commerce.models import Product, Customer
 
 class Review(TimeStampedModel):
     STARS = (
-        ('1 star', '*'),
-        ('2 star', '**'),
-        ('3 star', '***'),
-        ('4 star', '****'),
-        ('5 star', '*****'),
+        ('1', '*'),
+        ('2', '**'),
+        ('3', '***'),
+        ('4', '****'),
+        ('5', '*****'),
     )
     rating = models.IntegerField(choices=STARS)
     description = models.CharField(max_length=1000)
