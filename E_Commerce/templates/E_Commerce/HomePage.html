@@ -16,14 +16,19 @@
     {% block stylesheet %}{% endblock %}
     {% include 'E_Commerce/MainNavigation.html' %}
 </head>
+
+
 <body>
 <div class="">
+
     <br>
     {% block content %}
 
     {% endblock %}
+
+
+    <hr>
 </div>
-<hr>
 </body>
 <script src="{% static '/js/jquery.js' %}"></script>
 <script src="{% static '/js/popper.js' %}"></script>

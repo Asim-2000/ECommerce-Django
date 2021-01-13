@@ -290,7 +290,7 @@
 
 <script>
      function show_description() {
-            var x = document.getElementById("description");
+            var x = document.getElementById("Description");
          ;
             document.getElementById('reviews').style.display = "none";
             document.getElementById('Enquiry').style.display = "none";
@@ -331,7 +331,7 @@
 
      function show_vendor() {
             var x = document.getElementById("vendor_info");
-         ;
+
             document.getElementById('Description').style.display = "none";
             document.getElementById('reviews').style.display = "none";
             document.getElementById('Enquiry').style.display = "none";
@@ -347,7 +347,14 @@
 <body>
   
 
-
+{% for message in messages %}
+  <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+    <button type="button" onClick="location.href='customer'" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    {{ message | safe }}
+  </div>
+  {% endfor %}
 <div  class="container">
 
 
@@ -355,19 +362,17 @@
     <div class="preview col-md-6">
 
       <div class="preview-pic tab-content">
-        <div class="tab-pane active" id="pic-1"><img src="http://placekitten.com/400/252" /></div>
-        <div class="tab-pane" id="pic-2"><img src="http://placekitten.com/400/252" /></div>
-        <div class="tab-pane" id="pic-3"><img src="http://placekitten.com/400/252" /></div>
-        <div class="tab-pane" id="pic-4"><img src="http://placekitten.com/400/252" /></div>
-        <div class="tab-pane" id="pic-5"><img src="http://placekitten.com/400/252" /></div>
+        <div class="tab-pane active" id="pic-1"><img src="{{ prod.featured_image.url }}" /></div>
+          {% for i in image %}
+          <div class="tab-pane" id="pic-{{ i.pk }}"><img src="{{ i.image.url }}" /></div>
+          {% endfor %}
       </div>
       <ul class="preview-thumbnail nav nav-tabs">
-        <li class="active"><a data-target="#pic-1" data-toggle="tab"><img src="http://placekitten.com/200/126" /></a>
+        <li class="active"><a data-target="#pic-1" data-toggle="tab"><img src="{{ prod.featured_image.url }}" /></a>
         </li>
-        <li><a data-target="#pic-2" data-toggle="tab"><img src="http://placekitten.com/200/126" /></a></li>
-        <li><a data-target="#pic-3" data-toggle="tab"><img src="http://placekitten.com/200/126" /></a></li>
-        <li><a data-target="#pic-4" data-toggle="tab"><img src="http://placekitten.com/200/126" /></a></li>
-        <li><a data-target="#pic-5" data-toggle="tab"><img src="http://placekitten.com/200/126" /></a></li>
+          {% for i in image %}
+        <li><a data-target="#pic-{{ i.pk }}" data-toggle="tab"><img src="{{ i.image.url }}" /></a></li>
+          {% endfor %}
       </ul>
 
     </div>
@@ -378,12 +383,12 @@
 
       <div class="product-title">
 
-        <h3>men's shoes fashion</h3>
+        <h3>{{ prod.name}}</h3>
 
 
       </div>
 
-      <h5>Price: <span>$180</span> <span><strike>$250</strike></span></h5>
+      <h5>Price: <span>Rs {{ prod.discounted_price }}</span> <span><strike>{{ prod.price }}</strike></span></h5>
 
 
       <div class="price">
@@ -392,14 +397,13 @@
 
       <div class="product-description">
         <p>
-          Suspendisse quos? Tempus cras iure temporibus? Eu laudantium cubilia sem sem! Repudiandae et! Massa senectus
-          enim minim sociosqu delectus posuere.</p>
+            {{ prod.short_description}}</p>
       </div>
 
       <div class="vendor">
         <span>Vendor: </span>
 
-        <span>Harry</span>
+        <span>{{ prod.store.vendor.firstname }} {{ prod.store.vendor.lastname }}</span>
 
       </div>
       <br>
@@ -410,7 +414,7 @@
         <label for="quantity_"></label>
         <input id="quantity" type="number" name="quantity" value="1">
 
-        <button class="add-to-cart btn btn-default" type="button"><span class="fa fa-cart-plus" </span></span>Add to
+        <button onclick="location.href='/add_to_cart/{{ prod.pk }}'" class="add-to-cart btn btn-default" type="button"><span class="fa fa-cart-plus"> </span></span>Add to
           Cart</button>
 
       </div>
@@ -418,11 +422,14 @@
       <div class="more-actions">
 
         <br>
+          <a href="/add_to_wishlist/{{ prod.pk }}">
         <span>
-          <i class="fa fa-heart" aria-hidden="true"></i>
+
+          <i  class="fa fa-heart" aria-hidden="true"></i>
+
           Add to Wishlist
         </span>
-
+ </a>
         <span class="pl-2">
 
           <i class="fa fa-crosshairs" aria-hidden="true"></i>
@@ -469,7 +476,7 @@
       <div id="Description" class="pl-5 pr-5">
 
         <p>
-          Hlelooo
+            {{ prod.description }}
         </p>
 
       </div>
@@ -477,15 +484,15 @@
       <div id="vendor_info" class="pl-5 pr-5 justify-content-end">
 
         <span> <strong>Store Name: </strong> </span>
-        <span>Demo Store name</span>
+        <span>{{ prod.store.name }}</span>
         <br>
        
         <span> <strong>Vendor: </strong> </span>
-        <span>Demo Vendor</span>
+        <span>{{ prod.store.vendor }}</span>
         <br>
        
         <span> <strong>Address </strong> </span>
-        <span>Demo Address</span>
+        <span>{{ prod.store.street_address }}, {{ prod.store.city }}. </span>
         <br>
        
 
@@ -497,25 +504,25 @@
         <div class="col-md-6 justify-content-end">
 
 
-          <form>
-
+          <form method="post" action="/inquire/{{ prod.pk }}">
+            {% csrf_token %}
             <div style="clear: both;" class="form-group">
               <label for="enquiry_name_">Name</label>
               <input type="text" class="form-control" id="enquiry_name_" placeholder="Enter Name" name="enquiry_name">
             </div>
 
-            <div class="form-group">
+           <div class="form-group">
               <label for="inquiry_email_">Email address</label>
               <input type="email" class="form-control" id="inquiry_email_" aria-describedby="emailHelp"
-                placeholder="Enter email" name="inquiry_name">
+                placeholder="Enter email" name="inquiry_email">
               <small id="emailHelp" class="form-text text-muted">We won't share your email with anyone else</small>
             </div>
 
             <div class="form-group">
-              <label for="inquiry_">Your Enquiry</label>
+              <label for="inquiry_">Your Inquiry</label>
               <br>
               <textarea name="inquiry" id="inquiry_" style="width: 100%;"
-                placeholder="Enter details about your inqquiry here ... "></textarea>
+                placeholder="Enter details about your inquiry here ... "></textarea>
 
             </div>
 
@@ -537,28 +544,21 @@
       <div id="reviews" style="clear: both;" class="row pl-5 pr-5 justify-content-end">
 
         <div class="col-md-6 col-lg-6 justify-content-end ">
-
+            {% for r in review %}
           <div class="p-3 mb-2">
-
+               {{ r.description }}
           </div>
-          <div class="p-3 mb-2">
+            {% endfor %}
 
-          </div>
-          <div class="p-3 mb-2">
-
-          </div>
-          <div class="p-3 mb-2">
-
-          </div>
         </div>
         
 
         <div class="col-md-6 col-lg-g">
 
 
-          <form>
+          <form method="post" action="/review/{{ prod.pk }}">
 
-
+            {% csrf_token %}
             <div class="form-group">
               Your Rating
             </div>
@@ -580,14 +580,14 @@
               <label for="name_">Name</label>
               <input type="text" class="form-control" id="name_" placeholder="Enter Name" name="name">
             </div>
-
+<!--
             <div class="form-group">
               <label for="email_">Email address</label>
               <input type="email" class="form-control" id="email_" aria-describedby="emailHelp"
                 placeholder="Enter email" name="email">
               <small id="emailHelp" class="form-text text-muted">We won't publish your email here.</small>
             </div>
-
+-->
             <div class="form-group">
               <label for="review_">Your Review</label>
               <br>
@@ -600,8 +600,6 @@
               <button type="submit" class="btn btn-primary">Submit</button>
 
             </div>
-
-
           </form>
 
 

@@ -287,12 +287,12 @@
                         </a>
                         <ul class="social">
                             <li>
-                                <a href="" data-tip="Quick View"
+                                <a href="/single_product/{{ p.pk }}/{{ p.name }}" data-tip="Quick View"
                                 ><i class="fa fa-search"></i
                                 ></a>
                             </li>
                             <li>
-                                <a href="" data-tip="Add to Wishlist"
+                                <a href="/add_to_wishlist/{{ p.pk }}" data-tip="Add to Wishlist"
                                 ><i class="fa fa-shopping-bag"></i
                                 ></a>
                             </li>
@@ -322,9 +322,9 @@
                     </div>
                 </div>
             </div>
-            {% endfor %} 
+            {% endfor %}
           </div>
-           
+
     </div>
 
 

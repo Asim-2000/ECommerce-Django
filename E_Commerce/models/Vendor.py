@@ -63,6 +63,8 @@ class Vendor(TimeStampedModel):
                 pass
 
         if check_password(password, session.password):
+            print(password)
+            print(session.password)
             if session.verified:
                 return session
             else:
