@@ -1,16 +1,11 @@
-{% extends 'E_Commerce/HomePage.html' %} {% block content %}
+{% extends 'E_Commerce/HomePage.html' %}
+{% block title %}Login/Registration{% endblock %}
+{% block content %}
 
-    <style>
-        h3.h3 {
-            text-align: center;
-            margin: 1em;
-            text-transform: capitalize;
-            font-size: 1.7em;
-        }
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
-        /********************* shopping Demo-1 **********************/
-
-        .product-grid {
+<style>
+    .product-grid {
             font-family: Raleway, sans-serif;
             text-align: center;
             padding: 0 0 72px;
@@ -266,83 +261,157 @@
 
         
 }
-@media (min-width: 576px){
-.low-width {
-    
-    flex: 0 0 56.666667%;
-    max-width: 56.666667%;
-}
-}
+</style>
 
-    </style>
 
-<div style="background-color: #626262;">
-<img src="../../../static/images/banner.jpg" class="d-block mx-auto" style="height: auto; width: 80vw;" alt="Responsive image">
+<h1 class="col-12 text-center">
+    YOUR KARKHANAY.COM ORDER HAS SHIPPED
+</h1>
+
+
+<div style="border: 5px solid black;" class="col-6 mx-auto p-5 mt-5">
+    <h3 class="text-center">
+        ORDER NUMBER: SAMPLE
+        
+    </h3>
 </div>
 
-<div class="container">
-<!-- <div class="row">
-    <div class="col-md-6">
-        <row class="justify-content-end">
-
-        <img style="max-width:100%; max-height:100%;" src="../../../static/images/banner-2.jpg" alt="">
-    
-        </row>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-lg-6 col-md-12 col-sm-12 mx-auto text-center">
+            <h3>HOW TO REACH US</h3>
+           <div><i style="font-size: xx-large;" class="fas fa-phone"></i><span class="ml-2" style="font-size: xx-large;">8-23483-3423</span></div> 
+           <div><i style="font-size: xx-large;" class="fas fa-envelope"></i><span class="ml-2" style="font-size: xx-large;">support@karkhanay.com</span></div> 
+        
+        </div>
+        <div class="col-lg-4 col-md-12 col-sm-12 mx-auto text-center mt-2">
+            <h3>LEARN ABOUT OUR</h3>
+            <a style="color: black;" href=""><h3>RETURN POLICY</h3></a>
+           <div><a style="color: black; text-decoration: none;" href=""><i style="font-size: xx-large;" class="fas fa-arrow-alt-circle-right"></i></a></div> 
+        </div>
     </div>
-    <div class="col-md-4">
+</div>
 
-        <div class="row justify-content-start">
-        <img style="max-width: 100%; max-height: 100%;" src="../../../static/images/banner-3.jpg" alt="">    
+
+<h3 class="text-center mt-5">
+    ORDER SUMMARY
+</h3>
+
+<hr style="height:3px;border:none;color:#333;background-color:#333;" />
+
+
+<div class="container">
+
+    <div class="row">
+
+    <div class="col-lg-6 col-md-6 col-sm-12">
+        <h3>ITEMS</h3>
+
+        <div class="items mt-5">
+
+        <h5>item tag</h5>
+        <h5><span>Style: </span> <span>Sample Style</span> </h5>
+        <h5>SAMPLE COLOR</h5>
+        <h5>SAMPLE PRICE</h5>
+        <h5> <span>Quantity:</span> <span>Sample Quantity</span></h5>
+        <h5>Standard Ground</h5>
+
         </div>
         
     </div>
-    
-    
-</div> -->
 
+    <div class="col-lg-6 col-md-6 col-sm-12">
 
+    <h3>SHIPPING ADDRESS</h3>
 
-<body class="bg-light">
-    
-
-
-<div class="container p-0 m-0">
-    <div class="row">                                     
-        <div class="col-sm-8">                 
-            <img style="max-height: 400px; max-width: 104%;" class="img-responsive" src="../../../static/images/banner-2.jpg"  />
-        </div>                  
-        <div class="col-sm-4">
-            <img style="max-height: 400px; max-width: 108%;" class="img-responsive" src="../../../static/images/banner-3.jpg" />
-        </div>                  
+    <div class="address mt-5">
+        <h5>Sample address</h5>
     </div>
+
+    <div class="tracking mt-5">
+        <h3><span>Tracking #: </span> <span>Sample</span></h3>
+    </div>
+    </div>
+
+</div>
+
+
+<div class="row mt-5">
+
+    <div class="col-lg-6 col-md-6 col-sm-12">
+        <h3>COST</h3>
+        
+
+        <div class="row">
+
+              <div class="col-6">
+           <h4>Subtotal</h4> 
+        </div>
+        <div class="col-6">
+            <h4>Sample Sub-total
+</h4> 
+       </div>
+
+        </div>
+        <div class="row">
+
+              <div class="col-6">
+           <h4>Taxes</h4> 
+        </div>
+        <div class="col-6">
+          <h4> Sample Tax</h4> 
+        </div>
+
+        </div>
+        <hr>
+
+        <div class="row">
+
+              <div class="col-6">
+           <h4>Total</h4> 
+        </div>
+        <div class="col-6">
+           <h4 style="text-decoration: double;"> <u>Sample Total</u> </h4> 
+        </div>
+
+        </div>
+      
+</div>
+
+<div class="col-lg-6 col-md-6 col-sm-12">
+
+    <h3>BILLING INFORMATION</h3>
+
+    <div class="billing mt-5">
+        <h5>
+            Sample Billing Info
+        </h5>
+    </div>
+
+</div>
+
+
+</div>
+
 </div>
 
 
 
-</div>
-
-    <div class="container-fluid">
-    <h3 style="font-size: 50px; color: #6ec1e4; text-align: center;" class="mt-5">FEATURE PRODUCTS</h3>
-    <h3 style="font-size: small; text-align: center;">Visit our Shop to see amazing products</h3>
+<div class="container-fluid">
+    <h3 style="font-size: 50px; text-align: center;" class="mt-5">SEE WHATS IN STORE</h3>
     <div class="row">
-        {% for p in prod %}
+
             <div class="col-md-2 col-sm-6 mt-3">
                 <div class="product-grid">
                     <div class="product-image">
                         <a href="#">
                             <img
-                            style="width: 182.15px; height: 232.94px; object-fit: contain;"
+                            style="width: 182.15px; height: 232.94px; object-fit: cover;"
                             
                                     class="pic-1"
-                                    src={{ p.featured_image.url }}
+                                    src="../../../static/images/banner-5.jpg"
                             />
-                            <img
-                            style="width: 182.15px; height: 232.94px; object-fit: contain;"
-                            
-                                    class="pic-2"
-                                    src={{ p.featured_image.url }}
-                            />
-                        </a>
+                                            </a>
                         <ul class="social">
                             <li>
                                 <a href="/single_product/{{ p.pk }}/{{ p.name }}" data-tip="Quick View"
@@ -380,197 +449,14 @@
                     </div>
                 </div>
             </div>
-            {% endfor %}
+
           </div>
 
     </div>
 
 
-    <div class="container mt-5">
-    <div class="row">                                     
-        <div class="col-sm-8 low-width">                 
-            <img style="max-height: 800px; max-width: 104%;" class="img-responsive" src="../../../static/images/banner-6.jpg"  />
-        </div>                  
-        <div class="col-sm-4">
-            <div>
-<img style="max-height: 400px; max-width: 180%;" class="img-responsive" src="../../../static/images/banner-4.jpg" />
-            </div>
-            
-            <div class="mt-2">
-<img style="max-height: 400px; max-width: 180%;" class="img-responsive" src="../../../static/images/banner-5.jpg" />
-            </div>
-            
-            
-        </div>                  
-    </div>
-</div>
 
-
-
-
-    <div class="container">
-        <h3 style="font-size: 50px; color: #6ec1e4; text-align: center;" class="mt-5">CATEGORIES</h3>
-    <h3 style="font-size: small; text-align: center;">Visit our amazing Categories</h3>
-    
-        <div class="row">
-
-            <div class="col-md-2 sm-6 mt-3">
-                <div class="category-grid">
-                    <div class="category-image">
-                        <a href="#">
-                            <img
-                            style="width: 182.15px; height: 232.94px; object-fit: contain;"
-                                    class="pic-1"
-                                    src="http://bestjquery.com/tutorial/product-grid/demo9/images/img-1.jpg"
-                                    alt=""
-                            />
-                        </a>
-                    </div>
-
-                    <div class="product-content">
-                        <h3 class="title"><a href="#">Women's Blouse</a></h3>
-                    </div>
-                </div>
-
-            </div>
-            <div class="col-md-2 sm-6 mt-3">
-                <div class="category-grid">
-                    <div class="category-image">
-                        <a href="#">
-                            <img
-                            style="width: 182.15px; height: 232.94px; object-fit: contain;"
-                                    class="pic-1"
-                                    src="http://bestjquery.com/tutorial/product-grid/demo9/images/img-1.jpg"
-                                    alt=""
-                            />
-                        </a>
-                    </div>
-
-                    <div class="product-content">
-                        <h3 class="title"><a href="#">Women's Blouse</a></h3>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-    
-
-    <section class="bg-white">
-    <div class="container">
-    <div id="demo" class="carousel slide" data-ride="carousel">
-        <div class="carousel-inner">
-            <i style="color: green; font-size: xx-large; display:inline-block;width: 100%; text-align: center;" class="fas fa-quote-left mt-2"></i>
-            <div class="carousel-item active">
-                <div class="carousel-caption">
-                    <p>If Shai Reznik's TDD videos don't convince you to add automated testing your code, I don't know what will.This was the very best explanation of frameworks for brginners that I've ever seen. </p> 
-                    <div id="image-caption">Nick Doe</div>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <div class="carousel-caption">
-                    <p>If Shai Reznik's TDD videos don't convince you to add automated testing your code, I don't know what will.This was the very best explanation of frameworks for brginners that I've ever seen.</p> 
-                    <div id="image-caption">Cromption Greves</div>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <div class="carousel-caption">
-                    <p>If Shai Reznik's TDD videos don't convince you to add automated testing your code, I don't know what will.This was the very best explanation of frameworks for brginners that I've ever seen.</p> 
-                    <div id="image-caption">Harry Mon</div>
-                </div>
-            </div>
-        </div> <a class="carousel-control-prev" href="#demo" data-slide="prev"> <i style="color:#000; font-size: x-large;" class='fas fa-arrow-circle-left'></i> </a> <a class="carousel-control-next" href="#demo" data-slide="next"> <i style="color: #000; font-size: x-large;" class='fas fa-arrow-circle-right'></i> </a>
-    </div>
-</div>
-</section>
-
-<style>
-
-#demo {
-    background: white;
-    max-width: 900px;
-    margin: auto
-}
-
-.carousel-caption {
-    position: initial;
-    z-index: 10;
-    padding: 5rem 8rem;
-    color: rgba(78, 77, 77, 0.856);
-    text-align: center;
-    font-size: 1.2rem;
-    line-height: 2rem
-}
-
-@media(max-width:767px) {
-    .carousel-caption {
-        position: initial;
-        z-index: 10;
-        padding: 3rem 2rem;
-        color: rgba(78, 77, 77, 0.856);
-        text-align: center;
-        font-size: 0.7rem;
-        line-height: 1.5rem
-    }
-}
-
-.carousel-caption img {
-    width: 6rem;
-    border-radius: 5rem;
-    margin-top: 2rem
-}
-
-@media(max-width:767px) {
-    .carousel-caption img {
-        width: 4rem;
-        border-radius: 4rem;
-        margin-top: 1rem
-    }
-}
-
-#image-caption {
-    font-style: normal;
-    font-size: 1rem;
-    margin-top: 0.5rem
-}
-
-@media(max-width:767px) {
-    #image-caption {
-        font-style: normal;
-        font-size: 0.6rem;
-        margin-top: 0.5rem
-    }
-}
-
-i {
-    background-color: white;
-    padding: 1.4rem
-}
-
-@media(max-width:767px) {
-    i {
-        padding: 0.8rem
-    }
-}
-
-.carousel-control-prev {
-    justify-content: flex-start
-}
-
-.carousel-control-next {
-    justify-content: flex-end
-}
-
-.carousel-control-prev,
-.carousel-control-next {
-    transition: none;
-    opacity: unset
-}
-
-</style>
 
 
 
 {% endblock %}
-</div>
-</body>
