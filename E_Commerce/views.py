@@ -179,6 +179,9 @@ def activate(request, uidb64, token):
         return HttpResponse('Activation link is invalid!')
 
 
+def customer_panel(request):
+    return render(request, "E_Commerce/Profile.html")
+
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def login(request):
     if request.method == "POST":
@@ -189,7 +192,7 @@ def login(request):
             logged_in_user = user.login(u_name, password_login)
             if logged_in_user:
                 request.session["customer"] = logged_in_user.encrypted_id
-                return render(request, 'E_Commerce/Profile.html')
+                return redirect('/customer_panel')
             else:
                 messages.error(request, "Invalid Username/Password")
                 return redirect("/customer")

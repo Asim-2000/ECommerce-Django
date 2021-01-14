@@ -134,18 +134,26 @@
         </div>
 
         <div class="col-lg-4 col-md-12 col-sm-12">
+
             <div class="row justify-content-lg-end justify-content-center">
-                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                {% if  request.session.customer or  request.session.authenticated  %}
+                        <a class="nav-link" href="/customer"><i
+                        style="color: white; stroke: black; stroke-width: 30px; font-size: x-large; "
+                        class="fa fa-user" aria-hidden="true"></i></a>
+                    {% else %}
+  <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
                     <i style="color: white; stroke: black; stroke-width: 30px; font-size: x-large; " class="fa fa-user"
                        aria-hidden="true"></i>
                 </a>
+
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     <a class="dropdown-item" href="/vendor">Vendor</a>
                     <a class="dropdown-item" href="/customer">Customer</a>
 
                 </div>
 
+                {% endif %}
 
                 <a class="nav-link" href="/wishlist"><i
                         style="color: white; stroke: black; stroke-width: 30px; font-size: x-large; "

@@ -69,5 +69,5 @@ urlpatterns = [
     path('review/<prod_pk>', views.review),
     path('inquire/<prod_pk>', views.inquiry),
     path('product_category/<cat_name>', views.category_page),
-
+    path('customer_panel', views.customer_panel),
 ]
