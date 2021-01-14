@@ -15,14 +15,15 @@ class LoginRequiredMiddleware:
         Exempt_url = ["customer", "vendor", "login", "signup", "signup-vendor", "login-vendor"]
         Always_Accessible = ["", "cart", "temp",  "logout", 'wishlist',]
         Allowed_urls = ['activate', 'password_reset', 'customer/emailpassword',
-                        'activation_email',
+                        'activation_email', 'product_category',
                         'customer/lost-password', 'customer/reset-password',
                         'vendor/vendorpassword', 'vendor/lost-password',
                         'vendor/reset-password', "admin", "add_to_cart", "media/",
                          'single_product','inquire']
 
         Customer_urls = ['addresses', 'checkout', 'place_order',
-                         'profile',"add_to_wishlist", 'review']
+                         'profile', "add_to_wishlist", 'review', 'account_details_customer',
+                         'update_customer', 'addresses', 'tickets']
 
         path = request.path_info.lstrip('/')
         url_accessible = any(url == path for url in Always_Accessible)
