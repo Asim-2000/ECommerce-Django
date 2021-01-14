@@ -7,7 +7,7 @@
 
 
 {% block panel_vendor %}
-<div class="ml-3 pl-2 col-lg-6 col-md-12 sm-12">
+<div class="ml-4 col-lg-6 col-md-12 col-sm-12 mt-3">
   {% for message in messages %}
   <div class="alert {{ message.tags }} alert-dismissible" role="alert">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -49,8 +49,8 @@
         <input type="password" class="form-control" name="cnfm_password" minlength="8">
       </div>
       <hr>
-      <div class="form-row">
-        <button type="submit" class="btn btn-outline-success" style="margin-left: 450px;">Update</button>
+      <div class="form-row justify-content-center">
+        <button type="submit" class="btn btn-outline-success">Update</button>
       </div>
     </div>
 
