@@ -2,7 +2,7 @@
 {% block title %}Account Details{% endblock %}
 {% block currentPage %}Account Details{% endblock %}
 {% block panel %}
-<div class="m-3 p-5 col-md-8">
+<div class="ml-3 ml-2 mt-4 col-lg-6 col-md-12 col-sm-12">
    {% for message in messages %}
     <div class="alert {{ message.tags }} alert-dismissible" role="alert">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -44,9 +44,9 @@
         <input type="password" class="form-control" name="cnfm_password" minlength="8">
       </div>
       <hr>
-     <div class="form-row">
+     <div class="form-row justify-content-center">
         <button type="submit" class="btn btn-outline-success"
-                style="margin-left: 450px;">Update</button>
+               ">Update</button>
       </div>
     </div>
 
