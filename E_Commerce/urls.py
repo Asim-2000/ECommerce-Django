@@ -20,7 +20,6 @@ urlpatterns = [
     path('addresses', views.addresses),
     path('vendor_account_details', views.account_details),
     path('rma-requests', views.rma_requests),
-    path('vendors_page', views.vendors),
     path('tickets', views.tickets),
     path('password_reset/<uidb64>/<token>/', views.password_reset, name='password_reset'),
     path('customer/reset-password/<enc_id>/new-password', views.new_password),
@@ -68,5 +67,7 @@ urlpatterns = [
     path('wishlist', views.wishlist),
     path('single_product/<prod_pk>/<prod_name>', views.product_page),
     path('review/<prod_pk>', views.review),
-    path('inquire/<prod_pk>', views.inquiry)
+    path('inquire/<prod_pk>', views.inquiry),
+    path('product_category/<cat_name>', views.category_page),
+
 ]

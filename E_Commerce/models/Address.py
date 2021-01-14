@@ -5,7 +5,7 @@ from E_Commerce.models import Customer
 
 class Address(TimeStampedModel):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
-    streetaddress = models.CharField(max_length=30, null=False)
+    streetaddress = models.CharField(max_length=1000, null=False)
     city = models.CharField(max_length=30, null=False)
     state = models.CharField(max_length=30, null=False)
     zipcode = models.CharField(max_length=20, null=False)

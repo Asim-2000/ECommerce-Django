@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.db import IntegrityError
+from django.db.models import Avg
 from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 from django.utils.encoding import force_text
@@ -19,8 +20,9 @@ from .tokens import account_activation_token, password_reset_token
 
 def home(request):
     prod = Product.objects.all()
+    cat = Product_Category.objects.all()
     ven = {
-        "prod": prod
+        "prod": prod, "cat": cat
     }
     return render(request, 'E_Commerce/DisplayProduct.html', ven)
 
@@ -64,12 +66,14 @@ def checkout(request):
             ls = []
             prod = []
             quan = []
+            prod_quan = {}
             total = 0
             for p in temp:
                 product = Product.objects.get(pk=p)
                 quantity = request.POST["quantity" + p]
                 prod.append(product)
                 quan.append(quantity)
+                prod_quan[p] = quantity
                 total += product.price * int(quantity)
             request.session["quan"] = quan
             request.session["total"] = total
@@ -78,6 +82,7 @@ def checkout(request):
                 "zipped": zipped, "total": total, "customer": customer, "address": address
             }
             del request.session["product"]
+            request.session["items"] = prod_quan
             return render(request, "E_Commerce/Checkout.html", ven)
 
 
@@ -119,11 +124,6 @@ def account_details(request):
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def rma_requests(request):
     return render(request, 'E_Commerce/RMA_Requests.html')
-
-
-@cache_control(no_cache=True, must_revalidate=True, no_store=True)
-def vendors(request):
-    return render(request, 'E_Commerce/DashboardVendor.html')
 
 
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
@@ -291,7 +291,7 @@ def login_vendor(request):
             logged_in_user = user.login(u_name, password_login)
             if logged_in_user:
                 request.session["authenticated"] = logged_in_user.encrypted_id
-                return redirect("/vendors_page")
+                return redirect("/dashboard-vendor")
             else:
                 messages.error(request, "Invalid Username/Password")
                 return redirect("/vendor")
@@ -659,7 +659,7 @@ def update_customer(request):
         lastname = request.POST["lastname"]
         email = request.POST["email"]
         try:
-            user = Customer.objects.get(encrypted_id=request.session["authenticated"])
+            user = Customer.objects.get(encrypted_id=request.session["customer"])
             user.firstname = firstname
             user.lastname = lastname
             user.email = email
@@ -725,7 +725,7 @@ def add_to_cart(request, prod_pk):
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def place_order(request):
     try:
-        customer = Customer.objects.get(encrypted_id=request.session["authenticated"])
+        customer = Customer.objects.get(encrypted_id=request.session["customer"])
     except Customer.DoesNotExist:
         customer = Vendor.objects.get(encrypted_id=request.session["authenticated"])
     if request.method == "POST":
@@ -738,7 +738,6 @@ def place_order(request):
             city = request.POST['reveal_city']
             postal_code = request.POST['reveal_postalcode']
             state = request.POST['state']
-
             address = Address()
             address.createAddress(customer, st_address, city, state, postal_code, country)
         except MultiValueDictKeyError:
@@ -781,8 +780,13 @@ def product_page(request, prod_pk, prod_name):
     prod = Product.objects.get(pk=prod_pk, name=prod_name)
     image = Image.objects.filter(product=prod)
     rev = Review.objects.filter(product=prod)
+    avg_rat = Review.objects.filter(product=prod).aggregate(Avg('rating'))
+    avg_rat = int(avg_rat['rating__avg'])
+    s = []
+    for i in range(avg_rat):
+        s.append(0)
     ven = {
-        'prod': prod, "image":image, 'review':rev
+        'prod': prod, "image": image, 'review': rev, "avg_rat": s,
     }
     return render(request, "E_Commerce/SingleProduct.html", ven)
 
@@ -791,21 +795,17 @@ def review(request, prod_pk):
     if request.method == 'POST':
         rev = Review()
         rev.customer = Customer.objects.get(encrypted_id=request.session['customer'])
-        rev.product = Product.objects.get(pk=prod_pk)
+        prod = Product.objects.get(pk=prod_pk)
+        rev.product = prod
         rev.rating = request.POST["rate"]
         rev.description = request.POST["review"]
         rev.save()
-        prod = Product.objects.get(pk=prod_pk)
-        image = Image.objects.filter(product=prod)
-        rev = Review.objects.filter(product=prod)
-        ven = {
-            'prod': prod, "image": image, 'review': rev
-        }
-        return redirect('single_product/' + prod.pk + '/' + prod.name)
+
+        return redirect('/single_product/' + str(prod.pk) + '/' + prod.name)
 
 
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
-def inquiry(request,prod_pk):
+def inquiry(request, prod_pk):
     if request.method == "POST":
         name = request.POST["enquiry_name"]
         des = request.POST["inquiry"]
@@ -815,15 +815,24 @@ def inquiry(request,prod_pk):
         message = render_to_string('E_Commerce/Enquiry_Email.html', {
             'name': name,
             'des': des,
-            'prod_name':prod.name,
-            'prod_url':'single_product/' + prod_pk + '/' + prod.name,
+            'prod_name': prod.name,
+            'prod_url': 'single_product/' + prod_pk + '/' + prod.name.replace(" ", "%20"),
         })
         send_mail(mail_subject, message, 'noreply@karkhanay.com', [prod.store.vendor.email],
                   fail_silently=False)
         messages.success(request, "Inquired")
-        image = Image.objects.filter(product=prod)
-        rev = Review.objects.filter(product=prod)
+        return redirect('/single_product/' + str(prod.pk) + '/' + prod.name)
+
+
+def category_page(request, cat_name):
+    try:
+        cat = Product_Category.objects.get(name=cat_name)
+        prod = Product.objects.filter(product_category=cat)
         ven = {
-            'prod': prod, "image": image, 'review': rev
+        "product": prod
         }
-        return redirect('single_product/' + prod.pk + '/' + prod.name)
+    except Product_Category.DoesNotExist:
+        ven = {
+
+        }
+    return render(request, "E_Commerce/ProductCategories.html", ven)

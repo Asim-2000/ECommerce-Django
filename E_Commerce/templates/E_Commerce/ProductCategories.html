@@ -408,33 +408,29 @@
 
             
             <div class="row">
-       
+            {% for p in product %}
             <div class="col-md-4 col-sm-6 mt-3">
                 <div class="product-grid">
                     <div class="product-image">
                         <a href="#">
                             <img
                                     class="pic-1"
-                                    src="http://bestjquery.com/tutorial/product-grid/demo9/images/img-1.jpg"
-                            />
-                            <img
-                                    class="pic-2"
-                                    src="http://bestjquery.com/tutorial/product-grid/demo9/images/img-2.jpg"
+                                    src="{{ p.featured_image.url }}"
                             />
                         </a>
                         <ul class="social">
                             <li>
-                                <a href="" data-tip="Quick View"
+                                <a href="/single_product/{{ p.pk }}/{{ p.name }}" data-tip="Quick View"
                                 ><i class="fa fa-search"></i
                                 ></a>
                             </li>
                             <li>
-                                <a href="" data-tip="Add to Wishlist"
+                                <a href="/add_to_wishlist/{{ p.pk }}" data-tip="Add to Wishlist"
                                 ><i class="fa fa-shopping-bag"></i
                                 ></a>
                             </li>
                             <li>
-                                <a href="" data-tip="Add to Cart"
+                                <a href="/add_to_cart/{{ p.pk }}" data-tip="Add to Cart"
                                 ><i class="fa fa-shopping-cart"></i
                                 ></a>
                             </li>
@@ -442,24 +438,24 @@
                         <span class="product-new-label">Sale</span>
                         <span class="product-discount-label">20%</span>
                     </div>
-                    <ul class="rating">
+  <!--                  <ul class="rating">
                         <li class="fa fa-star"></li>
                         <li class="fa fa-star"></li>
                         <li class="fa fa-star"></li>
                         <li class="fa fa-star"></li>
                         <li class="fa fa-star disable"></li>
                     </ul>
-                    <div class="product-content">
-                        <h3 class="title"><a href="#"></a></h3>
+      -->              <div class="product-content">
+                        <h3 class="title"><a href="#">{{ p.name }}</a></h3>
                         <div class="price">
                            
-                            <span></span>
+                            <span>{{ p.price }}</span>
                         </div>
-                        <a class="add-to-cart" href="">+ Add To Cart</a>
-                    </div>
+             <!--           <a class="add-to-cart" href="">+ Add To Cart</a>
+                 -->   </div>
                 </div>
             </div>
-
+            {% endfor %}
           </div>
 
 
