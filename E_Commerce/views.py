@@ -79,7 +79,6 @@ def checkout(request):
             ven = {
                 "zipped": zipped, "total": total, "customer": customer, "address": address
             }
-            del request.session["product"]
             request.session["items"] = prod_quan
             return render(request, "E_Commerce/Checkout.html", ven)
 
@@ -106,7 +105,12 @@ def downloads(request):
 
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def addresses(request):
-    return render(request, 'E_Commerce/Addresses.html')
+    cust = Customer.objects.get(encrypted_id=request.session['customer'])
+    address = Address.objects.filter(customer=cust)
+    ven = {
+        "address":address
+    }
+    return render(request, 'E_Commerce/Addresses.html', ven)
 
 
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
@@ -839,3 +843,26 @@ def category_page(request, cat_name):
 
         }
     return render(request, "E_Commerce/ProductCategories.html", ven)
+
+
+def remove_from_cart(request, prod_pk):
+    if request.session.has_key("product"):
+        temp_cart = request.session["product"]
+        temp_cart.remove(prod_pk)
+        return redirect('/cart')
+    else:
+        return redirect('/')
+
+def add_address(request):
+    if request.method == "POST":
+        address = Address()
+        customer = Customer.objects.get(encrypted_id=request.session["customer"])
+        country = request.POST["country"]
+        st_address = request.POST['street_address']
+        city = request.POST['city']
+        state = request.POST['state']
+        postal = request.POST['postalcode']
+        address.createAddress(customer,st_address,city,state,postal,country)
+        address.save()
+        messages.success(request, "Address added successfully.")
+        return redirect('/addresses')

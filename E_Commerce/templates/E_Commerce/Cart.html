@@ -79,8 +79,7 @@
                                    value={{ p.price }} width="20px;" disabled>
                         </td>
                         <td class="actions" data-th="">
-                            <button class="btn btn-info btn-sm"><i class="fa fa-refresh"></i></button>
-                            <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>
+                        <a href="/remove_from_cart/{{ p.pk }}"><i class="fa fa-trash" style="color:orangered; font-size: larger"></i></a>
 
                         </td>
                     </tr>
@@ -89,7 +88,7 @@
                 {% endfor %}
                 <tfoot>
                 <tr>
-                    <td><a href="" class="btn btn-secondary"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
+                    <td><a href="/" class="btn btn-secondary"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
                     <td colspan="2" class="hidden-xs"></td>
                     <td>
                         <button type="submit" class="btn btn-secondary">Checkout</button>

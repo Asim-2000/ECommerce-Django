@@ -308,19 +308,18 @@
 
         <div class="container-fluid">
             <div class="row">
-                <div class="col-sm-6">
-                    <div class="row justify-content-end">
-                    
-                        <img style="max-height: 454px; max-width: 100%;" class="img-responsive"
+                <div class="col-lg-8 col-md-8 col-sm-12">
+                    <div class="row justify-content-end" style="height: 100%;">
+                        <img style=" max-width: 100%;" class="img-responsive"
                          src="../../../static/images/bank-transfer.jpg"/>
                         
                     </div>
                     
                 </div>
-                <div class="col-sm-6">
-                    <div class="row justify-content-start">
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="row justify-content-start" style="height: 100%">
 
-                        <img style="max-height: 404px; max-width: 100%;" class="img-responsive"
+                        <img style=" max-width: 100%;" class="img-responsive"
                          src="../../../static/images/banner-3.jpg"/>
                     </div>
                     
@@ -439,7 +438,7 @@
             <div class="col-md-2 sm-6 mt-3">
                 <div class="category-grid">
                     <div class="category-image">
-                        <a href="#">
+                        <a href="/product_category/{{ foo.name }}">
                             <img
                                     style="width: 182.15px; height: 232.94px; object-fit: contain;"
                                     class="pic-1"
@@ -450,7 +449,7 @@
                     </div>
 
                     <div class="product-content">
-                        <h3 class="title"><a href="">{{ foo.name }}</a></h3>
+                        <h3 class="title"><a href="/product_category/{{ foo.name }}">{{ foo.name }}</a></h3>
                     </div>
                 </div>
 
