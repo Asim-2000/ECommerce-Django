@@ -23,7 +23,7 @@ class LoginRequiredMiddleware:
 
         Customer_urls = ['addresses', 'checkout', 'place_order',
                          'profile', "add_to_wishlist", 'review', 'account_details_customer',
-                         'update_customer', 'addresses', 'tickets']
+                         'update_customer', 'addresses', 'tickets', 'customer']
 
         path = request.path_info.lstrip('/')
         url_accessible = any(url == path for url in Always_Accessible)
@@ -33,18 +33,19 @@ class LoginRequiredMiddleware:
         if url_accessible or allow_these_urls:
             return None
         elif request.session.has_key('customer') and url_is_exempt:
-            return render(request, "E_Commerce/Profile.html")
+            return redirect("/customer_panel")
         elif request.session.has_key('customer') and not customer_urls:
             messages.warning(request, "These pages are only for vendor")
-            return redirect("/")
+            return redirect("/customer_panel")
         elif request.session.has_key('customer') and customer_urls:
             return None
         elif request.session.has_key('authenticated') and url_is_exempt:
-            return render(request, "E_Commerce/DashboardVendor.html")
+            return redirect("/dashboard-vendor")
         elif (request.session.has_key('authenticated') and not customer_urls) or url_is_exempt:
             return None
         elif request.session.has_key('authenticated') and customer_urls:
-            return HttpResponse("404 Error")
+            messages.warning(request, "These pages are only for customer")
+            return redirect("/dashboard-vendor")
         else:
             messages.warning(request, "Login to Continue")
             return redirect('/customer')

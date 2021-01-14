@@ -333,21 +333,14 @@
 
 <div class="list-group list-group-root well">
   
-  <a href="#" class="list-group-item">Construction</a>
+  <a href="#" class="list-group-item">{{ cat.name }}</a>
   <div class="list-group">
-    
-    <a href="#" class="list-group-item">Electronics</a>
-    <a href="#" class="list-group-item">Home Appliances</a>  
-    <a href="#" class="list-group-item">Marble/Tiles</a>
-    <a href="#" class="list-group-item">Paints</a>
-    <a href="#" class="list-group-item">Plastic</a>
-    <a href="#" class="list-group-item">Sanitary</a>
-    <a href="#" class="list-group-item">Steel</a>
-    <a href="#" class="list-group-item">Stone/Bricks</a>
-   
+    {% for s_c in sub_cat %}
+    <a href="/product_category/{{ s_c.name }}" class="list-group-item">{{ s_c.name }}</a>
+   {% endfor %}
     
   </div>
-  
+  <!--
   <a href="#" class="list-group-item">Decor</a>
   
   <a href="#" class="list-group-item">Food and Consumable</a>
@@ -392,7 +385,7 @@
     <a href="#" class="list-group-item">Synthetic</a>
     
   </div>
-
+-->
   
 </div>
   
@@ -426,7 +419,7 @@
                             </li>
                             <li>
                                 <a href="/add_to_wishlist/{{ p.pk }}" data-tip="Add to Wishlist"
-                                ><i class="fa fa-shopping-bag"></i
+                                ><i class="fa fa-heart"></i
                                 ></a>
                             </li>
                             <li>

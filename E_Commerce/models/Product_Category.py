@@ -7,6 +7,7 @@ class Product_Category(TimeStampedModel):
     name = models.CharField(max_length=30, null=False)
     commission = models.FloatField(null=False, default=0.1, validators=[MaxValueValidator(100), MinValueValidator(0)])
     description = models.CharField(max_length=1000)
+    parent_cat = models.OneToOneField('self', null=True, on_delete=models.CASCADE)
     category_image = models.ImageField()
 
     class Meta:
