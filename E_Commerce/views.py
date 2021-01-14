@@ -1,5 +1,4 @@
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.db import IntegrityError
 from django.db.models import Avg
@@ -20,9 +19,9 @@ from .tokens import account_activation_token, password_reset_token
 
 def home(request):
     prod = Product.objects.all()
-    cat = Product_Category.objects.all()
+    cat = Product_Category.objects.filter(parent_cat=None)
     ven = {
-        "prod": prod, "cat": cat
+        "prod": prod, "cat": cat,
     }
     return render(request, 'E_Commerce/DisplayProduct.html', ven)
 
@@ -63,7 +62,6 @@ def checkout(request):
     if request.method == "POST":
         if request.session.has_key("product"):
             temp = request.session["product"]
-            ls = []
             prod = []
             quan = []
             prod_quan = {}
@@ -432,6 +430,7 @@ def logout(request):
         del request.session["customer"]
     if request.session.has_key("authenticated"):
         del request.session["authenticated"]
+        return redirect("/vendor")
     if request.session.has_key("product"):
         del request.session["product"]
     return redirect("/customer")
@@ -455,7 +454,7 @@ def store_registration(request):
 
 
 def temp(request):
-    return render(request, "E_Commerce/Addresses.html")
+    return render(request, "E_Commerce/Footer.html")
 
 
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
@@ -827,9 +826,10 @@ def inquiry(request, prod_pk):
 def category_page(request, cat_name):
     try:
         cat = Product_Category.objects.get(name=cat_name)
+        sub_cat = Product_Category.objects.filter(parent_cat=cat)
         prod = Product.objects.filter(product_category=cat)
         ven = {
-        "product": prod
+        "product": prod, 'sub_cat': sub_cat, "cat":cat
         }
     except Product_Category.DoesNotExist:
         ven = {

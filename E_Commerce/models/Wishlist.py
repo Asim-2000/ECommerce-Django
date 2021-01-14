@@ -4,5 +4,5 @@ from E_Commerce.models import Product, Customer
 
 
 class Wishlist(TimeStampedModel):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, unique=True)
+    product = models.OneToOneField(Product, on_delete=models.CASCADE)
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
