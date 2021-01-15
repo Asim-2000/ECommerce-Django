@@ -716,7 +716,10 @@ def tag_create(request):
 
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def add_to_cart(request, prod_pk):
-    temp_cart = request.session["product"]
+    if request.session.has_key("product"):
+        temp_cart = request.session["product"]
+    else:
+        temp_cart = []
     if prod_pk not in temp_cart:
         temp_cart.append(prod_pk)
     request.session["product"] = temp_cart
@@ -781,14 +784,19 @@ def product_page(request, prod_pk, prod_name):
     prod = Product.objects.get(pk=prod_pk, name=prod_name)
     image = Image.objects.filter(product=prod)
     rev = Review.objects.filter(product=prod)
-    avg_rat = Review.objects.filter(product=prod).aggregate(Avg('rating'))
-    avg_rat = int(avg_rat['rating__avg'])
-    s = []
-    for i in range(avg_rat):
-        s.append(0)
-    ven = {
-        'prod': prod, "image": image, 'review': rev, "avg_rat": s,
-    }
+    try:
+        avg_rat = Review.objects.filter(product=prod).aggregate(Avg('rating'))
+        avg_rat = int(avg_rat['rating__avg'])
+        s = []
+        for i in range(avg_rat):
+            s.append(0)
+        ven = {
+            'prod': prod, "image": image, 'review': rev, "avg_rat": s,
+        }
+    except TypeError or ValueError:
+        ven = {
+            'prod': prod, "image": image, 'review': rev,
+        }
     return render(request, "E_Commerce/SingleProduct.html", ven)
 
 
