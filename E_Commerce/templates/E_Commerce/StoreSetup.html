@@ -1,6 +1,12 @@
 {% extends 'E_Commerce/HomePage.html' %}
 {% block title %}Store Setup{% endblock %}
 {% block content %}
+    <script>
+    function validform(){
+        var x = document.forms["my-form"]["products"].value;          alert("Enter a valid number of products to be displayed");
+        return /^-?\d+$/.test(x);
+    }
+    </script>
 <main class="my-form">
   <div class="cotainer">
     <div class="row justify-content-center">
@@ -323,10 +329,10 @@
                 <button type="submit" onClick= "opener.location='paymentsetup'" class="btn btn-warning btn-lg">
                   Continue
                 </button>
-                <button type="button" onClick= "opener.location='ready'" class="btn btn-warning btn-lg">
+           <!--     <button type="button" onClick= "opener.location='ready'" class="btn btn-warning btn-lg">
                   Skip This Step
                 </button>
-              </div>
+           -->  </div>
 
               </div>
           </form>

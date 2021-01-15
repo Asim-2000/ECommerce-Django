@@ -99,11 +99,6 @@ def orders(request):
 
 
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
-def downloads(request):
-    return render(request, 'E_Commerce/Downloads.html')
-
-
-@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def addresses(request):
     cust = Customer.objects.get(encrypted_id=request.session['customer'])
     address = Address.objects.filter(customer=cust)
@@ -461,7 +456,7 @@ def store_registration(request):
 
 
 def temp(request):
-    return render(request, "E_Commerce/FollowersVendor.html")
+    return render(request, "E_Commerce/StoreSetup.html")
 
 
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
