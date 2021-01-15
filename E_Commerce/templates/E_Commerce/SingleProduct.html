@@ -1,10 +1,6 @@
 {% extends 'E_Commerce/HomePage.html' %}
 {% block title %}Login/Registration{% endblock %}
 {% block content %}
-{% block script %}
-<script src="../../../static/js/review_pagination.js"></script>
-{% endblock %}
-
 
 
     <style>
@@ -424,21 +420,23 @@
 
 
                 <div class="action">
-                    <div class="row ml-2">
-                        
 
-                         <input id="quantity" type="number" min="1" name="quantity" value="1">
+                    <label for="quantity_"></label>
+                    <input id="quantity" type="number" name="quantity" value="1">
 
-                         <button onclick="location.href='/add_to_cart/{{ prod.pk }}'" class="add-to-cart btn btn-default"
+                    <button onclick="location.href='/add_to_cart/{{ prod.pk }}'" class="add-to-cart btn btn-default"
                             type="button"><span class="fa fa-cart-plus"> </span></span>Add to
                         Cart
                     </button>
 
+<<<<<<< HEAD
 
                     </div>
 
                     
                     
+=======
+>>>>>>> parent of 2631df6 (pagination added)
                 </div>
 
                 <div class="more-actions">
@@ -450,7 +448,16 @@
           Add to Wishlist
         </span>
                     </a>
+<<<<<<< HEAD
                                    
+=======
+                    <span class="pl-2">
+
+          <i class="fa fa-crosshairs" aria-hidden="true"></i>
+          Compare
+        </span>
+
+>>>>>>> parent of 2631df6 (pagination added)
                 </div>
 
             </div>
@@ -465,21 +472,23 @@
     <div class="container">
 
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md">
 
                 <ul class="nav justify-content-center">
                     <li class="nav-item">
-                        <a class="nav-link" href="javascript:void(0)" onclick="show_description()">Description</a>
+                        <a class="nav-link" href="#" onclick="show_description()">Description</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="javascript:void(0)" onclick="show_reviews()">Reviews(0)</a>
+                        <a class="nav-link" href="#" onclick="show_reviews()">Reviews(0)</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="javascript:void(0)" onclick="show_vendor()">Vendor Info</a>
+                        <a class="nav-link" href="#" onclick="show_vendor()">Vendor Info</a>
                     </li>
-                    
                     <li class="nav-item">
-                        <a class="nav-link" href="javascript:void(0)" onclick="show_enquiry()">Product Inquiry</a>
+                        <a class="nav-link" href="#">More Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="show_enquiry()">Product Inquiry</a>
                     </li>
                 </ul>
                 <br>
@@ -554,10 +563,22 @@
                 </div>
 
                 <div id="reviews" style="clear: both;" class="row pl-5 pr-5 justify-content-end">
-                    <div class="row">
-                        
 
+<<<<<<< HEAD
                     <!-- <div class="col-lg-6 col-md-12 col-sm-12">
+=======
+                    <div class="col-md-6 col-lg-6 justify-content-end ">
+                        {% for r in review %}
+                            <div class="p-3 mb-2">
+                                {{ r.description }}
+                            </div>
+                        {% endfor %}
+
+                    </div>
+
+
+                    <div class="col-md-6 col-lg-g">
+>>>>>>> parent of 2631df6 (pagination added)
 
 
                         <form method="post" action="/review/{{ prod.pk }}">
@@ -607,6 +628,7 @@
                         <!-- </form> -->
 
 
+<<<<<<< HEAD
                     <!-- </div> --> 
                     <div id="snap_loop" class="col-lg-12 col-md-12 col-sm-12 justify-content-end ">
                             <div class="row justify-content-center ">
@@ -672,6 +694,9 @@
 
 
                     
+=======
+                    </div>
+>>>>>>> parent of 2631df6 (pagination added)
 
                 </div>
 

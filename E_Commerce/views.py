@@ -463,7 +463,7 @@ def store_registration(request):
 
 
 def temp(request):
-    return render(request, "E_Commerce/SingleProduct.html")
+    return render(request, "E_Commerce/AddProducts.html")
 
 
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
