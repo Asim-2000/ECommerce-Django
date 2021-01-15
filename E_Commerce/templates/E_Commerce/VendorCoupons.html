@@ -11,15 +11,126 @@
   <div class="row p-2">
     <h3>Coupons</h3>
     <div class="col-4 ml-auto text-right">
-      <button class="btn btn-danger" type="button" name="AddCoupon"><i class="fas fa-gift"></i> Add New Coupon</button>
-    </div>
+   <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#categoryModal">
+          Add Coupons
+        </button> </div>
   </div>
   <div class="row">
     <div class="col">
+        {% for message in messages %}
+    <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+        <button type="button" onClick="location.href=''" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        {{ message | safe }}
+    </div>
+    {% endfor %}
+    {% if not length %}
       <div class="alert alert-danger" role="alert">
         No coupons found!
       </div>
+    {% endif %}
+<table id="cart" class="table table-hover table-condensed">
+
+                <thead>
+
+                <tr>
+                    <th style="width:30%">Name</th>
+                    <th style="width:20%">Number</th>
+                    <th style="width:15%">% Off</th>
+                    <th style="width:3%">Delete</th>
+                </tr>
+                </thead>
+                {% for c in coupons %}
+
+                    <tbody>
+                    <tr>
+                        <td data-th="Name">
+                            <div>
+                                <i class="fa fa-gift" aria-hidden="true"></i>
+                               <label>{{ c.name }}</label>
+                            </div>
+                        </td>
+                        <td data-th="Number">
+                            <div>
+                                <label class="nomargin" style="font-weight: bold;">{{ c.number }}</label>
+                            </div>
+
+                        </td>
+
+                        <td data-th="% Off">
+                            <label
+                                   class="nomargin"
+                                   >{{ c.percent_off }}</label>
+                        </td>
+                        <td data-th="Delete">
+                             <a data-toggle="modal" data-target="#confirmModalCenter"><i class="fa fa-trash" style="color:orangered; font-size: larger"></i></a>
+
+                        </td>
+                    </tr>
+                    </tbody>
+  <div class="modal fade" id="confirmModalCenter" tabindex="-1" role="dialog"
+                     aria-labelledby="exampleModalCenterTitle"
+                     aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalCenterTitle">Confirm Deletion</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <label class="label label-warning" for="">Do you really want to delete this
+                                    item?</label>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button onclick="location.href='/remove_coupon/{{ c.pk }}'" type="button"
+                                        data-dismiss="modal" class="btn btn-danger">Delete
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+            </table>
     </div>
   </div>
 </div>
+     <div class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="CategoryModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add a Coupon</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+
+
+              <div class="modal-body">
+                <form method="post" action="vendor_coupons">
+                    {% csrf_token %}
+                  <div class="form-group">
+                    <label for="category-name" class="col-form-label">Coupon Name</label>
+                    <input type="text" class="form-control" id="category-name" name="coupon-name">
+                  </div>
+                  <div class="form-group">
+                    <label for="des" class="col-form-label">Percent Off</label>
+                    <input type="number" min="1" max="100" class="form-control" id="description1" name="off"/>
+                  </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-danger">Request</button>
+                    </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
 {% endblock %}

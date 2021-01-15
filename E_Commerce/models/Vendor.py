@@ -21,6 +21,7 @@ class Vendor(TimeStampedModel):
     verified = models.BooleanField(verbose_name='verified', default=False)
     encrypted_id = models.CharField(max_length=35)
     featured = models.BooleanField(verbose_name='featured', default=False)
+    store_created = models.BooleanField(verbose_name='store_created', default=False)
 
     def create_vendor(self, email, firstname, lastname, contact_number, password):
         self.email = email
@@ -63,8 +64,6 @@ class Vendor(TimeStampedModel):
                 pass
 
         if check_password(password, session.password):
-            print(password)
-            print(session.password)
             if session.verified:
                 return session
             else:

@@ -19,7 +19,7 @@ class LoginRequiredMiddleware:
                         'customer/lost-password', 'customer/reset-password',
                         'vendor/vendorpassword', 'vendor/lost-password',
                         'vendor/reset-password', "admin", "add_to_cart", "media/",
-                        'single_product', 'inquire', 'remove_from_cart']
+                        '_product', 'inquire', 'remove_from_cart']
 
         Customer_urls = ['addresses', 'checkout', 'place_order',
                          'profile', "add_to_wishlist", 'review', 'account_details_customer',

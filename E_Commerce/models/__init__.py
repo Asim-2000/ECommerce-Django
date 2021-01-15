@@ -11,5 +11,5 @@ from .Wishlist import Wishlist
 from .Cart import Cart
 from .Order import Order
 from .Order_Details import Order_Detail
-from .Like_Product import Like_Product
 from .Payment_Info import Payment_Info
+from .Coupon import Coupon
