@@ -60,7 +60,6 @@
                         <td data-th="Product">
                             <div class="col-sm-10">
                                 <h4 class="nomargin">{{ p.name }}</h4>
-                                <p>{{ p.description }}</p>
                             </div>
 
                         </td>
@@ -71,7 +70,7 @@
                                    value={{ p.price }}></td>
                         <td data-th="Quantity">
                             <input type="number" class="quantity form-control" onchange="update_Cart({{ p.pk }})"
-                                   id="quantity{{ p.pk }}" name="quantity{{ p.pk }}" value="1" min="1.0">
+                                   id="quantity{{ p.pk }}" name="quantity{{ p.pk }}" value="1" min="1.0" max="{{ p.stock_count }}">
                         </td>
                         <td data-th="Subtotal" class="text-center">
                             <input class="subtotal form-control text-center" id="subtotal{{ p.pk }}"

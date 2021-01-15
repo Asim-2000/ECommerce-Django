@@ -17,6 +17,7 @@ from django.contrib.auth.hashers import make_password, check_password
 from .tokens import account_activation_token, password_reset_token
 
 
+
 def home(request):
     prod = Product.objects.all()
     cat = Product_Category.objects.filter(parent_cat=None)
@@ -38,8 +39,7 @@ def cart(request):
         ls = []
         for p in temp:
             product = Product.objects.get(pk=p)
-            if product not in ls:
-                ls.append(product)
+            ls.append(product)
         ven = {
             "product": ls
         }
@@ -96,11 +96,6 @@ def ready(request):
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def orders(request):
     return render(request, 'E_Commerce/Orders.html')
-
-
-@cache_control(no_cache=True, must_revalidate=True, no_store=True)
-def downloads(request):
-    return render(request, 'E_Commerce/Downloads.html')
 
 
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
@@ -461,7 +456,7 @@ def store_registration(request):
 
 
 def temp(request):
-    return render(request, "E_Commerce/AgencyPage.html")
+    return render(request, "E_Commerce/AddProducts.html")
 
 
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
@@ -516,14 +511,6 @@ def withdraw_vendor(request):
 
 def returns_vendor(request):
     return render(request, 'E_Commerce/ReturnsVendor.html')
-
-
-def staff_vendor(request):
-    return render(request, 'E_Commerce/StaffVendor.html')
-
-
-def add_staff(request):
-    return render(request, 'E_Commerce/AddStaff.html')
 
 
 def followers_vendor(request):
@@ -599,16 +586,21 @@ def create_product(request):
         prod = Product()
         user = Vendor.objects.get(encrypted_id=request.session["authenticated"])
         store = Store.objects.get(vendor=user)
-
         name = request.POST["ProductName"]
         price = request.POST["price"]
-        discounted = request.POST["discount"]
+        if request.POST['discount'] != "":
+            discounted = request.POST["discount"]
+        else:
+            discounted = None
         s_des = request.POST["shortDescription"]
         des = request.POST["description"]
         category = Product_Category.objects.get(name=request.POST["categories"])
         tag = request.POST.getlist("tags")
         stock_count = request.POST["stock_count"]
-        prod.create_product(store, name, category, price, discounted, des, s_des, stock_count)
+        sale_from = request.POST["sale_from"]
+        sale_till = request.POST["sale_till"]
+
+        prod.create_product(store, name, category, price, discounted, des, s_des, stock_count,sale_from,sale_till)
 
         tags = []
         for t in tag:
@@ -624,6 +616,7 @@ def create_product(request):
             img.save()
 
         request.session["product"] = prod.pk
+        messages.success(request, "Product Created Successfully!")
         return render(request, 'E_Commerce/EditProduct.html')
 
 
@@ -646,14 +639,15 @@ def edit_product(request):
         # product.tag.set(tags)
         product.sku = request.POST["sku"]
         product.stock_status = request.POST["status"]
-        product.one_quantity_sale = request.POST["one_quantity"] == "on"
-        product.stock_management = request.POST["stock_management"] == "on"
+        if request.POST["one_quantity"]:
+            product.one_quantity_sale = request.POST["one_quantity"]
+            product.stock_management = request.POST["stock_management"]
         product.weight = request.POST["weight"]
         product.status = request.POST["productStatus"]
         product.visibility = request.POST["visibility"]
         product.purchase_note = request.POST["purchaseNote"]
         product.save()
-        messages.success(request, "Product Created Successfully!")
+
 
         del request.session["product"]
         return redirect("/products")
@@ -722,8 +716,12 @@ def tag_create(request):
 
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def add_to_cart(request, prod_pk):
-    temp_cart = []
-    temp_cart.append(prod_pk)
+    if request.session.has_key("product"):
+        temp_cart = request.session["product"]
+    else:
+        temp_cart = []
+    if prod_pk not in temp_cart:
+        temp_cart.append(prod_pk)
     request.session["product"] = temp_cart
     return redirect("/")
 
@@ -786,14 +784,19 @@ def product_page(request, prod_pk, prod_name):
     prod = Product.objects.get(pk=prod_pk, name=prod_name)
     image = Image.objects.filter(product=prod)
     rev = Review.objects.filter(product=prod)
-    avg_rat = Review.objects.filter(product=prod).aggregate(Avg('rating'))
-    avg_rat = int(avg_rat['rating__avg'])
-    s = []
-    for i in range(avg_rat):
-        s.append(0)
-    ven = {
-        'prod': prod, "image": image, 'review': rev, "avg_rat": s,
-    }
+    try:
+        avg_rat = Review.objects.filter(product=prod).aggregate(Avg('rating'))
+        avg_rat = int(avg_rat['rating__avg'])
+        s = []
+        for i in range(avg_rat):
+            s.append(0)
+        ven = {
+            'prod': prod, "image": image, 'review': rev, "avg_rat": s,
+        }
+    except TypeError or ValueError:
+        ven = {
+            'prod': prod, "image": image, 'review': rev,
+        }
     return render(request, "E_Commerce/SingleProduct.html", ven)
 
 
