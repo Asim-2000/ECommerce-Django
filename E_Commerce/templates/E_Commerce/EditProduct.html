@@ -31,10 +31,10 @@
     <div class="m-3 p-5 col-md-8">
         <div class="d-flex justify-content-between">
             <div class="p-2">
-                <h4>Edit Product</h4>
+                <h4>Add Product Details</h4>
             </div>
             <div class="p-2">
-                <button type="button" class="btn btn-danger">View Product</button>
+                <button type="button" onclick="location.href='/products'" class="btn btn-danger">View Product</button>
             </div>
         </div>
 
@@ -157,17 +157,17 @@
                                     <div class="col-md-6">
                                         <label for="status">Stock Status</label>
                                         <select class="form-control" id="status" name="status">
-                                            <option>In stock</option>
-                                            <option>Out of Stock</option>
-                                            <option>On Backorder</option>
+                                            <option value="In stock">In stock</option>
+                                            <option value="Out of Stock">Out of Stock</option>
+                                            <option value="On Backorder">On Backorder</option>
                                         </select>
                                     </div>
                                     <br>
                                 </div>
                                 <p><input type="checkbox" aria-label="Checkbox for following text input"
-                                          name="stock_management"> Enable product stock management</p>
+                                          name="stock_management" required> Enable product stock management</p>
                                 <p><input type="checkbox" aria-label="Checkbox for following text input"
-                                          name="one_quantity"> Allow only one quantity of this product to be bought
+                                          name="one_quantity" required> Allow only one quantity of this product to be bought
                                     in a single order</p>
                             </div>
                         </div>

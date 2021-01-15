@@ -1,12 +1,6 @@
 {% extends 'E_Commerce/HomePage.html' %}
 {% block title %}Store Setup{% endblock %}
 {% block content %}
-    <script>
-    function validform(){
-        var x = document.forms["my-form"]["products"].value;          alert("Enter a valid number of products to be displayed");
-        return /^-?\d+$/.test(x);
-    }
-    </script>
 <main class="my-form">
   <div class="cotainer">
     <div class="row justify-content-center">
@@ -20,7 +14,7 @@
               <div class="form-group row">
                 <label for="products" class="col-md-4 col-form-label text-md-right">Store Product Per Page</label>
                 <div class="col-md-6">
-                  <input type="text" id="products" class="form-control" name="products" placeholder="E.g 5">
+                  <input type="number" id="products" class="form-control" name="products" placeholder="E.g 5">
                 </div>
               </div>
 

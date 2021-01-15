@@ -20,6 +20,9 @@
     }
   }
 
+  function require_percent(){
+      document.getElementById("discount").required = true;
+  }
 
 
 </script>
@@ -52,7 +55,7 @@
                                    placeholder="Product Name" required>
                         </div>
                         <div class="form-row">
-                            <div class="col-md-4">
+                            <div class="col-md-5">
                                 <label for="price">Price</label>
                                 <div class="form-group input-group">
                                     <div class="input-group-prepend">
@@ -62,14 +65,32 @@
                                            required>
                                 </div>
                             </div>
-                            <div class="col-md-4 m-auto">
-                                <label for="discount">Discounted Price</label>
+                            <div class="col-md-5 m-auto">
+                                <label for="discount">Sale Percentage(Optional)</label>
                                 <div class="form-group input-group">
                                     <div class="input-group-prepend">
-                                        <div class="input-group-text">Rs</div>
+                                        <div class="input-group-text">%</div>
                                     </div>
-                                    <input type="text" class="form-control" id="discount" name="discount"
-                                           placeholder="0.00" required>
+                                    <input type="number" class="form-control" id="discount" name="discount"
+                                           placeholder="0.00" min="0" max="99">
+                                </div>
+                            </div>
+                        </div>
+                     <div class="form-row">
+                            <div class="col-md-4">
+                                <label for="sale_from">Sale From (Optional)</label>
+                                <div class="form-group input-group">
+
+                                    <input type="date" class="form-control" id="sale_from" name="sale_from"
+                                         onchange="require_percent()"   >
+                                </div>
+                            </div>
+                            <div class="col-md-4 m-auto">
+                                <label for="sale_till">Sale Till (Optional)</label>
+                                <div class="form-group input-group">
+
+                                    <input type="date" class="form-control" id="sale_till" name="sale_till"
+                                            >
                                 </div>
                             </div>
                         </div>
