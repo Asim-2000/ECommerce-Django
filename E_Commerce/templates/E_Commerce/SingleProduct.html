@@ -1,6 +1,10 @@
 {% extends 'E_Commerce/HomePage.html' %}
 {% block title %}Login/Registration{% endblock %}
 {% block content %}
+{% block script %}
+<script src="../../../static/js/review_pagination.js"></script>
+{% endblock %}
+
 
 
     <style>
@@ -423,15 +427,24 @@
 
 
                 <div class="action">
+                    <div class="row ml-2">
+                        
 
-                    <label for="quantity_"></label>
-                    <input id="quantity" type="number" name="quantity" value="1">
+                         <input id="quantity" type="number" min="1" name="quantity" value="1">
 
-                    <button onclick="location.href='/add_to_cart/{{ prod.pk }}'" class="add-to-cart btn btn-default"
+                         <button onclick="location.href='/add_to_cart/{{ prod.pk }}'" class="add-to-cart btn btn-default"
                             type="button"><span class="fa fa-cart-plus"> </span></span>Add to
                         Cart
                     </button>
 
+
+                    </div>
+
+                    
+                   
+                    
+
+                    
                 </div>
 
                 <div class="more-actions">
@@ -445,11 +458,7 @@
           Add to Wishlist
         </span>
                     </a>
-                    <span class="pl-2">
-
-          <i class="fa fa-crosshairs" aria-hidden="true"></i>
-          Compare
-        </span>
+                    
 
                 </div>
 
@@ -465,23 +474,21 @@
     <div class="container">
 
         <div class="row">
-            <div class="col-md">
+            <div class="col-md-12">
 
                 <ul class="nav justify-content-center">
                     <li class="nav-item">
-                        <a class="nav-link" href="#" onclick="show_description()">Description</a>
+                        <a class="nav-link" href="javascript:void(0)" onclick="show_description()">Description</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" onclick="show_reviews()">Reviews(0)</a>
+                        <a class="nav-link" href="javascript:void(0)" onclick="show_reviews()">Reviews(0)</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" onclick="show_vendor()">Vendor Info</a>
+                        <a class="nav-link" href="javascript:void(0)" onclick="show_vendor()">Vendor Info</a>
                     </li>
+                    
                     <li class="nav-item">
-                        <a class="nav-link" href="#">More Products</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#" onclick="show_enquiry()">Product Inquiry</a>
+                        <a class="nav-link" href="javascript:void(0)" onclick="show_enquiry()">Product Inquiry</a>
                     </li>
                 </ul>
                 <br>
@@ -556,18 +563,10 @@
                 </div>
 
                 <div id="reviews" style="clear: both;" class="row pl-5 pr-5 justify-content-end">
+                    <div class="row">
+                        
 
-                    <div class="col-md-6 col-lg-6 justify-content-end ">
-                        {% for r in review %}
-                            <div class="p-3 mb-2">
-                                {{ r.description }}
-                            </div>
-                        {% endfor %}
-
-                    </div>
-
-
-                    <div class="col-md-6 col-lg-g">
+                    <div class="col-lg-6 col-md-12 col-sm-12">
 
 
                         <form method="post" action="/review/{{ prod.pk }}">
@@ -618,6 +617,70 @@
 
 
                     </div>
+                    <div id="snap_loop" class="col-lg-6 col-md-12 col-sm-12 justify-content-end ">
+                            <div class="row justify-content-center ">
+                                <h3>Reviews</h3>
+                            </div>
+
+                            <div class="p-3 mb-2 border border-success snap-pic">
+                                Hello jee
+                            </div>
+                            <div class="p-3 mb-2 border border-success snap-pic">
+                                Hello jee
+                            </div>
+                            <div class="p-3 mb-2 border border-success snap-pic">
+                                Hello jee
+                            </div>
+                            <div class="p-3 mb-2 border border-success snap-pic">
+                                Hello jee
+                            </div>
+                            <div class="p-3 mb-2 border border-success snap-pic">
+                                Hello jee
+                            </div>
+                            <div class="p-3 mb-2 border border-success snap-pic">
+                                Hello jee
+                            </div>
+                            <div class="p-3 mb-2 border border-success snap-pic">
+                                Hello jee
+                            </div>
+                           
+                            
+
+                        <!-- {% for r in review %}
+                            <div class="p-3 mb-2 border-dark">
+                                {{ r.description }}
+                            </div>
+                        {% endfor %} -->
+
+
+                    </div>
+
+                    </div>
+
+                    <div class="row justify-content-lg-end justify-content-md-center justify-content-sm-center ">
+                    <div id="snap-nav" class="col-lg-6 col-md-12 col-sm-12 ">
+
+
+            <nav  aria-label="Page navigation ml-5">
+                <ul id="pagination-snap" class="pagination justify-content-end">
+                  <li class="page-item ">
+                    <a id="previous-page" class="page-link" href="javascript:void(0)" tabindex="-1">Previous</a>
+                  </li>
+                  
+        
+                  
+                </ul>
+              </nav>
+        </div>
+    
+                    </div>
+
+                    </div>
+
+                    
+
+
+                    
 
                 </div>
 
