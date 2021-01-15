@@ -64,12 +64,15 @@ urlpatterns = [
     path('place_order', views.place_order),
     path('add_to_wishlist/<prod_pk>', views.add_to_wishlist),
     path('wishlist', views.wishlist),
-    path('single_product/<prod_pk>/<prod_name>', views.product_page),
+    path('_product/<prod_pk>/<prod_name>', views.product_page),
     path('review/<prod_pk>', views.review),
     path('inquire/<prod_pk>', views.inquiry),
     path('product_category/<cat_name>', views.category_page),
     path('customer_panel', views.customer_panel),
     path('remove_from_cart/<prod_pk>', views.remove_from_cart),
     path('add_address', views.add_address),
+    path('remove_coupon/<cop_pk>', views.remove_coupon),
+
+
 
 ]

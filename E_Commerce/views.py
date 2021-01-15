@@ -1,3 +1,5 @@
+import datetime
+
 from django.contrib import messages
 from django.core.mail import send_mail
 from django.db import IntegrityError
@@ -14,15 +16,17 @@ from django.utils.datastructures import MultiValueDictKeyError
 from django.contrib.auth.hashers import make_password, check_password
 
 # Create your views here.
+from .models.Coupon import Coupon
 from .tokens import account_activation_token, password_reset_token
-
 
 
 def home(request):
     prod = Product.objects.all()
     cat = Product_Category.objects.filter(parent_cat=None)
+    today = datetime.date.today()
+    today = str(today)
     ven = {
-        "prod": prod, "cat": cat,
+        "prod": prod, "cat": cat, "today":today
     }
     return render(request, 'E_Commerce/DisplayProduct.html', ven)
 
@@ -103,7 +107,7 @@ def addresses(request):
     cust = Customer.objects.get(encrypted_id=request.session['customer'])
     address = Address.objects.filter(customer=cust)
     ven = {
-        "address":address
+        "address": address
     }
     return render(request, 'E_Commerce/Addresses.html', ven)
 
@@ -180,6 +184,7 @@ def activate(request, uidb64, token):
 
 def customer_panel(request):
     return render(request, "E_Commerce/Profile.html")
+
 
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def login(request):
@@ -446,6 +451,8 @@ def store_registration(request):
         store = Store()
         enc_id = request.session["authenticated"]
         user = Vendor.objects.get(encrypted_id=enc_id)
+        user.store_created = True
+        user.save()
         try:
             if user is not None:
                 store.create_store(store_name, store_url, user)
@@ -477,6 +484,9 @@ def new_product(request):
 
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def dashboard_vendor(request):
+    user = Vendor.objects.get(encrypted_id=request.session["authenticated"])
+    if not user.store_created:
+        return redirect("/store_registration_page")
     return render(request, "E_Commerce/DashboardVendor.html")
 
 
@@ -494,7 +504,19 @@ def account_details_customer(request):
 
 
 def vendor_coupons(request):
-    return render(request, 'E_Commerce/VendorCoupons.html')
+    vendor = Vendor.objects.get(encrypted_id=request.session["authenticated"])
+    if request.method == "POST":
+        coupon = Coupon()
+        name = request.POST["coupon-name"]
+        percent_off = request.POST["off"]
+        coupon.add_coupon(vendor, name, percent_off)
+        messages.success(request, "Coupon added successfully")
+    cop = Coupon.objects.filter(vendor=vendor)
+    length = len(cop) != 0
+    ven = {
+        "coupons": cop, "length": length
+    }
+    return render(request, 'E_Commerce/VendorCoupons.html', ven)
 
 
 def reports_vendor(request):
@@ -600,7 +622,7 @@ def create_product(request):
         sale_from = request.POST["sale_from"]
         sale_till = request.POST["sale_till"]
 
-        prod.create_product(store, name, category, price, discounted, des, s_des, stock_count,sale_from,sale_till)
+        prod.create_product(store, name, category, price, discounted, des, s_des, stock_count, sale_from, sale_till)
 
         tags = []
         for t in tag:
@@ -640,14 +662,13 @@ def edit_product(request):
         product.sku = request.POST["sku"]
         product.stock_status = request.POST["status"]
         if request.POST["one_quantity"]:
-            product.one_quantity_sale = request.POST["one_quantity"]
-            product.stock_management = request.POST["stock_management"]
+            product.one_quantity_sale = request.POST["one_quantity"] == "on"
+            product.stock_management = request.POST["stock_management"] == "on"
         product.weight = request.POST["weight"]
         product.status = request.POST["productStatus"]
         product.visibility = request.POST["visibility"]
         product.purchase_note = request.POST["purchaseNote"]
         product.save()
-
 
         del request.session["product"]
         return redirect("/products")
@@ -810,7 +831,7 @@ def review(request, prod_pk):
         rev.description = request.POST["review"]
         rev.save()
 
-        return redirect('/single_product/' + str(prod.pk) + '/' + prod.name)
+        return redirect('/_product/' + str(prod.pk) + '/' + prod.name)
 
 
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
@@ -825,12 +846,12 @@ def inquiry(request, prod_pk):
             'name': name,
             'des': des,
             'prod_name': prod.name,
-            'prod_url': 'single_product/' + prod_pk + '/' + prod.name.replace(" ", "%20"),
+            'prod_url': '_product/' + prod_pk + '/' + prod.name.replace(" ", "%20"),
         })
         send_mail(mail_subject, message, 'noreply@karkhanay.com', [prod.store.vendor.email],
                   fail_silently=False)
         messages.success(request, "Inquired")
-        return redirect('/single_product/' + str(prod.pk) + '/' + prod.name)
+        return redirect('/_product/' + str(prod.pk) + '/' + prod.name)
 
 
 def category_page(request, cat_name):
@@ -838,8 +859,10 @@ def category_page(request, cat_name):
         cat = Product_Category.objects.get(name=cat_name)
         sub_cat = Product_Category.objects.filter(parent_cat=cat)
         prod = Product.objects.filter(product_category=cat)
+        today = datetime.date.today()
+        today = str(today)
         ven = {
-        "product": prod, 'sub_cat': sub_cat, "cat":cat
+            "product": prod, 'sub_cat': sub_cat, "cat": cat, "today": today
         }
     except Product_Category.DoesNotExist:
         ven = {
@@ -856,6 +879,7 @@ def remove_from_cart(request, prod_pk):
     else:
         return redirect('/')
 
+
 def add_address(request):
     if request.method == "POST":
         address = Address()
@@ -865,7 +889,13 @@ def add_address(request):
         city = request.POST['city']
         state = request.POST['state']
         postal = request.POST['postalcode']
-        address.createAddress(customer,st_address,city,state,postal,country)
+        address.createAddress(customer, st_address, city, state, postal, country)
         address.save()
         messages.success(request, "Address added successfully.")
         return redirect('/addresses')
+
+
+def remove_coupon(request, cop_pk):
+    Coupon.objects.get(pk=cop_pk).delete()
+    messages.success(request, "Coupon Deleted.")
+    return redirect("/vendor_coupons")

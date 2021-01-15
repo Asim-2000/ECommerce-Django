@@ -393,7 +393,7 @@
 
                 </div>
 
-                <h5>Price: <span>Rs {{ prod.discounted_price }}</span> <span><strike>{{ prod.price }}</strike></span>
+                <h5>Price: <span>Rs {{ prod.price }}</span> <span><strike></strike></span>
                 </h5>
 
 
@@ -401,12 +401,9 @@
 
                 </div>
                 <div class="rating" style="left: auto">
-
-                    <ul class="rating" style="color: #ff9f1a">
-                        {% for i in avg_rat %}
-                        <li class="fa fa-star"></li>
-                        {% endfor %}
-                    </ul>
+                    {% for i in avg_rat %}
+                        <li class="fa fa-star" style="color:#ff9f1a;"></li>
+                    {% endfor %}
                 </div>
 
                 <div class="product-description">
@@ -448,15 +445,12 @@
 
                     <br>
                     <a href="/add_to_wishlist/{{ prod.pk }}">
-        <span>
-
-          <i class="fa fa-heart" aria-hidden="true"></i>
-
+        <span style="color:forestgreen;">
+          <i class="fa fa-heart"  aria-hidden="true"></i>
           Add to Wishlist
         </span>
                     </a>
-                    
-
+                                   
                 </div>
 
             </div>
@@ -548,7 +542,7 @@
 
                             <div class="form-group">
 
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" class="btn btn-outline-success">Submit</button>
 
                             </div>
 
@@ -607,7 +601,7 @@
 
                             <!-- <div class="form-group">
 
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" class="btn btn-outline-success">Submit</button>
 
                             </div> -->
                         <!-- </form> -->

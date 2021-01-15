@@ -354,7 +354,7 @@
             -->                </a>
                             <ul class="social">
                                 <li>
-                                    <a href="/single_product/{{ p.pk }}/{{ p.name }}" data-tip="Quick View"
+                                    <a href="/_product/{{ p.pk }}/{{ p.name }}" data-tip="Quick View"
                                     ><i class="fa fa-search"></i
                                     ></a>
                                 </li>
@@ -369,8 +369,10 @@
                                     ></a>
                                 </li>
                             </ul>
+                            {% if today > p.sale_from and today < p.sale_till %}
                             <span class="product-new-label">Sale</span>
-                            <span class="product-discount-label">20%</span>
+                            <span class="product-discount-label">{{ p.sale_percent }}%</span>
+                            {% endif %}
                         </div>
        <!--                 <ul class="rating">
                             <li class="fa fa-star"></li>
@@ -380,9 +382,9 @@
                             <li class="fa fa-star disable"></li>
                         </ul>
            -->             <div class="product-content">
-                            <h3 class="title"><a href="#">{{ p.name }}</a></h3>
+                            <h3 class="title"><a href="/_product/{{ p.pk }}/{{ p.name }}">{{ p.name }}</a></h3>
                             <div class="price">
-                                {{ p.price }}
+                                Rs.{{ p.price }}
                                 <span></span>
                             </div>
 
