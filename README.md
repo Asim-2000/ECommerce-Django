@@ -1,1 +1,1 @@
-# django-app
+# ECommerce Website Using Django Framework
